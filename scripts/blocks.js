@@ -112,7 +112,7 @@ $.fn.extend({
         if (this.data('locals')){
             var self = this;
             desc.locals = this.data('locals');
-            desc.locals.forEach(function(local){
+            $.each(desc.locals, function(idx, local){
                 local.script = local.script.replace(/##/g, '_' + self.id());
                 local.label = local.label.replace(/##/g, '_' + self.id());
             });
@@ -236,7 +236,6 @@ function Block(options, scope){
                 returnBlock.id(Block.nextId);
             }
             self.parent_block().addLocalBlock(returnBlock);
-            //self.child_blocks().each(function(block){ block.trigger('add_to_script'); });
             self.next_block().trigger('add_to_script');
             return false;
         });
@@ -342,7 +341,7 @@ function getContained(s){
 function choice_func(s, listname, default_opt){
     var list = choice_lists[listname];
     return '<span class="value string ' + listname + ' autosocket" data-type="  "><select>' + 
-        list.map(function(item){
+        $.map(list, function(item, idx){
             if (item === default_opt){
                 return '<option selected>' + item + '</option>';
             }else{
