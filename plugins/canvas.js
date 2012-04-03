@@ -292,7 +292,6 @@ var menus = {
             },
             help: 'create a reference to re-use the image'
         },
-        // 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata', 'any'
         {
             label: 'variable shape## [shape]',
             script: 'local.shape## = {{1}};',
@@ -374,6 +373,67 @@ var menus = {
             help: 'create a reference to re-use the any'
         },
     ], true),
+    img: menu('Image Manipulation', [
+        {   
+            label: 'variable pixel## [pixel]',
+            script: 'local.pixel## = {{1}};',
+            returns: {
+                label: 'pixel##',
+                script: 'local.pixel##',
+                type: 'pixel'
+            },
+            help: 'Creates a new pixel variable'
+        },
+        {
+            label: 'red [number] green [number] blue [number]',
+            script: '{ r : {{1}}, g: {{2}}, b: {{3}} }',
+            type: 'pixel',
+            help: 'Gets a pixel from three rgb numbers'
+        },
+        {
+            label: 'red from pixel [pixel]',
+            script: '{{1}}.r',
+            type: 'number',
+            help: 'Gets the red value from a pixel'
+        },
+        {
+            label: 'green from pixel [pixel]',
+            script: '{{1}}.g',
+            type: 'number',
+            help: 'Gets the green value from a pixel'
+        },
+        {
+            label: 'blue from pixel [pixel]',
+            script: '{{1}}.b',
+            type: 'number',
+            help: 'Gets the blue value from a pixel'
+        },
+        {
+            label: 'load from url [string] to imagedata',
+            script: '(function(){  var i = new Image(); i.src = {{1}}; local.ctx.drawImage(i, 0, 0); try{ return local.ctx.getImageData(0, 0, i.width, i.height); } catch (e){ if(typeof(netscape) !== "undefined"){ netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); }  return local.ctx.getImageData(0, 0, i.width, i.height);}})()',
+            type: 'imagedata'
+        },
+        {
+            label: 'create ImageData## with size [size]',
+            script: 'local.imageData## = local.ctx.createImageData({{1}}.w,{{1}}.h);',
+            returns: {
+                label: 'imageData##',
+                script: 'local.imageData##',
+                type: 'imagedata'
+            },
+            help: 'initialize a new imageData with the specified dimensions'
+        },
+        {
+            label: 'put pixel [pixel] to [imagedata] at point [point]',
+            script: '(function(){ var data = {{2}}.data; var x = {{3}}.x; var y = {{3}}.y; var redIndex = (x * 4) + (y * {{2}}.width * 4); data[redIndex] = {{1}}.r; data[redIndex + 1] = {{1}}.g; data[redIndex + 2] = {{1}}.b; data[redIndex + 3] = 255;})();',
+            help: 'set the pixel in the given image data to the given pixel'
+        },
+        {
+            label: 'get pixel at coordinates [number:0] [number:0] from [imagedata]',
+            script: '(function(){ var data = {{3}}.data; var redIndex = ({{1}} * 4) + ({{2}} * {{3}}.width * 4); return { r: data[redIndex], g: data[redIndex + 1], b: data[redIndex + 2]};})()',
+            type: 'pixel'
+        },
+    ]),
     array: menu('Arrays', [
         {
             label: 'new array##',
@@ -1059,36 +1119,6 @@ var menus = {
             script: 'local.ctx.drawImage({{2}},{{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h,{{3}}.x,{{3}}.y,{{3}}.w,{{3}}.h);',
             help: 'draw a rect extracted from image into a rect specified on the canvas'
         },
-//         {
-//             label: 'draw canvas [canvas] x [number:0] y [number:0]',
-//             script: 'local.ctx.drawImage({{1}},{{2}},{{3}}',
-//             help: 'draw the HTML &lt;canvas&gt; into the canvas without resizing'
-//         },
-//         {
-//             label: 'draw canvas [canvas] x [number:0] y [number:0] width [number:10] height [number:10]',
-//             script: 'local.ctx.drawImage({{1}},{{2}},{{3}},{{4}},{{5}});',
-//             help: 'draw the HTML &lt;canvas&gt; into the canvas sized to the given dimension'
-//         },
-//         {
-//             label: 'draw a rect [rect] from canvas [canvas] to rect [rect]',
-//             script: 'local.ctx.drawImage({{2}},{{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h,{{3}}.x,{{3}}.y,{{3}}.w,{{3}}.h);',
-//             help: 'draw a rect extracted from canvas into a rect specified on the canvas'
-//         },
-//         {
-//             label: 'draw video [video] x [number:0] y [number:0]',
-//             script: 'local.ctx.drawImage({{1}},{{2}},{{3}}',
-//             help: 'draw the HTML &lt;video&gt; into the canvas without resizing'
-//         },
-//         {
-//             label: 'draw video [video] x [number:0] y [number:0] width [number:10] height [number:10]',
-//             script: 'local.ctx.drawImage({{1}},{{2}},{{3}},{{4}},{{5}});',
-//             help: 'draw the HTML &lt;video&gt; into the canvas sized to the given dimension'
-//         },
-//         {
-//             label: 'draw a rect [rect] from video [video] to rect [rect]',
-//             script: 'local.ctx.drawImage({{2}},{{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h,{{3}}.x,{{3}}.y,{{3}}.w,{{3}}.h);',
-//             help: 'draw a rect extracted from video into a rect specified on the canvas'
-//         },
         // Pixel Manipulation
         {
             label: 'create ImageData## with size [size]',
