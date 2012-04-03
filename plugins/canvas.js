@@ -85,15 +85,6 @@ jQuery.fn.extend({
 
 function setup(){
     // This file depends on the runtime extensions, which should probably be moved into this namespace rather than made global
-    
-function showColorPicker(){
-    console.log('Add a non-Raphael color picker');
-}
-//$('.workspace:visible .scripts_workspace').delegate('input[type=color]', 'click', showColorPicker);
-$(document).ready(function(){
-//     window.cw = Raphael.colorwheel($('#color_contents')[0], 300, 180);
-});
-
 
 window.update_scripts_view = function(){
     var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
@@ -1053,7 +1044,7 @@ var menus = {
         // Drawing Images
         {
             label: 'draw image [image] at point [point]',
-            script: 'local.ctx.drawImage({{1}},{{2}}.x,{{2}}.y',
+            script: 'local.ctx.drawImage({{1}},{{2}}.x,{{2}}.y)',
             help: 'draw the HTML &lt;img&gt; into the canvas without resizing'
         },
         {
@@ -1231,7 +1222,7 @@ var menus = {
     point: menu('Point', [
         {
             label: 'point at x [number:0] y [number:0]',
-            script: '{x: {{1}}, y: {{2}}',
+            script: '{x: {{1}}, y: {{2}}}',
             type: 'point'
         },
         {
@@ -1258,12 +1249,12 @@ var menus = {
     size: menu('Size', [
         {
             label: 'size with width [number:10] height [number:10]',
-            script: '{w: {{1}}, h: {{1}}',
+            script: '{w: {{1}}, h: {{1}}}',
             type: 'size'
         },
         {
             label: 'size from array [array]',
-            script: '{w: {{1}}[0], h: {{1}}[1]',
+            script: '{w: {{1}}[0], h: {{1}}[1]}',
             type: 'size'
         },
         {
@@ -1338,7 +1329,7 @@ var menus = {
         // TODO: Change this to a container : when loaded, that fires on image load
         {
             label: 'image from url [string]',
-            script: '(function(){var img = new Image(); img.src="{{1}}";return img;})()',
+            script: '(function(){var img = new Image(); img.src={{1}};return img;})()',
             type: 'image'
         },
         {
