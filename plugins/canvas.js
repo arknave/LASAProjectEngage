@@ -220,6 +220,8 @@ var menus = {
             script: 'while(!({{1}})){[[1]]}',
             help: 'repeat forever until condition is true'
         },
+            ]),
+    variables : menu("Variables", [
         {
             label: 'variable string## [string]',
             script: 'local.string## = {{1}};',
