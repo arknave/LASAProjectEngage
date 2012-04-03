@@ -39,7 +39,8 @@ Local.prototype.get = function(type, name){
     return this[type][name];
 };
 
-Local.prototype.delete = function(type, name){
+// delete is a reserved word in IE, so this was renamed to del
+Local.prototype.del = function(type, name){
     if (this[type] === undefined){
         console.log('Cannot remove %s from unknown type %s', name, type);
         return undefined;
@@ -80,13 +81,13 @@ Global.prototype.subscribe_mouse_events = function(){
 
 function Timer(){
     this.time = 0;
-    this.start_time = Date.now();
+    this.start_time = new Date().getTime();
     this.update_time();
 }
 
 Timer.prototype.update_time = function(){
     var self = this;
-    this.time = Math.round(Date.now() - this.start_time);
+    this.time = Math.round(new Date().getTime() - this.start_time);
     setTimeout(function(){self.update_time()}, 1000);
 };
 

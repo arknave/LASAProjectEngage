@@ -304,9 +304,11 @@ function menu(title, specs, show){
     var body = $('<section class="submenu"></section>');
     var select = $('<h3 class="select">' + title + '</h3>').appendTo(body);
     var options = $('<div class="option"></div>').appendTo(body);
-    specs.forEach(function(spec, idx){
-        spec.klass = klass;
-        options.append(Block(spec));
+    $.each(specs, function(idx, spec){
+        if (spec !== undefined){
+            spec.klass = klass;
+            options.append(Block(spec));
+        }
     });
     $('#block_menu').append(body);
     if (show){
