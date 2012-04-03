@@ -201,7 +201,7 @@ function Block(options, scope){
                 wrapper.addLocalBlock(Block(value, wrapper));
             }
         });
-        wrapper.bind('add_to_script, add_to_workspace', function(e){
+        wrapper.bind('add_to_script add_to_workspace', function(e){
             var self = $(e.target),
                 locals = self.data('locals');
             if (!(locals && locals.length)) return false;
