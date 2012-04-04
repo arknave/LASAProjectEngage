@@ -352,8 +352,6 @@ var menus = {
             },
             help: 'create a reference to re-use the any'
         },
-    ], true),
-    img: menu('Image Manipulation', [
         {   
             label: 'variable pixel## [pixel]',
             script: 'local.pixel## = {{1}};',
@@ -364,6 +362,8 @@ var menus = {
             },
             help: 'Creates a new pixel variable'
         },
+    ], true),
+    img: menu('Image Manipulation', [
         {
             label: 'red [number] green [number] blue [number]',
             script: '{ r : {{1}}, g: {{2}}, b: {{3}} }',
@@ -394,13 +394,9 @@ var menus = {
             type: 'imagedata'
         },
         {
-            label: 'create ImageData## with size [size]',
-            script: 'local.imageData## = local.ctx.createImageData({{1}}.w,{{1}}.h);',
-            returns: {
-                label: 'imageData##',
-                script: 'local.imageData##',
-                type: 'imagedata'
-            },
+            label: 'new ImageData with size [size]',
+            script: '(function(){ return local.ctx.createImageData({{1}}.w,{{1}}.h);})()',
+            type: 'imagedata',
             help: 'initialize a new imageData with the specified dimensions'
         },
         {
@@ -427,6 +423,11 @@ var menus = {
             label: 'imageData [imagedata] as array',
             script: '{{1}}.data',
             type: 'array'
+        },
+        {
+            label: 'draw imageData [imagedata] at point [point]',
+            script: 'local.ctx.putImageData({{1}},{{2}}.x,{{2}}.y);',
+            help: 'draw the given image data into the canvas at the given coordinates'
         },
     ]),
     array: menu('Arrays', [
@@ -697,7 +698,7 @@ var menus = {
             help: 'seconds since the script began running'
         }
     ]),
-    operators: menu('Operators', [
+    operators: menu('Math', [
         {
             label: '[number:0] + [number:0]', 
             'type': 'number', 
@@ -861,7 +862,7 @@ var menus = {
             help: 'tau is 2 times pi, a generally more useful number'
         }
     ]),
-    canvas: menu('Canvas', [
+    canvas: menu('Drawing', [
         {
             label: 'with local state', 
             containers: 1, 
@@ -1088,11 +1089,6 @@ var menus = {
                 type: 'imagedata'
             },
             help: 'returns the image data from the specified rectangle'
-        },
-        {
-            label: 'draw imageData [imagedata] at point [point]',
-            script: 'local.ctx.putImageData({{1}},{{2}}.x,{{2}}.y);',
-            help: 'draw the given image data into the canvas at the given coordinates'
         },
         {
             label: 'draw a rect [rect] from imageData [imagedata] at point [point]',

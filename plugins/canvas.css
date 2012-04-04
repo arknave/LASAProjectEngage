@@ -15,11 +15,11 @@
 .sensing{ border-color: hsl(200,98%,56%); }
 .sensing > .block{ background-color: hsl(200,98%,76%); }
 
-.operators{ border-color: hsl(93,90%,66%); }
-.operators > .block{ background-color: hsl(93,90%,76%); }
+.math{ border-color: hsl(93,90%,66%); }
+.math > .block{ background-color: hsl(93,90%,76%); }
 
-.canvas{ border-color: #e66a22; }
-.canvas > .block{ background-color: #e66a22; }
+.drawing{ border-color: #e66a22; }
+.drawing > .block{ background-color: #e66a22; }
 
 .point{ border-color: hsl(90, 65%, 79%); }
 .point > .block {background-color: hsl(90, 62%, 89%); }
@@ -39,6 +39,9 @@
 .pattern{ border-color: hsl(25, 100%, 63%); }
 .pattern > .block { background-color: hsl(25, 100%, 83%); }
 
+.variables { border-color: black; }
+.variables > .block { background-color: #E0F8F1; }
+
 /* 
 .looks{ border-color: hsl(264,62%,79%); }
 .looks > .block{ background-color: hsl(264,62%,89%); }
@@ -53,4 +56,5 @@
 .number{ border-color: blue; }
 .color{ border-color: yellow; }
 .string{ border-color: green; }
+.pixel{ border-color: orange; }
 .any{ border-color: gray; }
