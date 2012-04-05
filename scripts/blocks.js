@@ -97,7 +97,6 @@ $.fn.extend({
         if (this.is(':input')){
             return this.val();
         }
-        var patt = new RegExp('##','gm');
         
         var desc = {
             klass: this.data('klass'),
@@ -111,7 +110,13 @@ $.fn.extend({
         if (this.is('.value')){desc['type'] = this.data('type')};
         if (this.data('locals')){
             var self = this;
-            desc.locals = this.data('locals');
+            desc.locals = [];
+            $.each(this.data('locals'),function(idx, local){
+                var l = {}
+                l.script = local.script;
+                l.label = local.label;
+                desc.locals.push(l);
+            });
             $.each(desc.locals, function(idx, local){
                 local.script = local.script.replace(/##/g, '_' + self.id());
                 local.label = local.label.replace(/##/g, '_' + self.id());

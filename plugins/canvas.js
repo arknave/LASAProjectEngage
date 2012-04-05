@@ -22,7 +22,7 @@ jQuery.fn.extend({
   extract_script: function(){
       if (this.length === 0) return '';
       if (this.is(':input')){
-          if (this.parent().is('.string') || this.parent().is('.color')){
+          if (this.parent().is('.string')){
               return '"' + this.val() + '"';
           }else{
               return this.val();
