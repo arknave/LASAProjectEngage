@@ -113,13 +113,11 @@ $.fn.extend({
             desc.locals = [];
             $.each(this.data('locals'),function(idx, local){
                 var l = {}
-                l.script = local.script;
-                l.label = local.label;
+                l.script = local.script.replace(/##/g, '_' + self.id());
+                l.label = local.label.replace(/##/g, '_' + self.id());
+                l.klass = local.klass;
+                l.type = local.type;
                 desc.locals.push(l);
-            });
-            $.each(desc.locals, function(idx, local){
-                local.script = local.script.replace(/##/g, '_' + self.id());
-                local.label = local.label.replace(/##/g, '_' + self.id());
             });
         }
         if (this.data('returns')){ 
