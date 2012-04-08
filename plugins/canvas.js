@@ -219,7 +219,7 @@ var menus = {
             containers: 1, 
             script: 'while(!({{1}})){[[1]]}',
             help: 'repeat forever until condition is true'
-        },
+        }
             ]),
     variables : menu("Variables", [
         {
@@ -361,7 +361,7 @@ var menus = {
                 type: 'pixel'
             },
             help: 'Creates a new pixel variable'
-        },
+        }
     ], true),
     img: menu('Image Manipulation', [
         {
@@ -428,7 +428,7 @@ var menus = {
             label: 'draw imageData [imagedata] at point [point]',
             script: 'local.ctx.putImageData({{1}},{{2}}.x,{{2}}.y);',
             help: 'draw the given image data into the canvas at the given coordinates'
-        },
+        }
     ]),
     array: menu('Arrays', [
         {
@@ -769,7 +769,7 @@ var menus = {
             label: 'not [boolean]', 
             'type': 'boolean', 
             script: "(! {{1}})",
-            help: 'operand is false',
+            help: 'operand is false'
         },
         {
             label: 'concatenate [string:hello] with [string:world]', 
@@ -1026,7 +1026,7 @@ var menus = {
         {
             label: 'add color stop to gradient [gradient] at offset [number:0.5] with color [color:#F00]',
             script: '{{1}}.addColorStop({{2}}, {{3}}',
-            help: 'creates an additional color stop, offset must be between 0.0 and 1.0',
+            help: 'creates an additional color stop, offset must be between 0.0 and 1.0'
         },
         {
             label: 'create pattern## from image [image] repeats [choice:repetition]',
@@ -1169,7 +1169,7 @@ var menus = {
             label: 'shadow color [color]',
             script: 'local.ctx.shadowColor = {{1}}',
             help: 'set the shadow color'
-        },
+        }
     ]),
     point: menu('Point', [
         {
@@ -1196,7 +1196,7 @@ var menus = {
             label: 'point [point] as array',
             script: '[{{1}}.x, {{1}}.y]',
             type: 'array'
-        },
+        }
     ]),
     size: menu('Size', [
         {
@@ -1223,7 +1223,7 @@ var menus = {
             label: 'size [size] as array',
             script: '[{{1}}.w, {{1}}.h]',
             type: 'array'
-        },
+        }
     ]),
     rect: menu('Rect', [
         {
@@ -1275,8 +1275,8 @@ var menus = {
             label: 'rect [rect] height',
             script: '{{1}}.h',
             type: 'number'
-        },
-    ]),
+        }
+    ])
 
 };
 
