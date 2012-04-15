@@ -70,15 +70,15 @@ jQuery.fn.extend({
   wrap_script: function(){
       // wrap the top-level script to prevent leaking into globals
       var script = this.pretty_script();
-      var retval = 'var global = new Global();(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '}catch(e){alert(e);}})(jQuery);';
-      //console.log(retval);
+      //var retval = 'var global = new Global();(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '}catch(e){alert(e);}})(jQuery);';
+      var retval = 'var global = new Global();(function($){var local = new Local();local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '})(jQuery);';
       return retval;
   },
   pretty_script: function(){
       return js_beautify(this.map(function(){ return $(this).extract_script();}).get().join(''));
   },
   write_script: function(view){
-      view.html('<pre class="language-javascript">' + this.pretty_script() + '</pre>');
+      view.html('<pre class="language-javascript">' + this.pretty_script().replace(/</g, "&lt;").replace(/>/g, "&gt;") + '</pre>');
       hljs.highlightBlock(view.children()[0]);
   }
 });
@@ -88,7 +88,6 @@ function setup(){
 
 window.update_scripts_view = function(){
     var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
-    //console.log('found %s scripts to view', blocks.length);
     var view = $('.workspace:visible .scripts_text_view');
     blocks.write_script(view);
 }
@@ -96,7 +95,9 @@ window.update_scripts_view = function(){
 function run_scripts(event){
     $('.stage')[0].scrollIntoView();
     var blocks = $('.workspace:visible .scripts_workspace > .trigger');
+    // Why not just eval?
     $('.stage').replaceWith('<div class="stage"><script>' + blocks.wrap_script() + '</script></div>');
+    //eval(blocks.wrap_script());
 }
 $('.run_scripts').click(run_scripts);
 
@@ -390,7 +391,7 @@ var menus = {
         },
         {
             label: 'load from url [string] to imagedata',
-            script: '(function(){  var i = new Image(); i.src = {{1}}; local.ctx.drawImage(i, 0, 0); try{ return local.ctx.getImageData(0, 0, i.width, i.height); } catch (e){ if(typeof(netscape) !== "undefined"){ netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); }  return local.ctx.getImageData(0, 0, i.width, i.height);}})()',
+            script: '(function(){  var i = new Image(); i.src = {{1}}; var can = $("<canvas>")[0]; can.getContext("2d").drawImage(i, 0, 0); try{ return can.getContext("2d").getImageData(0, 0, i.width, i.height); } catch (e){ if(typeof(netscape) !== "undefined"){ netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); }  return can.getContext("2d").getImageData(0, 0, i.width, i.height);}})()',
             type: 'imagedata'
         },
         {
@@ -1025,7 +1026,7 @@ var menus = {
         },
         {
             label: 'add color stop to gradient [gradient] at offset [number:0.5] with color [color:#F00]',
-            script: '{{1}}.addColorStop({{2}}, {{3}}',
+            script: '{{1}}.addColorStop({{2}}, {{3}})',
             help: 'creates an additional color stop, offset must be between 0.0 and 1.0'
         },
         {
@@ -1276,8 +1277,52 @@ var menus = {
             script: '{{1}}.h',
             type: 'number'
         }
-    ])
+    ]),
+    video: menu('Video', [
+        {
+            label: 'For every frame of video at [string:url]',
+            containers: 1,
+            script: 'var vid = $("<video>");' +
+                    'var v = vid[0];' +
+                    'var source = $("<source>");' +
+                    'source.prop("src", {{1}});' +
+                    'vid.prop("controls", true);' +
+                    'vid.append(source);' + 
+                    'vid.css("float", "left");' +
+                    '$(".stage").prepend(vid);' +
+                    'v.addEventListener("play", function(){' +
+                        'var canvas = $("<canvas>");' + 
+                        'var width = v.clientWidth;' +
+                        'var height = v.clientHeight;' +
+                        'canvas[0].width = width;' +
+                        'canvas[0].height = height;' +
+                        'var con = canvas[0].getContext("2d");' +
+                        'function everyframe(){' +
+                            'if (v.paused || v.ended) return false;' +
+                            'con.drawImage(v,0, 0, width, height);' +
 
+                            'try{' +
+                                'local.frame## = con.getImageData(0, 0, width, height);' +
+                            '} catch (e){' +
+                                'if(typeof(netscape) !== "undefined"){' +
+                                    'netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");' +
+                                '}  local.frame## = con.getImageData(0, 0, width, height);' +
+                            '}' +
+                            '(function(){ [[1]] }());' +
+                            'setTimeout(everyframe, 20);' +
+                        '}' +
+                        'everyframe();' +
+                    '});',
+            locals: [ { 
+                        label: 'frame##',
+                        script: 'local.frame##',
+                        help: 'The current frame of the playing video',
+                        type: 'imagedata'
+                      }
+                    ],
+            trigger: true
+        }
+    ])
 };
 
 var demos = [
