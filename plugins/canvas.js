@@ -1282,6 +1282,8 @@ var menus = {
         {
             label: 'For every frame of video at [string:url]',
             containers: 1,
+            // Executes argument when video begins to play, then calls itself
+            // again in 50 milliseconds
             script: 'var vid = $("<video>");' +
                     'var v = vid[0];' +
                     'var source = $("<source>");' +
@@ -1309,7 +1311,7 @@ var menus = {
                                 '}  local.frame## = con.getImageData(0, 0, width, height);' +
                             '}' +
                             '(function(){ [[1]] }());' +
-                            'setTimeout(everyframe, 20);' +
+                            'setTimeout(everyframe, 50);' +
                         '}' +
                         'everyframe();' +
                     '});',

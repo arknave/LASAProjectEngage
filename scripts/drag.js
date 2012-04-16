@@ -178,15 +178,9 @@
         $('.content').append(drag_target);
         drag_target.offset(start_position);
         potential_drop_targets = get_potential_drop_targets();
-        // console.log('%s potential drop targets', potential_drop_targets.length);
-        // console.log('drop targets: [%s]', $.map(potential_drop_targets, function(elem, idx){
-        //     return $(elem).long_name();
-        // }).join(', '));
         drop_rects = $.map(potential_drop_targets, function(elem, idx){
             return $(elem).rect();
         });
-        // console.log('%s drop_rects', drop_rects.length);
-        // console.log('drop rects: %o', drop_rects);
 
         // start timer for drag events
         timer = setTimeout(hit_test, drag_timeout);
@@ -194,7 +188,6 @@
     }
     
     function drag(event){
-        // console.log('trying to drag, honestly');
         if (!blend(event)) {return undefined;}
         if (!drag_target) {return undefined;}
         if (!current_position) {start_drag(event);}
@@ -206,6 +199,9 @@
         var curr_pos = drag_target.offset();
         drag_target.offset({left: curr_pos.left + dX, top: curr_pos.top + dY});
         current_position = next_position;
+        // TODO: Add scrolling if dragging off of workspace:
+        // $('.workspace').scrollTop($('.workspace').scrollTop() + 10)
+        // 
         return false;
     }
     
