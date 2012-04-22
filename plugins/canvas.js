@@ -391,7 +391,7 @@ var menus = {
         },
         {
             label: 'load from url [string] to imagedata',
-            script: '(function(){  var i = new Image(); i.src = {{1}}; var can = $("<canvas>")[0]; can.getContext("2d").drawImage(i, 0, 0); try{ return can.getContext("2d").getImageData(0, 0, i.width, i.height); } catch (e){ if(typeof(netscape) !== "undefined"){ netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); }  return can.getContext("2d").getImageData(0, 0, i.width, i.height);}})()',
+            script: '(function(){  var i = new Image(); i.src = {{1}}; var can = $("<canvas>")[0]; can.height=i.height; can.width=i.width; can.getContext("2d").drawImage(i, 0, 0); try{ return can.getContext("2d").getImageData(0, 0, i.width, i.height); } catch (e){ if(typeof(netscape) !== "undefined"){ netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); }  return can.getContext("2d").getImageData(0, 0, i.width, i.height);}})()',
             type: 'imagedata'
         },
         {
