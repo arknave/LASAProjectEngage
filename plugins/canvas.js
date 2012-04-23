@@ -366,6 +366,38 @@ var menus = {
     ], true),
     img: menu('Image Manipulation', [
         {
+            label: 'when image at url [string] loads',
+            trigger: true,
+            slot: false,
+            containers: 1,
+            script: '(function(){' +
+                        'var i = new Image();' +
+                        'i.src = {{1}};' +
+                        '$(i).load(function(){' +
+                            'var can = $("<canvas>")[0];' +
+                            'can.height=i.height;' +
+                            'can.width=i.width;' +
+                            'can.getContext("2d").drawImage(i, 0, 0);' +
+                            'try{' + 
+                                'local.imagedata## = can.getContext("2d").getImageData(0, 0, i.width, i.height);' +
+                            '} catch (e){' +
+                                'if(typeof(netscape) !== "undefined"){'+
+                                    'netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");' +
+                                '}'+
+                                'local.imagedata## = can.getContext("2d").getImageData(0, 0, i.width, i.height);'+
+                            '}' + 
+                            '[[1]]});' +
+                        '})()',
+            locals: [
+                {
+                    label: 'imagedata##',
+                    script: 'local.imagedata##',
+                    type: 'imagedata'
+                }
+            ],
+            help: 'this trigger will run its scripts once the given image is loaded'
+        },
+        {
             label: 'red [number] green [number] blue [number]',
             script: '{ r : {{1}}, g: {{2}}, b: {{3}} }',
             type: 'pixel',
@@ -388,11 +420,6 @@ var menus = {
             script: '{{1}}.b',
             type: 'number',
             help: 'Gets the blue value from a pixel'
-        },
-        {
-            label: 'load from url [string] to imagedata',
-            script: '(function(){  var i = new Image(); i.src = {{1}}; var can = $("<canvas>")[0]; can.height=i.height; can.width=i.width; can.getContext("2d").drawImage(i, 0, 0); try{ return can.getContext("2d").getImageData(0, 0, i.width, i.height); } catch (e){ if(typeof(netscape) !== "undefined"){ netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); }  return can.getContext("2d").getImageData(0, 0, i.width, i.height);}})()',
-            type: 'imagedata'
         },
         {
             label: 'new ImageData with size [size]',
