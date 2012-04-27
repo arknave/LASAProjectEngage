@@ -181,10 +181,12 @@ function populate_and_show_restore_dialog(){
     $('#restore_dialog').bPopup();
 }
 
+var allDemos = {};
 function populate_demos_dialog(demos){
     var list = $('#demo_list');
     var idx, value, key, script_li;
     $.each(demos, function(){
+        allDemos[this.title] = this.scripts;
         if (this.description){
             script_li = $('<li><span class="title">' + this.title + '</span><button class="load action">Load</button><button class="show_description action">Description</button><p class="description hidden">' + this.description + '<p></li>');
         }else{
@@ -208,6 +210,11 @@ function restore_demo_scripts(event){
     load_scripts_from_object($(this).closest('li').data('scripts'));
     $('#demos_dialog').bPopup().close();
 }
+function restore_demo_by_name(name){
+    clear_scripts();
+    load_scripts_from_object(allDemos[name]);
+}
+window.restore_demo_by_name = restore_demo_by_name; // expose as public so we can link to a demo.
 
 function delete_named_scripts(event){
     if (confirm('Are you sure you want to delete this script?')){

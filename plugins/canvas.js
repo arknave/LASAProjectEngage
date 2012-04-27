@@ -9,6 +9,7 @@
 // Pre-load dependencies
 yepnope({
     load: [ 'plugins/canvas.css',
+            'plugins/canvas_demos.js',
             'lib/beautify.js',
             'lib/highlight.js',
             'lib/highlight-javascript.js',
@@ -1354,10 +1355,7 @@ var menus = {
     ])
 };
 
-var demos = [
-];
-populate_demos_dialog(demos);
-load_current_scripts();
+// Demo functionality has been moved to canvas_demos.js
 $('.scripts_workspace').trigger('init');
 console.log("Done");
 
@@ -1365,4 +1363,5 @@ $('.socket input').live('click',function(){
     $(this).focus();
     $(this).select();
 });
+pluginReady();
 }
