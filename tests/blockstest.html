@@ -139,7 +139,58 @@
                                                    subContainerLabels: undefined
                                                  });
              });
+         test('block_description multiple chained returns correct', function(){
+            var a = $('<span>');
+            var returns_data = {
+                klass: "variables",
+                label: "number##",
+                script: "local.number##",
+                type: "number"
+            }
+            a.data('label', 'variable number## [number]');
+            a.data('script', 'local.number## = {{1}};');
+            a.data('returns', returns_data);
+            var b = $('<span>');
+            b.data('label', 'variable number## [number]');
+            b.data('script', 'local.number## = {{1}};');
+            b.data('returns', returns_data);
+            a.id(1);
+            b.id(2);
+            a.html('<span class="block"></span><span class="next"></span>');
+            b.addClass('wrapper');
+            a.find('.next').append(b);
+            deepEqual(a.block_description(), {    contained: [],
+                                                  containers: undefined,
+                                                  klass: undefined,
+                                                  label: "variable number_1 [number]",
+                                                  next: {
+                                                    contained: [],
+                                                    containers: undefined,
+                                                    klass: undefined,
+                                                    label: "variable number_2 [number]",
+                                                    next: "",
+                                                    returns: {
+                                                        klass: "variables",
+                                                        label: "number_2",
+                                                        script: "local.number_2",
+                                                        type: "number"
+                                                    },
+                                                    script: "local.number_2 = {{1}};",
+                                                    sockets: [],
+                                                    subContainerLabels: undefined,
+                                                  },
+                                                  returns: {
+                                                    klass: "variables",
+                                                    label: "number_1",
+                                                    script: "local.number_1",
+                                                    type: "number"
+                                                  },
+                                                  script: "local.number_1 = {{1}};",
+                                                  sockets: [],
+                                                  subContainerLabels: undefined
+                                             });
       });
+   });
     </script>
   </head>
   <body>

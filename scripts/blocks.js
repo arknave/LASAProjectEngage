@@ -112,7 +112,7 @@ $.fn.extend({
             var self = this;
             desc.locals = [];
             $.each(this.data('locals'),function(idx, local){
-                var l = {}
+                var l = {};
                 l.script = local.script.replace(/##/g, '_' + self.id());
                 l.label = local.label.replace(/##/g, '_' + self.id());
                 l.klass = local.klass;
@@ -121,9 +121,15 @@ $.fn.extend({
             });
         }
         if (this.data('returns')){ 
-            desc.returns = this.data('returns');
-            desc.returns.script = desc.returns.script.replace(/##/g, '_' + this.id());
-            desc.returns.label = desc.returns.label.replace(/##/g, '_' + this.id());
+            // This is required because this.data('returns') is referenced
+            // all over the place. We have to make a copy
+            var r = {};
+            r.klass = this.data('returns').klass;
+            r.label = this.data('returns').label.replace(/##/g, '_' + this.id());
+            r.script = this.data('returns').script.replace(/##/g, '_' + this.id());
+            r.type = this.data('returns').type;
+
+            desc.returns = r;
         }
         desc.sockets = this.socket_blocks().map(function(){return $(this).block_description();}).get();
         desc.contained = this.child_blocks().map(function(){return $(this).block_description();}).get();
