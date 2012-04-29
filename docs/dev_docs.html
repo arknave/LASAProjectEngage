@@ -143,9 +143,33 @@
             smallest empty id, rather than the max id plus one.
         </li>
         <li>
+            Change the save format to store less information. Currently, when a
+            program is saved, the code is saved along with it, so if there is a
+            bugfix in the code for a block, the program does not receive the
+            update. This can result in incredibly confusing bugs.
+        </li>
+        <li>
             Change project to use something like jquery-ui for drag and drop
             support, rather than a custom drag and drop setup. This would
-            reduce the amount of code we have to maintain.
+            reduce the amount of code we have to maintain. Also, jquery-ui 
+            tabs and accordion look a lot cleaner than the current setup.
+        </li>
+        <li>
+            Currently, when images are saved (with browser canvas saving
+            functionality), the entire canvas is saved, rather than the part of
+            the canvas with content in it. This often results in a large amount
+            of white space arount the image. Make a save function that trims
+            the canvas to only include non-transparent pixels
+        </li>
+        <li>
+            Find out if the "variables" menu is helpful or necessary. I suspect
+            that merging variables declarations with constructors would
+            simplify things, but possibly remove an important concept.
+        </li>
+        <li>
+            Some types, like the size and point types, feel redundant because
+            they will only be immediatly used. Perhaps they should be done away
+            with and replaced with integer arguments.
         </li>
         <li>
             Write more examples!
