@@ -143,6 +143,10 @@
             smallest empty id, rather than the max id plus one.
         </li>
         <li>
+            Possibly let the user name the variables, rather than auto assigning
+            a name based on id. (This would make the above irrelevant).
+        </li>
+        <li>
             Change the save format to store less information. Currently, when a
             program is saved, the code is saved along with it, so if there is a
             bugfix in the code for a block, the program does not receive the
@@ -170,6 +174,12 @@
             Some types, like the size and point types, feel redundant because
             they will only be immediatly used. Perhaps they should be done away
             with and replaced with integer arguments.
+        </li>
+        <li>
+            There's a lot of messy stuff we have to do because the data behind
+            blocks isn't coppied when a block is added to the script. It would
+            be nicer if every instance of a block had its own copy of certain
+            data objects like return and locals.
         </li>
         <li>
             Write more examples!
