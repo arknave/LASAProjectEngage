@@ -130,6 +130,10 @@
       </div>
       <ul>
         <li>
+            We need the ability to scroll while dragging a block. Jquery-ui drag 
+            and drop might be able to fix this.
+        </li>
+        <li>
             Make a "view image" link (so people can download their creations!).
             This should be really easy by using canvas.toDataUrl().
         </li>
@@ -180,6 +184,11 @@
             blocks isn't coppied when a block is added to the script. It would
             be nicer if every instance of a block had its own copy of certain
             data objects like return and locals.
+        </li>
+        <li>
+            "Labels" (and other things) are stored as strings when there really ought
+            to be a label object. This has resulted in some pretty messy code, which 
+            could be cleaned up.
         </li>
         <li>
             Write more examples!

@@ -190,6 +190,17 @@
                                                   subContainerLabels: undefined
                                              });
       });
+      test('id substitutes label and retains arguments', function(){
+            var a = $('<span>');
+            a.data('label', "variable number## [number]");
+            a.data('script', "number## = {{1}}");
+            a.html('<span class="block"><span class="blockhead"><span class="label"></span></span></span>');
+            a.find('.label').html(Label(a.data('label')));
+            a.find('input').val('1234');
+            a.id(5);
+            equal(a.find('input').val(), '1234');
+            equal(a.find('.label').text(), 'variable number_5');
+      });
    });
     </script>
   </head>

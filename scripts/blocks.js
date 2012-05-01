@@ -29,7 +29,11 @@ $.extend($.fn,{
             if (this.data('script') && this.data('script').indexOf('##') > -1){
                 this.data('script', this.data('script').replace(/##/gm, '_' + _id));
                 this.data('label', this.data('label').replace(/##/gm, '_' + _id));
-                this.find('> .block > .blockhead > .label').html(Label(this.data('label')));
+                // Prevents wiping out arguments when block id assigned
+                var args = this.find('> .block > .blockhead > .label').children();
+                var newLabel = this.data('label').replace(/\[.*\]/gm, '').replace(/##/gm, '_' + _id).trim();
+                this.find('> .block > .blockhead > .label').text(newLabel);
+                this.find('> .block > .blockhead > .label').append(args);
             }
         }
     }else{
