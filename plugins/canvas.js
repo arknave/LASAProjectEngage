@@ -71,8 +71,8 @@ jQuery.fn.extend({
   wrap_script: function(){
       // wrap the top-level script to prevent leaking into globals
       var script = this.pretty_script();
-      //var retval = 'var global = new Global();(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '}catch(e){alert(e);}})(jQuery);';
-      var retval = 'var global = new Global();(function($){var local = new Local();local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '})(jQuery);';
+      var retval = 'var global = new Global();(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '}catch(e){alert(e);}})(jQuery);';
+      //var retval = 'var global = new Global();(function($){var local = new Local();local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '})(jQuery);';
       return retval;
   },
   pretty_script: function(){
@@ -379,14 +379,7 @@ var menus = {
                             'can.height=i.height;' +
                             'can.width=i.width;' +
                             'can.getContext("2d").drawImage(i, 0, 0);' +
-                            'try{' + 
-                                'local.imagedata## = can.getContext("2d").getImageData(0, 0, i.width, i.height);' +
-                            '} catch (e){' +
-                                'if(typeof(netscape) !== "undefined"){'+
-                                    'netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");' +
-                                '}'+
-                                'local.imagedata## = can.getContext("2d").getImageData(0, 0, i.width, i.height);'+
-                            '}' + 
+                            'local.imagedata## = can.getContext("2d").getImageData(0, 0, i.width, i.height);' +
                             '[[1]]});' +
                         '})()',
             locals: [
@@ -1330,14 +1323,7 @@ var menus = {
                         'function everyframe(){' +
                             'if (v.paused || v.ended) return false;' +
                             'con.drawImage(v,0, 0, width, height);' +
-
-                            'try{' +
-                                'local.frame## = con.getImageData(0, 0, width, height);' +
-                            '} catch (e){' +
-                                'if(typeof(netscape) !== "undefined"){' +
-                                    'netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");' +
-                                '}  local.frame## = con.getImageData(0, 0, width, height);' +
-                            '}' +
+                            'local.frame## = con.getImageData(0, 0, width, height);' +
                             '(function(){ [[1]] }());' +
                             'setTimeout(everyframe, 50);' +
                         '}' +
