@@ -629,6 +629,24 @@ var menus = {
             help: 'convert any object to a string'
         },
         {
+            label: 'concatenate [string:hello] with [string:world]', 
+            'type': 'string', 
+            script: "({{1}} + {{2}})",
+            help: 'returns a string by joining together two strings'
+        },
+        {
+            label: 'case-sensitive [string:foo] = [string:bar]', 
+            'type': 'boolean',
+            script: "({{1}} === {{2}})",
+            help: 'returns whether two strings are equal (case matters)'
+        },
+	{
+            label: 'case-insensitive [string:foo] = [string:bar]', 
+            'type': 'boolean',
+            script: "({{1}}.toLowerCase() === {{2}}.toLowerCase())",
+            help: 'returns whether two strings are equal (case doesn't matter)'
+        },
+        {
             label: 'comment [string]',
             script: '// {{1}};\n',
             help: 'this is a comment and will not be run by the program'
@@ -792,12 +810,6 @@ var menus = {
             'type': 'boolean', 
             script: "(! {{1}})",
             help: 'operand is false'
-        },
-        {
-            label: 'concatenate [string:hello] with [string:world]', 
-            'type': 'string', 
-            script: "({{1}} + {{2}})",
-            help: 'returns a string by joining together two strings'
         },
         {
             label: '[number:0] mod [number:0]', 
