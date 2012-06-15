@@ -61,7 +61,7 @@ $('.clear_scripts').click(clear_scripts);
 
 $('.goto_script').click(function(){$('#block_menu')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
-
+$('.clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
 // Load and Save Section
 
 function scripts_as_object(){

@@ -640,11 +640,11 @@ var menus = {
             script: "({{1}} === {{2}})",
             help: 'returns whether two strings are equal (case matters)'
         },
-	{
+        {
             label: 'case-insensitive [string:foo] = [string:bar]', 
             'type': 'boolean',
             script: "({{1}}.toLowerCase() === {{2}}.toLowerCase())",
-            help: 'returns whether two strings are equal (case doesn't matter)'
+            help: 'returns whether two strings are equal (case doesn\'t matter)'
         },
         {
             label: 'comment [string]',
