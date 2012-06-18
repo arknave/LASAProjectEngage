@@ -34,7 +34,7 @@ function test_block(block){
 }
 
 function test(){
-    var blocks = $('#block_menu .wrapper');
+    var blocks = $('#accordion .wrapper');
     var total = blocks.length;
     var success = 0;
     var fail = 0;
@@ -59,7 +59,7 @@ function clear_scripts(event, force){
 }
 $('.clear_scripts').click(clear_scripts);
 
-$('.goto_script').click(function(){$('#block_menu')[0].scrollIntoView();});
+$('.goto_script').click(function(){$('#accordion')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
 $('.clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
 // Load and Save Section
@@ -75,7 +75,7 @@ function scripts_as_object(){
 
 function save_current_scripts(){
     show_workspace();
-    $('#block_menu')[0].scrollIntoView();
+    $('#accordion')[0].scrollIntoView();
     localStorage['__current_scripts'] = JSON.stringify(scripts_as_object());
 }
 $(window).unload(save_current_scripts);
@@ -182,6 +182,7 @@ function populate_and_show_restore_dialog(){
 }
 
 var allDemos = {};
+
 function populate_demos_dialog(demos){
     var list = $('#demo_list');
     var idx, value, key, script_li;
@@ -196,8 +197,8 @@ function populate_demos_dialog(demos){
         list.append(script_li);
     });
 }
-window.populate_demos_dialog = populate_demos_dialog; // expose this as a public method
 
+window.populate_demos_dialog = populate_demos_dialog; // expose this as a public method
 
 function restore_named_scripts(event){
     clear_scripts();
@@ -303,27 +304,24 @@ window.show_workspace = function(){
     $('.workspace:visible .scripts_workspace').show();
 }
 
-
 // Build the Blocks menu, this is a public method
 
-function menu(title, specs, show){
+function menu(title, specs, show){ 
     var klass = title.toLowerCase();
-    var body = $('<section class="submenu"></section>');
-    var select = $('<h3 class="select">' + title + '</h3>').appendTo(body);
-    var options = $('<div class="option"></div>').appendTo(body);
+    var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo($("#accordion"));
+    var options = $('<div class="option"></div>').appendTo($('#accordion'));
     $.each(specs, function(idx, spec){
         if (spec !== undefined){
             spec.klass = klass;
             options.append(Block(spec));
         }
     });
-    $('#block_menu').append(body);
-    if (show){
+    /*if (show){
         select.addClass('selected');
     }else{
         options.hide();
-    }
-    return body;
+    }*/
+    return;
 }
 window.menu = menu;
 
