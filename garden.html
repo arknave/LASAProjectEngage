@@ -7,36 +7,10 @@
 	<link href="stylesheets/workspace.css" rel="stylesheet" />
 	<link href="stylesheets/blocks.css" rel="stylesheet" />
 	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport" content="height=device-height, initial-scale=1.0" />
-    <!--link rel="apple-touch-icon-precomposed" href="icon.png"--><!-- 57x57 icon -->
-    <!--link rel="apple-touch-startup-image" href="default.png"--><!-- 320x460 image -->
     <!--script src="/lib/modernizr-1.6.min.js"></script-->
-    <script>
-        var q = $.parseQuery();
-        // Insert path of plugin to be loaded here
-        /*yepnope({
-		load: ["plugins/canvas.js"],
-		callback: function (url, result, key) {
-			// whenever this runs, your script has just executed.
-			alert('script.js has loaded!');
-			}
-        });*/
-        // This needs to run after the plugin is loaded.
-        function pluginReady(){
-            load_current_scripts();
-            if(q.demo){
-                $(document).ready(function(){
-                    restore_demo_by_name(q.demo);
-                });
-            }
-        }
-    </script>
-	
   </head>
   <body>
-  
     <div class="content">
         <div id="accordion" class="block_menu ui-accordion">
             <h3 class="select"><a href="#">About</a></h3>
@@ -49,11 +23,13 @@
             </div>
         </div>
         <div class="tab_bar">
-            <!--<div class="scripts_workspace_tab chrome_tab selected">Script Blocks</div>
-            <div class="scripts_text_view_tab chrome_tab">Script Text</div>-->
+            <!--
+			<div class="scripts_workspace_tab chrome_tab selected">Script Blocks</div>
+            <div class="scripts_text_view_tab chrome_tab">Script Text</div>
+			-->
 			<span id="radio">
-						<input type="radio" id="sblock" name="radio" /><label for="sblock">Script Blocks</label>
-						<input type="radio" id="stext" name="radio" checked="checked" /><label for="stext">Script Text</label>
+						<input type="radio" id="sblock" name="scriptview" checked="yes" /><label for="sblock">Script Blocks</label>
+						<input type="radio" id="stext" name="scriptview"/><label for="stext">Script Text</label>
 			</span>
             <button class="run_scripts">Run</button>
             <button class="goto_stage">Show Stage</button>
@@ -122,17 +98,33 @@
     <script src="lib/jquery.bpopup-0.5.1.min.js"></script>
     <script src="lib/jquery.autoGrowInput.js"></script>
     <script src="lib/json2.js"></script><!-- Make this conditional -->
-    <script src="plugins/canvas.js"></script>
+    <script src="lib/beautify.js"></script>
     <script src="scripts/drag.js"></script>
     <script src="scripts/blocks.js"></script>
     <script src="scripts/runtime.js"></script> <!-- Should this be moved to language? -->
     <script src="scripts/workspace.js"></script>
+	
 	<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>  
 	<script>
-		$(function(){
-			$( "#radio" ).buttonset();
-			$("button").button();
-		});
-	</script>
+        var q = $.parseQuery();
+        // Insert path of plugin to be loaded here
+        yepnope({
+		load: ["plugins/canvas.js"]
+        });
+        // This needs to run after the plugin is loaded.
+        function pluginReady(){
+            load_current_scripts();
+            if(q.demo){
+                $(document).ready(function(){
+                    restore_demo_by_name(q.demo);
+                });
+            }
+			$(function(){
+				$("#accordion").accordion({collapsible: true, autoHeight: false});
+				//$( "#scriptview" ).buttonset();
+				$("button").button();
+			});
+        }
+    </script>
   </body>
 </html>

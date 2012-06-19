@@ -1353,10 +1353,6 @@ var menus = {
     ])
 };
 
-$(function(){
-	$("#accordion").accordion({collapsible: true, autoHeight: false});
-});
-
 // Demo functionality has been moved to canvas_demos.js
 $('.scripts_workspace').trigger('init');
 console.log("Done");

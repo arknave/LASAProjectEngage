@@ -283,8 +283,8 @@ window.load_current_scripts = function(){
 // Tab UI
 
 // UI Section
-
-function tab_select(event){
+//Old tab code, when tabs were just CSS
+/*function tab_select(event){
     var self = $(this);
     $('.tab_bar .selected').removeClass('selected');
     self.addClass('selected');
@@ -297,6 +297,22 @@ function tab_select(event){
     }
 }
 $('.tab_bar').delegate('.chrome_tab', 'click', tab_select);
+*/
+
+$("input[name='scriptview']").change(function () {
+	//alert(""+($("#sblock").attr('checked'))+" "+($("#stext").attr('checked')));
+    var self = $(this);
+    $('.tab_bar .selected').removeClass('selected');
+    self.addClass('selected');
+    $('.workspace:visible > div:visible').hide();
+	if($("#sblock").attr('checked') === 'checked'){
+        $('.workspace:visible .scripts_workspace').show();
+	}
+	else if($("#sblock").attr('checked') === 'checked'){
+        $('.workspace:visible .scripts_text_view').show();
+        update_scripts_view();
+	}
+}).change();
 
 // Expose this to draggging and saving functionality
 window.show_workspace = function(){
