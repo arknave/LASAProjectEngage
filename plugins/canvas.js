@@ -222,10 +222,6 @@ var menus = {
             script: 'while(!({{1}})){[[1]]}',
             help: 'repeat forever until condition is true'
         }
-<<<<<<< HEAD
-		
-=======
->>>>>>> jquery-ui
             ]),
     variables : menu("Variables", [
         {
@@ -368,7 +364,7 @@ var menus = {
             },
             help: 'Creates a new pixel variable'
         },
-	{
+		{
 		label: 'parse int from [string]',
 		script: 'parseInt({{1}})',
 		type: 'number',

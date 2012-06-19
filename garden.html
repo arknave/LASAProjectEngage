@@ -102,13 +102,16 @@
     <script src="scripts/blocks.js"></script>
     <script src="scripts/runtime.js"></script> <!-- Should this be moved to language? -->
     <script src="scripts/workspace.js"></script>
-	
 	<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>  
+
 	<script>
         var q = $.parseQuery();
         // Insert path of plugin to be loaded here
         yepnope({
-		load: ["plugins/canvas.js"]
+			load: ["plugins/canvas.js"]
+			/*callback: function(){
+				alert("canvas loaded");
+			}*/
         });
         // This needs to run after the plugin is loaded.
         function pluginReady(){
