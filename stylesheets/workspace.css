@@ -34,7 +34,7 @@ html, body {
 }
 
 body {
-    background-color: #FFF;
+    background-color: #888;
 }
 
 .content{
@@ -55,8 +55,8 @@ body {
     bottom: 0px;
     width: 34.8%;
     height: 95%;
-    background-color: #FFF;
-    border: 1px solid #CCC;
+    background-color: #CCC;
+    border: 1px solid #111;
     overflow-x: auto;
     overflow-y: auto; 
 }
@@ -67,7 +67,7 @@ body {
     position: relative;
     display: none;
     padding: 15px;
-    padding-top: 60px;
+    padding-top: 30px;
     padding-bottom: 60px;
 }
 
@@ -134,7 +134,7 @@ body {
     right: 0px;
     width: 49.8%;
     /*bottom: -20px;*/
-    background-color: #D6D2C4;
+    background-color: #FFF;
     border: 1px solid #CCC;
 }
 

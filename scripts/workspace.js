@@ -308,7 +308,7 @@ $("input[name='scriptview']").change(function () {
 	if($("#sblock").attr('checked') === 'checked'){
         $('.workspace:visible .scripts_workspace').show();
 	}
-	else if($("#sblock").attr('checked') === 'checked'){
+	else if($("#stext").attr('checked') === 'checked'){
         $('.workspace:visible .scripts_text_view').show();
         update_scripts_view();
 	}
