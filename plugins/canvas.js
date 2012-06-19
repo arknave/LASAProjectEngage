@@ -222,6 +222,7 @@ var menus = {
             script: 'while(!({{1}})){[[1]]}',
             help: 'repeat forever until condition is true'
         }
+		
             ]),
     variables : menu("Variables", [
         {
@@ -363,7 +364,24 @@ var menus = {
                 type: 'pixel'
             },
             help: 'Creates a new pixel variable'
-        }
+        },
+		{
+			label: 'parse int from [string]',
+			script: 'parseInt({{1}})',
+			type: 'number',
+			help: 'returning a number from a string'
+		},
+		{
+            label: 'Increment [number] by [number]',
+            script: "{{1}} = {{1}} + {{2}};",
+            help: 'increment variable by number'
+        },
+		{
+			label: 'change [boolean: ] to [boolean]',
+			script: '{{1}} = {{2}};',
+			help: 'setting the value of a boolean variable'
+		}
+		
     ], false),
     img: menu('Image Manipulation', [
         {
