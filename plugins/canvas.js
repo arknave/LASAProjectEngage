@@ -364,7 +364,7 @@ var menus = {
             },
             help: 'Creates a new pixel variable'
         }
-    ], true),
+    ], false),
     img: menu('Image Manipulation', [
         {
             label: 'when image at url [string] loads',
