@@ -6,9 +6,8 @@
 	
 	<link href="stylesheets/workspace.css" rel="stylesheet" />
 	<link href="stylesheets/blocks.css" rel="stylesheet" />
-	<link type="text/css" href="css/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+	<link type="text/css" href="stylesheets/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
     <meta name="viewport" content="height=device-height, initial-scale=1.0" />
-    <!--script src="/lib/modernizr-1.6.min.js"></script-->
   </head>
   <body>
     <div class="content">
@@ -23,10 +22,6 @@
             </div>
         </div>
         <div class="tab_bar">
-            <!--
-			<div class="scripts_workspace_tab chrome_tab selected">Script Blocks</div>
-            <div class="scripts_text_view_tab chrome_tab">Script Text</div>
-			-->
 			<span id="radio">
 						<input type="radio" id="sblock" name="scriptview" checked="yes" /><label for="sblock">Script Blocks</label>
 						<input type="radio" id="stext" name="scriptview"/><label for="stext">Script Text</label>
@@ -102,7 +97,7 @@
     <script src="scripts/blocks.js"></script>
     <script src="scripts/runtime.js"></script> <!-- Should this be moved to language? -->
     <script src="scripts/workspace.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>  
+	<script type="text/javascript" src="lib/jquery-ui-1.8.21.custom.min.js"></script>  
 
 	<script>
         var q = $.parseQuery();
