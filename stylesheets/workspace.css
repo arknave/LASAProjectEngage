@@ -16,6 +16,11 @@ ol,ul {
 caption,th {
     text-align:left;
 }
+
+textarea {
+     resize: vertical;
+}
+	 
 h1,h2,h3,h4,h5,h6 {
     font-size:100%;
     font-weight:normal;
@@ -36,6 +41,9 @@ html, body {
 body {
     background-color: #888;
 }
+
+::-webkit-input-placeholder  { color:#AAA; font-style: italic;}
+:-moz-placeholder { color:#AAA; font-style: italic;}
 
 .content{
     position: relative;
@@ -174,7 +182,40 @@ body {
     display: none;
 }
 
-/* Save/Restore Dialogs */
+.dialog *{
+	font-size: 80%;
+}
+
+.dialog input{
+	display: block;
+	margin-bottom:12px;
+	width:95%;
+	padding: .4em;
+}
+
+.dialog {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dialog fieldset {
+	padding:0;
+	border:0;
+	margin-top:5px;
+	text-align: center;
+}
+
+.dialog h2 {
+	font-size: 1.2em;
+	margin: .6em 0;
+}
+.dialog .ui-button-text { font-size: .5em% };
+
+.ui-dialog-title{ font-size: 70%;}
+.ui-dialog .ui-state-error { padding: .3em; }
+.dialog .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+/* Save/Restore Dialogs 
 
 .dialog{
     background-color: #CCC;
@@ -250,9 +291,9 @@ body {
 }
 
 .dialog button.delete, button.cancel {
-    background-color: #854D53; /*This is a redish color*/
+    background-color: #854D53; /*This is a redish color
     margin-top: .5em;
-}
+}*/
 
  /* This last one might be a bit contreversial but I think that users shouldn't 
  need to realize that the stage is just off to the right of the workspace. This
