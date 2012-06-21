@@ -951,16 +951,6 @@ var menus = {
             script: 'local.ctx.translate({{1}},{{2}});',
             help: 'translate...'
         },
-        {
-            label: 'transform by 6-matrix [array]',
-            script: 'if ({{1}}.length !== 6){alert("Array must have 6 numbers"); return false;}local.ctx.transform.apply(local.ctx, {{1}});',
-            help: 'transform by an arbitrary matrix [a,b,c,d,e,f]'
-        },
-        {
-            label: 'set transform to 6-matrix [array]',
-            script: 'if ({{1}}.length !== 6){alert("Array must have 6 numbers"); return false;}local.ctx.setTransform.apply(local.ctx, {{1}});',
-            help: 'set transform to an arbitrary array [a,b,c,d,e,f]'
-        },
         // Line caps/joins
         
         {
