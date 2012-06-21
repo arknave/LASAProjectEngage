@@ -957,22 +957,6 @@ var menus = {
             label: 'line width [number:1]',
             script: 'local.ctx.lineWidth = {{1}};',
             help: 'set line width'
-        },
-        // Shadows
-        {
-            label: 'shadow offset x [number:0] y [number:0]',
-            script: 'local.ctx.shadowOffsetX = {{1}}; local.ctx.shadowOffsetY = {{2}}',
-            help: 'set the offsets for shadow'
-        },
-        {
-            label: 'shadow blur [number:0]',
-            script: 'local.ctx.shadowBlur = {{1}}',
-            help: 'set the shadow blur radius'
-        },
-        {
-            label: 'shadow color [color]',
-            script: 'local.ctx.shadowColor = {{1}}',
-            help: 'set the shadow color'
         }
     ]),
     point: menu('Point', [
