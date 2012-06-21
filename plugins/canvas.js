@@ -379,6 +379,12 @@ var menus = {
 		label: 'change [boolean: ] to [boolean]',
 		script: '{{1}} = {{2}};',
 		help: 'setting the value of a boolean variable'
+	},
+	{
+		label: 'toggle [boolean: ]',
+		script: '{{1}} = !{{1}};',
+		help: 'toggles the value ofthe specified boolean'
+		
 	}
     ], false),
     img: menu('Image Manipulation', [
@@ -1242,6 +1248,16 @@ var menus = {
             script: '{{1}}.y',
             type: 'number'
         },
+		{
+			label: 'translate [point] by [point]',
+			script: '{{1}}.x += {{2}}.x;{{1}}.y+={{2}}.y;',
+			help: 'translates the first point by the values in the second point'
+		},
+		{
+			label: 'move [point] to [point]',
+			script: '{{1}} = {{2}}',
+			help: 'moves the first point to the position of the second point'
+		},
         {
             label: 'point [point] as array',
             script: '[{{1}}.x, {{1}}.y]',
