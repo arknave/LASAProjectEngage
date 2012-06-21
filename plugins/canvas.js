@@ -418,11 +418,6 @@ var menus = {
             type: 'number'
         },
         {
-            label: 'imageData [imagedata] as array',
-            script: '{{1}}.data',
-            type: 'array'
-        },
-        {
             label: 'draw imageData [imagedata] at point [point]',
             script: 'local.ctx.putImageData({{1}},{{2}}.x,{{2}}.y);',
             help: 'draw the given image data into the canvas at the given coordinates'
