@@ -518,50 +518,6 @@ var menus = {
             help: 'run the blocks with each item of a named array'
         }
     ], false),
-    objects: menu('Objects', [
-        {
-            label: 'new object##',
-            script: 'local.object## = {};',
-            returns: {
-                label: 'object##',
-                script: 'local.object##',
-                type: 'object'
-            },
-            help: 'create a new, empty object'
-        },
-        {
-            label: 'object [object] key [string] = value [any]',
-            script: '{{1}}[{{2}}] = {{3}};',
-            help: 'set the key/value of an object'
-        },
-        {
-            label: 'object [object] value at key [string]',
-            script: '{{1}}[{{2}}]',
-            type: 'any',
-            help: 'return the value of the key in an object'
-        },
-        {
-            label: 'object [object] for each',
-            script: '$.each({{1}}, function(key, item){local.key = key; local.item = item; [[1]] });',
-            containers: 1,
-            locals: [
-                {
-                    label: 'key',
-                    script: 'local.key',
-                    help: 'key of current item in object',
-                    type: 'string'
-                },
-                {
-                    label: 'item',
-                    script: 'local.item',
-                    help: 'the current item in the iteration',
-                    type: 'any'
-                }
-            ],
-            help: 'run the blocks with each item of a named array'
-            
-        }
-    ], false),
     strings: menu('Strings', [
         {
             label: 'string [string] split on [string]',
