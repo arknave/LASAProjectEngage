@@ -904,34 +904,9 @@ var menus = {
             help: 'set the current font'
         },
         {
-            label: 'text align [choice:align]',
-            script: 'local.ctx.textAlign = {{1}};',
-            help: 'how should the text align?'
-        },
-        {
-            label: 'text baseline [choice:baseline]',
-            script: 'local.ctx.textBaseline = {{1}};',
-            help: 'set the text baseline'
-        },
-        {
             label: 'fill text [string] x [number:0] y [number:0]',
             script: 'local.ctx.fillText({{1}},{{2}},{{3}});',
             help: 'basic text operation'
-        },
-        {
-            label: 'fill text [string] x [number:0] y [number:0] max width [number:10]',
-            script: 'local.ctx.fillText({{1}},{{2}},{{3}},{{4}});',
-            help: 'basic text operation with optional max width'
-        },
-        {
-            label: 'stroke text [string] x [number:0] y [number:0]',
-            script: 'local.ctx.strokeText({{1}},{{2}},{{3}});',
-            help: 'outline the text'
-        },
-        {
-            label: 'stroke text [string] x [number:0] y [number:0] max width [number:10]',
-            script: 'local.ctx.strokeText({{1}},{{2}},{{3}},{{4}});',
-            help: 'outline the text with optional max width'
         },
         {
             label: 'text [string] width',
@@ -956,14 +931,9 @@ var menus = {
         },
         // Compositing
         {
-            label: 'global alpha [number:1.0]',
+            label: 'transparency [number:1.0]',
             script: 'local.ctx.globalAlpha = {{1}};',
-            help: 'set the global alpha'
-        },
-        {
-            label: 'global composite operator [choice:globalCompositeOperators]',
-            script: 'local.ctx.globalCompositOperator = {{1}};',
-            help: 'set the global composite operator'
+            help: 'set the transparency'
         },
         // Transforms
         {
