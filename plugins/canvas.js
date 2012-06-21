@@ -686,11 +686,11 @@ var menus = {
     sensing: menu('Sensing', [
         {
             label: 'ask [string:What\'s your name?] and wait',
-            script: 'local.answer## = prompt({{1}});',
+            script: 'local.answer## = prompt({{1}},"");',
             returns: {
                 label: 'answer##',
                 type: 'string',
-                script: 'local.answer'
+                script: 'local.answer##'
             },
             help: 'Prompt the user for information'
         },
