@@ -923,7 +923,7 @@ var menus = {
             type: 'array'
         }
     ]),
-    rect: menu('Rect', [
+    shapes: menu('Shapes', [
         {
             label: 'rect at x [number:0] y [number:0] with width [number:10] height [number:10]',
             script: '{x: {{1}}, y: {{2}}, w: {{3}}, h: {{4}} }',

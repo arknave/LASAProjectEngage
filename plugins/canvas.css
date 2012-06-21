@@ -27,8 +27,8 @@
 .size{ border-color: hsl(15,100%,63%); }
 .size > .block{ background-color: hsl(15,100%,83%); }
 
-.rect{ border-color: hsl(150, 65%, 79%); }
-.rect > .block {background-color: hsl(150, 62%, 89%); }
+.shapes{ border-color: hsl(150, 65%, 79%); }
+.shapes > .block {background-color: hsl(150, 62%, 89%); }
 
 .image{ border-color: hsl(296, 65%, 57%); }
 .image > .block{ background-color: hsl(296, 65%, 77%); }
