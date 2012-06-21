@@ -825,22 +825,6 @@ var menus = {
     ]),
     canvas: menu('Drawing', [
         {
-            label: 'with local state', 
-            containers: 1, 
-            script: 'local.ctx.save();[[1]];local.ctx.restore();',
-            help: 'save the current state, run the contained steps, then restore the saved state'
-        },
-        {
-            label: 'stroke',
-            script: 'local.ctx.stroke();',
-            help: 'stroke...'
-        },
-        {
-            label: 'fill',
-            script: 'local.ctx.fill();',
-            help: 'fill...'
-        },
-        {
             label: 'clear rect [rect]', 
             script: 'local.ctx.clearRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
             help: 'clear...'
@@ -856,11 +840,6 @@ var menus = {
             help: 'circle...'
         },
         {
-            label: 'stroke and fill circle at point [point] with radius [number:10]',
-            script: 'local.ctx.beginPath();local.ctx.arc({{1}}.x,{{1}}.y,{{2}},0,Math.PI*2,true);local.ctx.closePath();local.ctx.fill();local.ctx.stroke()',
-            help: 'circle...'
-        },
-        {
             label: 'fill rect [rect]', 
             script: 'local.ctx.fillRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
             help: 'fill...'
@@ -869,11 +848,6 @@ var menus = {
             label: 'stroke rect [rect]', 
             script: 'local.ctx.strokeRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
             help: 'stroke...'
-        },
-        {
-            label: 'fill and stroke rect x [number:0] y [number:0] width [number:10] height [number:10]',
-            script: 'local.ctx.fillRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);local.ctx.strokeRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
-            help: 'fill and stroke...'
         },
         // Path API
         {
