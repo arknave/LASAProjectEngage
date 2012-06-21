@@ -1025,12 +1025,12 @@ var menus = {
         // Colour and Styles
         {
             label: 'stroke color [color:#000]',
-            script: 'local.ctx.strokeStyle = {{1}};',
+            script: 'local.ctx.strokeStyle = "{{1}}";',
             help: 'stroke color...'
         },
         {
             label: 'fill color [color:#000]',
-            script: 'local.ctx.fillStyle = {{1}};',
+            script: 'local.ctx.fillStyle = "{{1}}";',
             help: 'fill color...'
         },
         {
