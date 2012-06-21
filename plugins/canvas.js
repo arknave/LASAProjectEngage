@@ -562,36 +562,21 @@ var menus = {
             help: 'returns a string by joining together two strings'
         },
         {
-            label: 'case-sensitive [string:foo] = [string:bar]', 
+            label: 'case-sensitive [string:dodge] = [string:ball]', 
             'type': 'boolean',
             script: "({{1}} === {{2}})",
             help: 'returns whether two strings are equal (case matters)'
         },
         {
-            label: 'case-insensitive [string:foo] = [string:bar]', 
+            label: 'case-insensitive [string:butter] = [string:fly]', 
             'type': 'boolean',
             script: "({{1}}.toLowerCase() === {{2}}.toLowerCase())",
             help: 'returns whether two strings are equal (case doesn\'t matter)'
         },
         {
-            label: 'comment [string]',
-            script: '// {{1}};\n',
-            help: 'this is a comment and will not be run by the program'
-        },
-        {
             label: 'alert [string]',
             script: 'window.alert({{1}});',
             help: 'pop up an alert window with string'
-        },
-        {
-            label: 'console log [any]',
-            script: 'console.log({{1}});',
-            help: 'Send any object as a message to the console'
-        },
-        {
-            label: 'console log format [string] arguments [array]',
-            script: 'var __a={{2}};__a.unshift({{1}});console.log.apply(console, __a);',
-            help: 'send a message to the console with a format string and multiple objects'
         }
     ], false),
     sensing: menu('Sensing', [
