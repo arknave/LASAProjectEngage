@@ -958,21 +958,6 @@ var menus = {
             script: 'local.ctx.lineWidth = {{1}};',
             help: 'set line width'
         },
-        {
-            label: 'line cap [choice:linecap]',
-            script: 'local.ctx.lineCap = {{1}};',
-            help: 'set line cap'
-        },
-        {
-            label: 'line join [choice:linejoin]',
-            script: 'local.ctx.lineJoin = {{1}};',
-            help: 'set line join'
-        },
-        {
-            label: 'mitre limit [number:10]',
-            script: 'local.ctx.mitreLimit = {{1}};',
-            help: 'set mitre limit'
-        },
         // Shadows
         {
             label: 'shadow offset x [number:0] y [number:0]',
