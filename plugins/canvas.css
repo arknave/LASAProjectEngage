@@ -18,8 +18,8 @@
 .math{ border-color: hsl(93,90%,66%); }
 .math > .block{ background-color: hsl(93,90%,76%); }
 
-.drawing{ border-color: #e66a22; }
-.drawing > .block{ background-color: #e66a22; }
+.drawing{ border-color: hsl(23,80%,51%); }
+.drawing > .block{ background-color: hsl(23,80%,65%); }
 
 .point{ border-color: hsl(90, 65%, 79%); }
 .point > .block {background-color: hsl(90, 62%, 89%); }
