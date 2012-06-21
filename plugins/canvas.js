@@ -742,48 +742,6 @@ var menus = {
             help: 'converts a negative number to positive, leaves positive alone'
         },
         {
-            label: 'arccosine degrees of [number:10]', 
-            'type': 'number', 
-            script: 'rad2deg(Math.acos({{1}}))',
-            help: 'inverse of cosine'
-        },
-        {
-            label: 'arcsine degrees of [number:10]', 
-            'type': 'number', 
-            script: 'rad2deg(Math.asin({{1}}))',
-            help: 'inverse of sine'
-        },
-        {
-            label: 'arctangent degrees of [number:10]', 
-            'type': 'number', 
-            script: 'rad2deg(Math.atan({{1}}))',
-            help: 'inverse of tangent'
-        },
-        {
-            label: 'ceiling of [number:10]', 
-            'type': 'number', 
-            script: 'Math.ceil({{1}})',
-            help: 'rounds up to nearest whole number'
-        },
-        {
-            label: 'cosine of [number:10] degrees', 
-            'type': 'number', 
-            script: 'Math.cos(deg2rad({{1}}))',
-            help: 'ratio of the length of the adjacent side to the length of the hypotenuse'
-        },
-        {
-            label: 'sine of [number:10] degrees', 
-            'type': 'number', 
-            script: 'Math.sin(deg2rad({{1}}))',
-            help: 'ratio of the length of the opposite side to the length of the hypotenuse'
-        },
-        {
-            label: 'tangent of [number:10] degrees', 
-            'type': 'number', 
-            script: 'Math.tan(deg2rad({{1}}))',
-            help: 'ratio of the length of the opposite side to the length of the adjacent side'
-        },
-        {
             label: '[number:10] to the power of [number:2]', 
             'type': 'number', 
             script: 'Math.pow({{1}}, {{2}})',
@@ -801,12 +759,6 @@ var menus = {
             type: 'number',
             help: "pi is the ratio of a circle's circumference to its diameter"
         },
-        {
-            label: 'tau',
-            script: 'Math.PI * 2',
-            type: 'number',
-            help: 'tau is 2 times pi, a generally more useful number'
-        }
     ]),
     canvas: menu('Drawing', [
         {
