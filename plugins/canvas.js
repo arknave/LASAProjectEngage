@@ -265,16 +265,6 @@ var menus = {
             help: 'create a reference to re-use the array'
         },
         {
-            label: 'variable object## [object]',
-            script: 'local.object## = {{1}};',
-            returns: {
-                label: 'object##',
-                script: 'local.object##',
-                type: 'object'
-            },
-            help: 'create a reference to re-use the object'
-        },
-        {
             label: 'variable shape## [shape]',
             script: 'local.shape## = {{1}};',
             returns: {
@@ -305,36 +295,6 @@ var menus = {
             help: 'create a reference to re-use the size'
         },
         {
-            label: 'variable rect## [rect]',
-            script: 'local.rect## = {{1}};',
-            returns: {
-                label: 'rect##',
-                script: 'local.rect##',
-                type: 'rect'
-            },
-            help: 'create a reference to re-use the rect'
-        },
-        {
-            label: 'variable gradient## [gradient]',
-            script: 'local.gradient## = {{1}};',
-            returns: {
-                label: 'gradient##',
-                script: 'local.gradient##',
-                type: 'gradient'
-            },
-            help: 'create a reference to re-use the gradient'
-        },
-        {
-            label: 'variable pattern## [pattern]',
-            script: 'local.pattern## = {{1}};',
-            returns: {
-                label: 'pattern##',
-                script: 'local.pattern##',
-                type: 'pattern'
-            },
-            help: 'create a reference to re-use the pattern'
-        },
-        {
             label: 'variable imagedata## [imagedata]',
             script: 'local.imagedata## = {{1}};',
             returns: {
@@ -352,7 +312,7 @@ var menus = {
                 script: 'local.any##',
                 type: 'any'
             },
-            help: 'create a reference to re-use the any'
+            help: 'create a reference to re-use any variable type'
         },
         {   
             label: 'variable pixel## [pixel]',
