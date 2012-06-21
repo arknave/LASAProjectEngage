@@ -285,16 +285,6 @@ var menus = {
             help: 'create a reference to re-use the point'
         },
         {
-            label: 'variable size## [size]',
-            script: 'local.size## = {{1}};',
-            returns: {
-                label: 'size##',
-                script: 'local.size##',
-                type: 'size'
-            },
-            help: 'create a reference to re-use the size'
-        },
-        {
             label: 'variable imagedata## [imagedata]',
             script: 'local.imagedata## = {{1}};',
             returns: {
@@ -392,8 +382,8 @@ var menus = {
             help: 'Gets the blue value from a pixel'
         },
         {
-            label: 'new ImageData with size [size]',
-            script: '(function(){ return local.ctx.createImageData({{1}}.w,{{1}}.h);})()',
+            label: 'new ImageData with width [number] and height [number]',
+            script: '(function(){ return local.ctx.createImageData({{1}},{{2}});})()',
             type: 'imagedata',
             help: 'initialize a new imageData with the specified dimensions'
         },
