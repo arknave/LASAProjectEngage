@@ -851,12 +851,6 @@ var menus = {
         },
         // Path API
         {
-            label: 'with path',
-            containers: 1,
-            script: 'local.ctx.beginPath();[[1]];local.ctx.closePath();',
-            help: 'create a path, run the contained steps, close the path'
-        },
-        {
             label: 'move to point [point]',
             script: 'local.ctx.moveTo({{1}}.x,{{1}}.y);',
             help: 'move to...'
@@ -870,21 +864,6 @@ var menus = {
             label: 'quadraditic curve to point [point] with control point [point]',
             script: 'local.ctx.quadraticCurveTo({{2}}.x, {{2}}.y, {{1}}.x, {{1}}.y);',
             help: 'quad curve to ...'
-        },
-        {
-            label: 'bezier curve to point [point] with control points [point] and [point]',
-            script: 'local.ctx.bezierCurveTo({{2}}.x,{{2}}.y,{{3}}.x,{{3}}.y,{{1}}.x,{{1}}.y);',
-            help: 'bezier curve to...'
-        },
-        {
-            label: 'arc to point1 [point] point1 [point] with radius [number:1.0]',
-            script: 'local.ctx.arcTo({{1}}.x,{{1}}.y,{{2}}.x,{{2}}.y,{{3}});',
-            help: 'I wish I understood this well enough to explain it better'
-        },
-        {
-            label: 'arc with origin [point] radius [number:1] start angle [number:0] deg, end angle [number:45] deg [boolean:true]',
-            script: 'local.ctx.arc({{1}}.x,{{1}}.y,{{2}},deg2rad({{3}}),deg2rad({{4}}),{{5}});',
-            help: 'arc...'  
         },
         {
             label: 'rect [rect]',
