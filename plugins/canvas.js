@@ -1139,42 +1139,10 @@ var menus = {
             type: 'array'
         }
     ]),
-    size: menu('Size', [
-        {
-            label: 'size with width [number:10] height [number:10]',
-            script: '{w: {{1}}, h: {{2}}}',
-            type: 'size'
-        },
-        {
-            label: 'size from array [array]',
-            script: '{w: {{1}}[0], h: {{1}}[1]}',
-            type: 'size'
-        },
-        {
-            label: 'size [size] width',
-            script: '{{1}}.w',
-            type: 'number'
-        },
-        {
-            label: 'size [size] height',
-            script: '{{1}}.h',
-            type: 'number'
-        },
-        {
-            label: 'size [size] as array',
-            script: '[{{1}}.w, {{1}}.h]',
-            type: 'array'
-        }
-    ]),
     rect: menu('Rect', [
         {
             label: 'rect at x [number:0] y [number:0] with width [number:10] height [number:10]',
             script: '{x: {{1}}, y: {{2}}, w: {{3}}, h: {{4}} }',
-            type: 'rect'
-        },
-        {
-            label: 'rect at point [point] with size [size]',
-            script: '{x: {{1}}.x, y: {{1}}.y, w: {{2}}.w, h: {{2}}.h}',
             type: 'rect'
         },
         {
