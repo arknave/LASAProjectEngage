@@ -1034,26 +1034,6 @@ var menus = {
             help: 'fill color...'
         },
         {
-            label: 'stroke gradient [gradient]',
-            script: 'local.ctx.strokeStyle = {{1}};',
-            help: 'replaces stroke color or stroke pattern with gradient'
-        },
-        {
-            label: 'fill gradient [gradient]',
-            script: 'local.ctx.fillStyle = {{1}};',
-            help: 'replaces fill color or fill pattern with gradient'
-        },
-        {
-            label: 'stroke pattern [pattern]',
-            script: 'local.ctx.strokeStyle = {{1}};',
-            help: 'replaces stroke color or stroke gradient with pattern'
-        },
-        {
-            label: 'fill pattern [pattern]',
-            script: 'local.ctx.fillStyle = {{1}};',
-            help: 'replaces fill color or fill gradient with pattern'
-        },
-        {
             label: 'create radial gradient from point1 [point] radius1 [number:0] to point2 [point] radius2 [number:0]',
             script: 'local.gradient## = local.ctx.createRadialGradient({{1}}.x,{{1}}.y,{{2}},{{3}}.x,{{3}}.y,{{4}});',
             help: 'create a radial gradient in the cone described by two circles',
