@@ -897,41 +897,6 @@ var menus = {
             script: 'local.ctx.fillStyle = "{{1}}";',
             help: 'fill color...'
         },
-        {
-            label: 'create radial gradient from point1 [point] radius1 [number:0] to point2 [point] radius2 [number:0]',
-            script: 'local.gradient## = local.ctx.createRadialGradient({{1}}.x,{{1}}.y,{{2}},{{3}}.x,{{3}}.y,{{4}});',
-            help: 'create a radial gradient in the cone described by two circles',
-            returns: {
-                label: 'radial gradient##',
-                script: 'local.gradient##',
-                type: 'gradient'
-            }
-        },
-        {
-            label: 'create linear gradient from point1 [point] to point2 [point]',
-            script: 'local.gradient## = local.ctx.createLinearGradient({{1}}.x,{{1}}.y,{{2}}.x,{{2}}.y);',
-            help: 'create a linear gradient between two points',
-            returns: {
-                label: 'linear gradient##',
-                script: 'local.linear.gradient##',
-                type: 'gradient'
-            }
-        },
-        {
-            label: 'add color stop to gradient [gradient] at offset [number:0.5] with color [color:#F00]',
-            script: '{{1}}.addColorStop({{2}}, {{3}})',
-            help: 'creates an additional color stop, offset must be between 0.0 and 1.0'
-        },
-        {
-            label: 'create pattern## from image [image] repeats [choice:repetition]',
-            script: 'local.pattern## = local.ctx.createPattern({{1}}, {{2}});',
-            help: 'create a pattern with the given html image',
-            returns: {
-                label: 'pattern##',
-                script: 'local.pattern##',
-                type: 'pattern'
-            }
-        },
         // Text
         {
             label: 'font [number:10] [choice:unit] [string:sans-serif]',
