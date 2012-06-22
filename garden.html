@@ -4,14 +4,15 @@
     <meta charset="utf-8" />
     <title>Project Engage Programming</title>
 	
-	<link href="stylesheets/workspace.css" rel="stylesheet" />
-	<link href="stylesheets/blocks.css" rel="stylesheet" />
 	<link type="text/css" href="stylesheets/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+	<link href="stylesheets/blocks.css" rel="stylesheet" />
+	<link href="stylesheets/workspace.css" rel="stylesheet" />
     <meta name="viewport" content="height=device-height, initial-scale=1.0" />
   </head>
   <body>
     <div class="content">
         <div id="accordion" class="block_menu ui-accordion">
+			<section class="submenu">
             <h3 class="select"><a href="#">About</a></h3>
             <div class="option">
                 <p> <a href="index.html">Info</a></p>
@@ -51,15 +52,25 @@
         <div id="color_contents">
 		</div>
     </div>
-    <div class="hidden dialog" id="save_dialog">
+    <!--<div class="hidden dialog" id="save_dialog">
         <div id="save_dialog_contents">
             <h2>Save the current script</h2>
             <input id="script_name" placeholder="Script Name" />
             <textarea id="script_description" placeholder="Optional Description"></textarea>
             <button class="save">Save</button>
-        <button class="export">Export</button>
+			<button class="export">Export</button>
             <button class="cancel">Cancel</button>
         </div>
+    </div>-->
+	
+    <div class="dialog" id="save_dialog" title="Save Script">
+		<form id="save_form" class="dialogform">
+			<fieldset id="save_fieldset" class="dialogfieldset">
+				<h2>Save the current script</h2>
+				<input id="script_name" name="script_name" class ="text ui-widget-content ui-corner-all" placeholder="Script Name" />
+				<textarea id="script_description" name="script_description" class ="text ui-widget-content ui-corner-all" rows=10 cols=63 placeholder="Optional Description"></textarea>
+			</fieldset>
+		</form>
     </div>
     <div class="hidden dialog" id="restore_dialog">
         <div id="restore_dialog_contents">
