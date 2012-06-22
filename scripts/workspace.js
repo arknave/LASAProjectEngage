@@ -50,22 +50,6 @@ $('.clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage">
 
 // Load and Save Section
 
-function scripts_as_object(){
-    var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
-    if (blocks.length){
-        return blocks.map(function(){return $(this).block_description();}).get();
-    }else{
-        return [];
-    }   
-}
-
-function save_current_scripts(){
-    show_workspace();
-    $('#accordion')[0].scrollIntoView();
-    localStorage['__current_scripts'] = JSON.stringify(scripts_as_object());
-}
-$(window).unload(save_current_scripts);
-
 /*
 function save_named_scripts(){
     var title = $('#script_name').val();
