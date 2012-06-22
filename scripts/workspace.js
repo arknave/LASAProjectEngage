@@ -2,20 +2,6 @@
 
 // UI Chrome Section
 
-function accordion(event){
-    // console.log('accordion');
-    var self = $(this);
-    if (self.hasClass('selected')){
-        self.removeClass('selected').siblings('.option').slideUp('slow');
-        return;
-    }
-    $('.select.selected').removeClass('selected').siblings('.option').slideUp('slow');
-    self.addClass('selected').siblings('.option').slideDown('slow');
-    $('#block_menu').trigger('open', self);
-}
-$('#block_menu').delegate('.select', 'click', accordion);
-
-
 function test_block(block){
     var name = block.data('klass') + ': ' + block.data('label');
     try{
@@ -61,6 +47,7 @@ $('.clear_scripts').click(clear_scripts);
 $('.goto_script').click(function(){$('#accordion')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
 $('.clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
+
 // Load and Save Section
 
 function scripts_as_object(){
@@ -79,7 +66,7 @@ function save_current_scripts(){
 }
 $(window).unload(save_current_scripts);
 
-
+/*
 function save_named_scripts(){
     var title = $('#script_name').val();
     var description = $('#script_description').val();
@@ -96,10 +83,10 @@ function save_named_scripts(){
             date: date,
             scripts: scripts_as_object()
         });
-        reset_and_close_save_dialog();
+        $("#save_block").dialog("close");
     }else   
         alert("You must enter a name");
-}
+}*/
 
 function export_named_scripts(){
     console.log("here");
@@ -116,7 +103,7 @@ function export_named_scripts(){
         scripts: scripts_as_object()
     });
     console.log("EXP: "+exp);
-    reset_and_close_save_dialog();
+	$("#save_dialog").dialog("close");
     $('#exp').bPopup();
     $('#exp textarea').html(exp);
     $('#exp .done').bind('click',function(){
@@ -146,13 +133,6 @@ function restore_from_export(){
 
     load_scripts_from_object(ps.scripts);   
     }); 
-}
-
-
-function reset_and_close_save_dialog(){
-    $('#script_name').val('');
-    $('#script_description').val('');
-    $('#save_dialog').bPopup().close();
 }
 
 function reset_and_close_restore_dialog(){
@@ -228,11 +208,12 @@ function delete_named_scripts(event){
 function toggle_description(event){
     $(this).siblings('.description').toggleClass('hidden');
 }
-
+/*
 $('#save_dialog .save').click(save_named_scripts);
 $('#save_dialog .export').click(export_named_scripts);
-$('#save_dialog .cancel').click(reset_and_close_save_dialog);
-$('.save_scripts').click(function(){$('#save_dialog').bPopup();});
+$('#save_dialog .cancel').click(reset_and_close_save_dialog);*/
+/*$('.save_scripts').click(function(){$('#save_dialog').bPopup();});*/
+$('.save_scripts').click(function(){$('#save_dialog').dialog("open");});
 
 $('.restore_scripts').click( populate_and_show_restore_dialog );
 $('#restore_dialog .cancel').click(reset_and_close_restore_dialog);
@@ -308,8 +289,9 @@ window.show_workspace = function(){
 
 function menu(title, specs, show){ 
     var klass = title.toLowerCase();
-    var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo($("#accordion"));
-    var options = $('<div class="option"></div>').appendTo($('#accordion'));
+	var body = $('<section class="submenu"></section>');
+    var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo(body);
+    var options = $('<div class="option"></div>').appendTo(body);
 
     $.each(specs, function(idx, spec){
         if (spec !== undefined){
@@ -317,12 +299,13 @@ function menu(title, specs, show){
             options.append(Block(spec));
         }
     });
+	$("#accordion").append(body);
     /*if (show){
         select.addClass('selected');
     }else{
         options.hide();
     }*/
-    return;
+    return body;
 }
 window.menu = menu;
 
