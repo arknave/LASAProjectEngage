@@ -22,7 +22,6 @@ textarea {
 }
 	 
 h1,h2,h3,h4,h5,h6 {
-    font-size:100%;
     font-weight:normal;
 }
 q:before,q:after {
@@ -40,6 +39,7 @@ html, body {
 
 body {
     background-color: #888;
+	font-size: 62.5%
 }
 
 ::-webkit-input-placeholder  { color:#AAA; font-style: italic;}
@@ -53,7 +53,7 @@ body {
 
 .tab_bar button, .tab_bar2 button{
     float: right;
-	font: 72.5% "Trebuchet MS", sans-serif;
+	font: "Trebuchet MS", sans-serif;
 }
 
 .workspace {
@@ -106,8 +106,7 @@ body {
 #radio{
 	margin: 0;
 	padding: 0;
-	/*float: left;*/
-	font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;
+	font: "Trebuchet MS", sans-serif; margin: 50px;
 }
 
 .stage {
@@ -121,7 +120,7 @@ body {
 }
 
 #accordion{ 
-	font: 72.5% "Trebuchet MS", sans-serif;
+	font: "Trebuchet MS", sans-serif;
 	position: absolute;
     width: 14.5%;
     height: 100%;
@@ -182,10 +181,6 @@ body {
     display: none;
 }
 
-.dialog *{
-	font-size: 80%;
-}
-
 .dialog input{
 	display: block;
 	margin-bottom:12px;
@@ -209,9 +204,6 @@ body {
 	font-size: 1.2em;
 	margin: .6em 0;
 }
-.dialog .ui-button-text { font-size: .5em% };
-
-.ui-dialog-title{ font-size: 70%;}
 .ui-dialog .ui-state-error { padding: .3em; }
 .dialog .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
