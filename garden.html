@@ -51,18 +51,7 @@
     <div class="hidden" id="color_popup">
         <div id="color_contents">
 		</div>
-    </div>
-    <!--<div class="hidden dialog" id="save_dialog">
-        <div id="save_dialog_contents">
-            <h2>Save the current script</h2>
-            <input id="script_name" placeholder="Script Name" />
-            <textarea id="script_description" placeholder="Optional Description"></textarea>
-            <button class="save">Save</button>
-			<button class="export">Export</button>
-            <button class="cancel">Cancel</button>
-        </div>
-    </div>-->
-	
+    </div>	
     <div class="dialog" id="save_dialog" title="Save Script">
 		<form id="save_form" class="dialogform">
 			<fieldset id="save_fieldset" class="dialogfieldset">
@@ -188,7 +177,7 @@
 								date: date,
 								scripts: scripts_as_object()
 							});
-							$("#save_block").dialog("close");
+							$(this).dialog("close");
 						}else   
 							alert("You must enter a name");
 						}
