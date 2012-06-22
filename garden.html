@@ -56,7 +56,7 @@
 			<fieldset id="save_fieldset" class="dialogfieldset">
 				<h2>Save the current script</h2>
 				<input id="script_name" name="script_name" class ="text ui-widget-content ui-corner-all" placeholder="Script Name" />
-				<textarea id="script_description" name="script_description" class ="text ui-widget-content ui-corner-all" rows=10 cols=63 placeholder="Optional Description"></textarea>
+				<textarea id="script_description" name="script_description" class ="text ui-widget-content ui-corner-all" rows=8 placeholder="Optional Description"></textarea>
 			</fieldset>
 		</form>
     </div>
@@ -77,13 +77,21 @@
             <button class="cancel">Cancel</button>
         </div>
     </div>
-    <div class="hidden dialog" id="exp">
+    <!--<div class="hidden dialog" id="exp">
       <h2>Exported Code</h2>
       <small>Copy this into a text document to save for your records.</small>
       <br/><br/>
       <textarea></textarea>
-      <button class="done">Done</button>    
-      </div>
+      <button class="done">Done</button>
+	</div>-->
+	<div class="dialog" id="exp" title="Export Script">
+      <h2>Exported Code</h2>
+      Copy this into a text document to save for your records.
+	  <br /><br />
+	  <textarea rows=5 class="text ui-widget-content ui-corner-all"></textarea>
+  	  <br /><br />
+
+	</div>
 	
 	<script src="lib/jquery-1.7.1.min.js"></script>
 	<!--<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>-->
@@ -184,28 +192,20 @@
 					{
 						text: "Export",
 						"class": 'dialogbutton',
-						click: function() {
-							console.log("here");
-							$('#exp h2').html('Exported Code');
-							$('#exp small').html('Copy Exported Code below');   
+						click: function() { 
 							var title = $('#script_name').val();    
 							var description = $('#script_description').val();
 							var date = Date.now();
 							if (title){
-							var exp = JSON.stringify({
-								title: title,
-								description: description,
-								date: date,
-								scripts: scripts_as_object()
-							});
-							console.log("EXP: "+exp);
-							$("#save_dialog").dialog("close");
-							$('#exp').bPopup();
-							$('#exp textarea').html(exp);
-							$('#exp .done').bind('click',function(){
-								$('#exp').bPopup().close();
-								$('#exp .done').unbind('click');
-							});
+								var exp = JSON.stringify({
+									title: title,
+									description: description,
+									date: date,
+									scripts: scripts_as_object()
+								});
+								$("#save_dialog").dialog("close");
+								$('#exp').dialog("open");
+								$('#exp textarea').html(exp);
 							}
 							else
 							alert("You must enter a name");
@@ -224,7 +224,24 @@
 						$("#script_description").val("");
 					}
 				});
+				//Export Dialog
 				
+				$("#exp").dialog({
+					autoOpen: false,
+					height: 225,
+					width: 300,
+					modal: true,
+					resizable: false,
+					/*buttons: [
+					{
+						text: "Close",
+						"class": 'dialogbutton',
+						click: function() {
+							$(this).dialog("close");
+						}
+					}
+					]*/
+				});
 			});
         }
     </script>

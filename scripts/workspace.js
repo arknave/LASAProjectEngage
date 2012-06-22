@@ -71,33 +71,6 @@ function save_named_scripts(){
     }else   
         alert("You must enter a name");
 }*/
-
-function export_named_scripts(){
-    console.log("here");
-    $('#exp h2').html('Exported Code');
-    $('#exp small').html('Copy Exported Code below');   
-    var title = $('#script_name').val();    
-    var description = $('#script_description').val();
-    var date = Date.now();
-    if (title){
-    var exp = JSON.stringify({
-        title: title,
-        description: description,
-        date: date,
-        scripts: scripts_as_object()
-    });
-    console.log("EXP: "+exp);
-	$("#save_dialog").dialog("close");
-    $('#exp').bPopup();
-    $('#exp textarea').html(exp);
-    $('#exp .done').bind('click',function(){
-        $('#exp').bPopup().close();
-        $('#exp .done').unbind('click');
-    });
-    }
-    else
-    alert("You must enter a name");
-}
     
 function restore_from_export(){
     reset_and_close_restore_dialog();
@@ -192,11 +165,7 @@ function delete_named_scripts(event){
 function toggle_description(event){
     $(this).siblings('.description').toggleClass('hidden');
 }
-/*
-$('#save_dialog .save').click(save_named_scripts);
-$('#save_dialog .export').click(export_named_scripts);
-$('#save_dialog .cancel').click(reset_and_close_save_dialog);*/
-/*$('.save_scripts').click(function(){$('#save_dialog').bPopup();});*/
+
 $('.save_scripts').click(function(){$('#save_dialog').dialog("open");});
 
 $('.restore_scripts').click( populate_and_show_restore_dialog );

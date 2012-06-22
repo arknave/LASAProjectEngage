@@ -17,8 +17,11 @@ caption,th {
     text-align:left;
 }
 
-textarea {
-     resize: vertical;
+textarea, input {
+	width: 95%;
+}
+textarea{
+	resize: none
 }
 	 
 h1,h2,h3,h4,h5,h6 {
@@ -80,6 +83,10 @@ body {
 
 .scripts_workspace {
     display: block;
+}
+
+.scripts_text_view {
+	font-size: 1.5em;
 }
 
 .drop_cursor {
@@ -180,7 +187,6 @@ body {
 .dialog input{
 	display: block;
 	margin-bottom:12px;
-	width:95%;
 	padding: .4em;
 }
 
