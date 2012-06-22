@@ -20,6 +20,7 @@
                 <p> <a href="license">License</a></p>
                 <p> <a href="index.html#help">Help</a></p>
             </div>
+			</section>
         </div>
         <div class="tab_bar">
 			<span id="radio">
@@ -117,9 +118,98 @@
                 });
             }
 			$(function(){
-				$("#accordion").accordion({collapsible: true, autoHeight: false});
+				$("#accordion").accordion({
+					header: "> section > h3",
+					collapsible: true,
+					autoHeight: false
+
+				}).sortable({
+					axis: "y",
+					handle: "h3 > a",
+					stop: function( event, ui ) {
+						// IE doesn't register the blur when sorting
+						// so trigger focusout handlers to remove .ui-state-focus
+						ui.item.children( "h3" ).triggerHandler( "focusout" );
+					}
+				});
 				$( "#radio" ).buttonset();
 				$("button").button();
+				
+				$("#save_dialog").dialog({
+					autoOpen: false,
+					height: 300,
+					width: 450,
+					modal: true,
+					resizable: false,
+					buttons: [
+					{
+						text: "Save",
+						"class": 'dialogbutton',
+						click: function() {
+						var title = $('#script_name').val();
+						var description = $('#script_description').val();
+						var date = Date.now();
+						if (title){
+							if (localStorage[title]){
+								if (!confirm('A script with that title exist. Overwrite?')){
+									return;
+								}
+							}
+							localStorage[title] = JSON.stringify({
+								title: title,
+								description: description,
+								date: date,
+								scripts: scripts_as_object()
+							});
+							$("#save_block").dialog("close");
+						}else   
+							alert("You must enter a name");
+						}
+					},
+					{
+						text: "Export",
+						"class": 'dialogbutton',
+						click: function() {
+							console.log("here");
+							$('#exp h2').html('Exported Code');
+							$('#exp small').html('Copy Exported Code below');   
+							var title = $('#script_name').val();    
+							var description = $('#script_description').val();
+							var date = Date.now();
+							if (title){
+							var exp = JSON.stringify({
+								title: title,
+								description: description,
+								date: date,
+								scripts: scripts_as_object()
+							});
+							console.log("EXP: "+exp);
+							$("#save_dialog").dialog("close");
+							$('#exp').bPopup();
+							$('#exp textarea').html(exp);
+							$('#exp .done').bind('click',function(){
+								$('#exp').bPopup().close();
+								$('#exp .done').unbind('click');
+							});
+							}
+							else
+							alert("You must enter a name");
+						}
+					},
+					{
+						text: "Cancel",
+						"class": 'dialogbutton',
+						click: function() {
+							$(this).dialog("close");
+						}
+					}
+					],
+					close: function(){
+						$("#script_name").val("");
+						$("#script_description").val("");
+					}
+				});
+				
 			});
         }
     </script>
