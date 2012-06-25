@@ -752,7 +752,7 @@ var menus = {
 		{
 			label: 'floor of [number:]',
 			'type': 'number',
-			script: 'Math.floor({{1}}),
+			script: 'Math.floor({{1}})',
 			help: 'rounds down to the nearest whole number'
 		},
         {
