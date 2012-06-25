@@ -42,7 +42,7 @@ html, body {
 
 body {
     background-color: #888;
-	font-size: 62.5%
+	font-size: 67.5%
 }
 
 ::-webkit-input-placeholder  { color:#AAA; font-style: italic;}
@@ -180,7 +180,7 @@ body {
 
 /*Description of saves*/
 .description{
-    font-size: .8em;
+    font-size: 1em;
     color: #515151;
 }
 
@@ -206,8 +206,11 @@ body {
 	font-size: 1.2em;
 	margin: .6em 0;
 }
+/*.dialog button {
+	float:right;
+}*/
 .ui-dialog .ui-state-error { padding: .3em; }
-.dialog .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
 
 /* Save/Restore Dialogs 
 
@@ -299,5 +302,5 @@ html, body {
 /* Lists of scripts to scroll. Used in demo & restore dialog*/
 .scrollList{
     max-height: 300px;
-    overflow-y:scroll;
+    overflow-y: auto;
 }

@@ -60,13 +60,20 @@
 			</fieldset>
 		</form>
     </div>
-    <div class="hidden dialog" id="restore_dialog">
+    <!--<div class="hidden dialog" id="restore_dialog">
         <div id="restore_dialog_contents">
             <h2>Restore a script</h2>
             <ul class="scrollList" id="script_list">
             </ul>
             <button class="cancel">Cancel</button>
         <button class="exp">From Export</button>
+        </div>
+    </div>-->
+    <div class="dialog" id="restore_dialog" title="Restore Script">
+        <div id="restore_dialog_contents">
+            <h2>Restore a script</h2>
+            <ul class="scrollList" id="script_list">
+            </ul>
         </div>
     </div>
     <div class="hidden dialog" id="demos_dialog">
@@ -77,20 +84,10 @@
             <button class="cancel">Cancel</button>
         </div>
     </div>
-    <!--<div class="hidden dialog" id="exp">
-      <h2>Exported Code</h2>
-      <small>Copy this into a text document to save for your records.</small>
-      <br/><br/>
-      <textarea></textarea>
-      <button class="done">Done</button>
-	</div>-->
 	<div class="dialog" id="exp" title="Export Script">
       <h2>Exported Code</h2>
-      Copy this into a text document to save for your records.
-	  <br /><br />
+      <small>Copy this into a text document to save for your records.</small>
 	  <textarea rows=5 class="text ui-widget-content ui-corner-all"></textarea>
-  	  <br /><br />
-
 	</div>
 	
 	<script src="lib/jquery-1.7.1.min.js"></script>
@@ -125,6 +122,7 @@
                 });
             }
 			$(function(){
+				//Accordion menu on the right, now menus can be dragged around.
 				$("#accordion").accordion({
 					header: "> section > h3",
 					collapsible: true,
@@ -134,23 +132,19 @@
 					axis: "y",
 					handle: "h3 > a",
 					stop: function( event, ui ) {
-						// IE doesn't register the blur when sorting
-						// so trigger focusout handlers to remove .ui-state-focus
 						ui.item.children( "h3" ).triggerHandler( "focusout" );
 					}
 				});
+				
+				//Block/Text view
 				$( "#radio" ).buttonset();
+				
+				//Currently applies to ALL buttons on the stage, this may be an issue down the road.
 				$("button").button();
 				
-				function scripts_as_object(){
-					var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
-					if (blocks.length){
-						return blocks.map(function(){return $(this).block_description();}).get();
-					}else{
-						return [];
-					}   
-				}
-
+				//Save Dialog & Associated Functions
+				var expsave = true;
+				
 				function save_current_scripts(){
 					show_workspace();
 					$('#accordion')[0].scrollIntoView();
@@ -158,6 +152,7 @@
 				}
 				$(window).unload(save_current_scripts);
 
+				
 				$("#save_dialog").dialog({
 					autoOpen: false,
 					height: 300,
@@ -192,7 +187,7 @@
 					{
 						text: "Export",
 						"class": 'dialogbutton',
-						click: function() { 
+						click: function() {
 							var title = $('#script_name').val();    
 							var description = $('#script_description').val();
 							var date = Date.now();
@@ -204,8 +199,11 @@
 									scripts: scripts_as_object()
 								});
 								$("#save_dialog").dialog("close");
+								$('#exp h2').html('Exported Code');
+								$('#exp small').html('Copy this into a text document to save for your records.');
+								expsave = true;
 								$('#exp').dialog("open");
-								$('#exp textarea').html(exp);
+								$('#exp textarea').val(exp);
 							}
 							else
 							alert("You must enter a name");
@@ -224,23 +222,108 @@
 						$("#script_description").val("");
 					}
 				});
-				//Export Dialog
 				
-				$("#exp").dialog({
+				//Restore Dialog & Associated functions
+				
+				function clear_scripts(event, force){
+					if (force || confirm('Throw out the current script?')){
+						$('.workspace:visible > *').empty();
+						$('.stage').replaceWith('<div class="stage"></div>');
+					}
+				}
+				
+				function load_scripts_from_object(blocks){
+					var workspace = $('.workspace:visible .scripts_workspace');
+					$.each(blocks, function(idx, value){
+						console.log('restoring block %s', idx);
+						var block = Block(value);
+						workspace.append(block);
+						block.css({position: 'relative', left: 0, top: 0, display: 'block'});
+						block.trigger('add_to_workspace');
+						$('.scripts_workspace').trigger('add');
+
+					});
+				}
+				$("#restore_dialog").dialog({
 					autoOpen: false,
-					height: 225,
-					width: 300,
+					height: 300,
+					width: 450,
 					modal: true,
 					resizable: false,
-					/*buttons: [
+					buttons: [
 					{
-						text: "Close",
+						text: "Cancel",
 						"class": 'dialogbutton',
 						click: function() {
 							$(this).dialog("close");
+						}				
+					},
+					{
+						text: "Import",
+						"class": 'dialogbutton',
+						click: function() {
+							$(this).dialog("close");
+							$('#exp h2').html('Paste Exported Code below');
+							$('#exp small').html('Paste Exported Code below');
+							$('#exp textarea').val('');
+							expsave = false;
+							$('#exp').dialog("open");							
+						}
+					},
+					],
+					open: function(){
+						function populate_and_show_restore_dialog(){
+							var list = $('#script_list');
+							var script_obj;
+							var idx, value, key, script_li;
+							var leng = localStorage.length
+							for (idx = 0; idx < leng; idx++){
+								key = localStorage.key(idx);
+								if (key === '__current_scripts') continue;
+								value = localStorage[key];
+								script_obj = JSON.parse(value);
+								if (script_obj.description){
+									script_li = $('<li><span class="title">' + script_obj.title + '</span><button class="restore action">Restore</button><button class="delete action">Delete</button><button class="show_description action">Description</button><br /><span class="timestamp">Saved on ' + new Date(script_obj.date).toDateString() + '</span><p class="description hidden">' + script_obj.description + '<p></li>');
+								}else{
+									script_li = $('<li><span class="title">' + script_obj.title + '</span><button class="restore action">Restore</button><button class="delete action">Delete</button><br /><span class="timestamp">Saved on ' + new Date(script_obj.date).toDateString() + '</span></li>');
+								}
+								script_li.data('scripts', script_obj.scripts); // avoid re-parsing later
+								list.append(script_li);
+							}
+						}
+					},
+					close: function(){
+						$('#script_list').empty();
+					}
+				});
+				
+				//Export Dialog				
+				$("#exp").dialog({
+					autoOpen: false,
+					height: 250,
+					width: 400,
+					modal: true,
+					resizable: false,
+					buttons: [
+					{
+						text: "Done",
+						"class": 'dialogbutton',
+						click: function() {
+							if(expsave){
+								$(this).dialog("close");
+							}
+							else{
+								var script = $('#exp textarea').val();
+								console.log(script);
+								$('#exp').dialog("close");
+								clear_scripts();
+								var ps = JSON.parse(script);
+								console.log(ps.scripts);
+								load_scripts_from_object(ps.scripts);
+							}
 						}
 					}
-					]*/
+					]
 				});
 			});
         }
