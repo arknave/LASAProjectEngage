@@ -743,6 +743,19 @@ var menus = {
             script: 'Math.sqrt({{1}})',
             help: 'the square root is the same as taking the to the power of 1/2'
         },
+		{
+           label: 'ceiling of [number:10]', 
+           'type': 'number', 
+           script: 'Math.ceil({{1}})',
+           help: 'rounds up to nearest whole number'
+        },
+		{
+			label: 'floor of [number:]',
+			'type': 'number',
+			script: 'Math.floor({{1}}),
+			help: 'rounds down to the nearest whole number'
+		},
+
         {
             label: 'pi',
             script: 'Math.PI;',
