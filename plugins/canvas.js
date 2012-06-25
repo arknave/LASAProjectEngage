@@ -113,17 +113,11 @@ window.choice_lists = {
         'pause', 'capslock', 'esc', 'space', 'pageup', 'pagedown', 
         'end', 'home', 'insert', 'del', 'numlock', 'scroll', 'meta']),
     unit: ['px', 'em', '%', 'pt'],
-    align: ['start', 'end', 'left', 'right', 'center'],
-    baseline: ['alphabetic', 'top', 'hanging', 'middle', 'ideographic', 'bottom'],
-    linecap: ['round', 'butt', 'square'],
-    linejoin: ['round', 'bevel', 'mitre'],
     arity: ['0', '1', '2', '3', 'array', 'object'],
     types: ['string', 'number', 'boolean', 'array', 'object', 'function', 'color', 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata', 'pixel', 'any'],
     rettypes: ['none', 'string', 'number', 'boolean', 'array', 'object', 'function', 'color', 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata','any'],
     easing: ['>', '<', '<>', 'backIn', 'backOut', 'bounce', 'elastic'],
     fontweight: ['normal', 'bold', 'inherit'],
-    globalCompositeOperators: ['source-over', 'source-atop', 'source-in', 'source-out', 'destination-atop', 'destination-in', 'destination-out', 'destination-over', 'lighter', 'copy', 'xor'],
-    repetition: ['repeat', 'repeat-x', 'repeat-y', 'no-repeat']
 };
 
 // Hints for building blocks
