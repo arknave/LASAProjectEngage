@@ -755,13 +755,12 @@ var menus = {
 			script: 'Math.floor({{1}}),
 			help: 'rounds down to the nearest whole number'
 		},
-
         {
             label: 'pi',
             script: 'Math.PI;',
             type: 'number',
             help: "pi is the ratio of a circle's circumference to its diameter"
-        },
+        }
     ]),
     canvas: menu('Drawing', [
         {
