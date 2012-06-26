@@ -60,7 +60,7 @@ The best way to get help right now is to email me: [dethe ATGLYPH livingcode DOT
 * Atul Varma (http://github.com/toolness/)
 * Adam Faulkner (http://github.com/adamfaulkner/)
 * Arnav Sastry (http://github.com/arknave)
-* Kason Tey (http://github.com/ktey/)
+* Kason Tey (http://github.com/kasontey/)
 * Kyle DeHolton (http://github.com/kdeholton)
 * Jonas Wecshler (http://github.com/JonasWecshler)
 
