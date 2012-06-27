@@ -53,10 +53,10 @@ src: url('fonts/trinigan-webfont.ttf'),
 
 #logo{
 	position: absolute;
-	font-size: 225%;
+	font-size: 220%;
 	font-family: 'TriniganFGRegular';
 	margin-left: 75px;
-	margin-top: -5px;
+	margin-top: 1px;
 	color: black;
 }
 
