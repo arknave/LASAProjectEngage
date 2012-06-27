@@ -37,6 +37,29 @@ body {
     background-color: #888;
 }
 
+@font-face
+{
+font-family: TriniganFGRegular;
+src: url('fonts/trinigan-webfont.ttf'),
+     url('fonts/trinigan-webfont.woff'),
+	 url('fonts/trinigan-webfont.eot');
+}
+
+#bearPic{
+	position: absolute;
+	margin-top: 3px;
+	margin-left: 10px;
+}
+
+#logo{
+	position: absolute;
+	font-size: 225%;
+	font-family: 'TriniganFGRegular';
+	margin-left: 75px;
+	margin-top: -5px;
+	color: black;
+}
+
 .content{
     position: relative;
     width: 200%;
@@ -118,9 +141,9 @@ body {
     width: 14.5%;
     height: 100%;
     left: 0px;
-    top: 0px;
+	top: 0px;
     overflow: auto;
-	margin-top: 5px;
+	margin-top: 43px;
 	margin-left: 5px;
 }
 #accordion div{

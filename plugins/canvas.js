@@ -112,6 +112,7 @@ window.choice_lists = {
         'backspace', 'tab', 'return', 'shift', 'ctrl', 'alt', 
         'pause', 'capslock', 'esc', 'space', 'pageup', 'pagedown', 
         'end', 'home', 'insert', 'del', 'numlock', 'scroll', 'meta']),
+	trig: ['sin', 'cos', 'tan'],
     unit: ['px', 'em', '%', 'pt'],
     arity: ['0', '1', '2', '3', 'array', 'object'],
     types: ['string', 'number', 'boolean', 'array', 'object', 'function', 'color', 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata', 'pixel', 'any'],
@@ -635,6 +636,12 @@ var menus = {
         }
     ]),
     operators: menu('Math', [
+		{
+			label: '[choice:trig] of [number: ]',
+			'type': 'number',
+			script: "rad2deg(Math." + "{{1}}.substring" + "({{2}}))",
+			help: 'trig functions of the number'
+		},
         {
             label: '[number:0] + [number:0]', 
             'type': 'number', 
@@ -757,6 +764,11 @@ var menus = {
         }
     ]),
     canvas: menu('Drawing', [
+		{
+			label: 'clear the stage',
+			script: "$('.clear_canvas').click(function(){$('.stage').replaceWith('<div class=\"stage\"></div>');});",
+			help: 'clears the stage, returning it to white'
+		},
         {
             label: 'fill circle at point [point] with radius [number:10]',
             script: 'local.ctx.beginPath();local.ctx.arc({{1}}.x,{{1}}.y,{{2}},0,Math.PI*2,true);local.ctx.closePath();local.ctx.fill();',
