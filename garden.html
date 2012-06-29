@@ -117,7 +117,14 @@
                 });
             }
 			$(function(){
-				$("#accordion").accordion({collapsible: true, autoHeight: false});
+				$("#accordion").accordion({
+					collapsible: true, 
+					autoHeight: false,
+					icons: {
+						"header": "ui-icon-circle-triangle-e",
+						"headerSelected": "ui-icon-circle-triangle-s"
+					}
+				});
 				$( "#radio" ).buttonset();
 				$("button").button();
 			});
