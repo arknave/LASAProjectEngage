@@ -58,6 +58,11 @@ The best way to get help right now is to email me: [dethe ATGLYPH livingcode DOT
 * Blake Bourque (https://github.com/TechplexEngineer)
 * Chistopher de Beer (http://github.com/christopherdebeer)
 * Atul Varma (http://github.com/toolness/)
+* Adam Faulkner (http://github.com/adamfaulkner/)
+* Arnav Sastry (http://github.com/arknave)
+* Kason Tey (http://github.com/kasontey/)
+* Kyle DeHolton (http://github.com/kdeholton)
+* Jonas Wecshler (http://github.com/JonasWecshler)
 
 ## License
 
