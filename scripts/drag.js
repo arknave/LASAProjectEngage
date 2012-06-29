@@ -36,11 +36,12 @@
 
 (function($){
     var drag_target, potential_drop_targets, drop_target, drop_rects, start_position, timer, cloned, dragging, current_position, distance, start_parent, drop_cursor, drag_placeholder;
-    window.is_touch = window.hasOwnProperty('ontouchstart') && true;
+    window.is_touch = typeof(window.ontouchstart) !== "undefined";
     var drag_timeout = 20;
     // TODO: update this whenever we switch to a new workspace
     var target_canvas = $('.workspace:visible .scripts_workspace');
-	var snap_dist = 25; //this is pixels
+    
+    var snap_dist = 25; //In pixels
     
     function reset(){
         drag_target = null;
@@ -77,8 +78,9 @@
     }
     
     function get_potential_drop_targets(){
+//         console.log('drag target: %s', drag_target.block_type());
         switch(drag_target.block_type()){
-			case 'step': return step_targets();
+            case 'step': return step_targets();
             case 'container': return step_targets();
             case 'int': 
             case 'float': return socket_targets2(['any', 'number', drag_target.block_type()].join(','));
@@ -89,6 +91,10 @@
     
     function step_targets(){
         return target_canvas.find('.slot:only-child');
+    }
+    
+    function socket_targets(type){
+        return target_canvas.find('.socket.' + type + ':not(:has(.value))');
     }
     
     /*a slower but more flexible way of doing the socket targets
@@ -113,24 +119,26 @@
         // console.log('init_drag');
         var target = eT.closest('.wrapper');
         if (target.length){
-            drag_target = target;
+            drag_target = target; 
             start_position = target.offset();
             if (! target.parent().is('.scripts_workspace')){
                 start_parent = target.parent();
             }
         }else{
-            console.log('no target in init_drag');
+            //console.log('no target in init_drag');
             drag_target = null;
         }
         return false;
     }
-
+    
     function start_drag(event){
         // console.log('trying to start drag');
         // called on mousemove or touchmove if not already dragging
         if (!blend(event)) {return undefined;}
         if (!drag_target) {return undefined;}
-		 drag_target.addClass("drag_indication");
+        drop_cursor = $('<div class="drop_cursor"></div>');
+        target_canvas.prepend(drop_cursor);
+        drag_target.addClass("drag_indication");
         // console.log('start_drag');
         current_position = {left: event.pageX, top: event.pageY};
         // target = clone target if in menu
@@ -141,14 +149,28 @@
             cloned = true;
         }
         dragging = true;
+        // Make sure the workspace is available to drag to
+        show_workspace();
         // get position and append target to .content, adjust offsets
         // set last offset
-        // TODO: handle detach better
+        // TODO: handle detach better (generalize restoring sockets, put in language file)
         if (drag_target.parent().is('.socket')){
-            drag_target.parent().append('<input />');
+            var classes = drag_target.parent().attr('class');
+
+            classes = classes.replace("socket","").trim();
+            // console.log(classes);
+            if(classes == "boolean"){           
+                drag_target.parent().append(
+                    '<select><option>true</option><option>false</option></select>');
+            }else{
+                if(!classes || classes=="string"){
+                    classes = '\"text\"';
+                }
+                drag_target.parent().append('<input type="'+classes+'"/>');
+            }
         }
         drag_target.css('position', 'absolute');
-		if (drag_target.is('.scripts_workspace .wrapper')){
+        if (drag_target.is('.scripts_workspace .wrapper')){
             drag_placeholder = $('<div class="drag_placeholder"></div>');
             drag_placeholder.height(drag_target.outerHeight());
             drag_target.before(drag_placeholder);
@@ -159,8 +181,6 @@
         drop_rects = $.map(potential_drop_targets, function(elem, idx){
             return $(elem).rect();
         });
-        // console.log('%s drop_rects', drop_rects.length);
-        // console.log('drop rects: %o', drop_rects);
 
         // start timer for drag events
         timer = setTimeout(hit_test, drag_timeout);
@@ -168,7 +188,6 @@
     }
     
     function drag(event){
-        // console.log('trying to drag, honestly');
         if (!blend(event)) {return undefined;}
         if (!drag_target) {return undefined;}
         if (!current_position) {start_drag(event);}
@@ -180,6 +199,9 @@
         var curr_pos = drag_target.offset();
         drag_target.offset({left: curr_pos.left + dX, top: curr_pos.top + dY});
         current_position = next_position;
+        // TODO: Add scrolling if dragging off of workspace:
+        // $('.workspace').scrollTop($('.workspace').scrollTop() + 10)
+        // 
         return false;
     }
     
@@ -201,38 +223,48 @@
            // 3. Remove, if dragging a clone
            // 4. Move back to start position if not a clone (maybe not?)
         drag_target.removeClass('drag_active');
-		drag_target.removeClass("drag_indication");
+        drag_target.removeClass("drag_indication");
         if (drop_target && drop_target.length){
             drop_target.removeClass('drop_active');
             if (drag_target.block_type() === 'step'){
+                // Drag a step to snap to a step
+                // console.log('snapping a step togther')
                 drop_target.parent().append(drag_target);
                 drag_target.css({
                     position: 'relative',
                     left: 0,
-                    top: 0
+                    top: 0,
+                    display: 'inline-block'
                 });
+                drag_target.trigger('add_to_script');
             }else{
-                // console.log('trying to drop: into %s', drop_target.int_name());
-                drop_target.find('input').remove();
+                // Insert a value block into a socket
+                // console.log('Inserting a value into a socket');
+                drop_target.find('input, select').remove();
                 drop_target.append(drag_target);
                 drag_target.css({
                     position: 'relative',
                     left: 0,
-                    top: 0
+                    top: 0,
+                    display: 'inline-block'
                 });
+                drag_target.trigger('add_to_socket');
             }
-        }
-		else if ($('.block_menu').cursor_over()){
-            // console.log('remove drag target');
-            drag_target.trigger('delete_block');
-			drag_target.remove();
-        }
-
-		else if (drag_target.overlap(target_canvas)){
+        }else if ($('.block_menu').cursor_over()){
+            // delete block if dragged back to menu
+            // console.log('deleting a block');
+            drag_target.trigger('delete_block')
+            drag_target.remove();
+        }else if (drag_target.overlap(target_canvas)){
+            // generally dragged to canvas, position it there
             // console.log('Drop onto canvas');
-            var curr_pos = drag_target.offset();
-            target_canvas.append(drag_target);
-            drag_target.offset(curr_pos);
+//            var curr_pos = drag_target.offset();
+            drop_cursor.before(drag_target);
+            drop_cursor.remove();
+            drop_cursor = null;
+            drag_target.css({position: 'relative', top: 0, left: 0, display: 'block'});
+            drag_target.trigger('add_to_workspace');
+            $('.scripts_workspace').trigger('add');
         }else{
             if (cloned){
                 // console.log('remove cloned block');
@@ -247,7 +279,8 @@
                     drag_target.css({
                         position: 'relative',
                         top: 0,
-                        left: 0
+                        left: 0,
+                        display: 'inline-block'
                     });
                 }else{
                     target_canvas.append(drag_target);
@@ -255,10 +288,33 @@
                 }
             }
         }
-		if (drag_placeholder){
+        if (drag_placeholder){
             drag_placeholder.remove();
             drag_placeholder = null;
         }
+        if (drop_cursor){
+            drop_cursor.remove();
+            drop_cursor = null;
+        }
+    }
+    
+    function position_drop_cursor(){
+        var self, top, middle, bottom, x = drag_target.position().top;
+        // console.log('cursor: %s', x);
+        target_canvas.prepend(drop_cursor);
+        drop_cursor.show();
+        target_canvas.children('.wrapper').each(function(idx){
+            self = $(this);
+            top = self.position().top
+            bottom = top + self.outerHeight();
+            middle = (bottom - top) / 2 + top;
+            if (x < middle){
+                self.before(drop_cursor);
+                return false;
+            }else{
+                self.after(drop_cursor);
+            }
+        });
     }
         
     function hit_test(){
@@ -271,7 +327,9 @@
         var drag_type = drag_target.block_type();
         var drag_target_flap = drag_target.children('.block');
         switch(drag_type){
-            case 'trigger': return; // no flap
+            case 'trigger':
+                setTimeout(hit_test, drag_timeout);
+                return position_drop_cursor(); // no flap
             case 'step': drag_target_flap = drag_target_flap.children('.flap');
         }
         var drag_rect = drag_target_flap.rect();
@@ -285,7 +343,7 @@
                 drop_area = area;
                 // console.log('found potential match');
             }
-			else if(drag_rect && elem){
+	    else if(drag_rect && elem){
 		val = dist(drag_rect["left"], drag_rect["top"], elem["left"], elem["top"]);
 		if(val < snap_dist){ 
 		    drop_idx = idx;
@@ -299,8 +357,10 @@
         if (drop_idx > -1){
             drop_target = potential_drop_targets.eq(drop_idx).addClass('drop_active');
             drag_target.addClass('drag_active');
+            drop_cursor.hide();
         }else{
             drag_target.removeClass('drag_active');
+            position_drop_cursor();
             drop_target = null;
         }
         timer = setTimeout(hit_test, drag_timeout);
@@ -321,8 +381,8 @@
     function mag(p1, p2){
         return Math.sqrt(Math.pow(p1.left - p2.left, 2) + Math.pow(p1.top - p2.top, 2));
     }
-	
-	function dist(p1, p2, m1, m2){
+    //I didn't really need to rewrite the above, but I was tired and Couldn't get it to work. Sill can't :(
+    function dist(p1, p2, m1, m2){
         return Math.sqrt(Math.pow(p1 - m1, 2) + Math.pow(p2 - m2, 2));	
     }
     
@@ -364,8 +424,6 @@
         area: function(){
             return this.outerWidth() * this.outerHeight();
         },
-		
-
         contained_by: function(target){
           var targetArea = Math.min(this.area(), target.outerWidth() * this.outerHeight() * 0.90);
           return this.overlap(target) >= targetArea;  
