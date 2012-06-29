@@ -245,7 +245,7 @@ $('#demos_dialog').delegate('.load', 'click', restore_demo_scripts)
                   .delegate('.show_description', 'click', toggle_description);
 $('#demos_dialog .cancel').click(function(){$('#demos_dialog').bPopup().close();});
 $('.demo_scripts').click(function(){$('#demos_dialog').bPopup();});
-$('.layout_blocks').click(layout_blocks);
+//$('.layout_blocks').click(layout_blocks);
 
 function layout_blocks(){
     var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
