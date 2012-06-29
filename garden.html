@@ -39,6 +39,11 @@
             <button class="save_scripts">Save</button>
             <button class="restore_scripts">Restore</button>
             <button class="layout_blocks">Layout</button></nobr>
+            <button id="search_enter" type="button" onClick="search($('#search').val())">
+					Enter
+				</button>
+
+				<input id="search" class = 'search-field'/>
         </div>
         <div class="tab_bar2">
             <button class="goto_script">Back to Script</button>
@@ -91,8 +96,12 @@
       <button class="done">Done</button>    
       </div>
 	
-	<script src="lib/jquery-1.7.1.min.js"></script>
+	<script src="lib/jquery-1.7.2.min.js"></script>
 	<!--<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>-->
+    <script src="lib/jquery.ui.core.js"></script>
+	<script src="lib/jquery.ui.widget.js"></script>
+	<script src="lib/jquery.ui.position.js"></script>
+	<script src="lib/jquery.ui.autocomplete.js"></script>
 	<script src="lib/jquery.hotkeys.js"></script>
     <script src="lib/jquery.querystring.js"></script>
     <script src="lib/yepnope.1.0.2-min.js"></script>
@@ -103,8 +112,23 @@
     <script src="scripts/blocks.js"></script>
     <script src="scripts/runtime.js"></script> <!-- Should this be moved to language? -->
     <script src="scripts/workspace.js"></script>
+    <script src="scripts/search.js"></script>
 	<script type="text/javascript" src="lib/jquery-ui-1.8.21.custom.min.js"></script>  
-
+<script>
+			/*Runs the categories in the search field.*/
+			$.widget("custom.catcomplete", $.ui.autocomplete, {
+				_renderMenu : function(ul, items) {
+					var self = this, currentCategory = "";
+					$.each(items, function(index, item) {
+						if (item.category != currentCategory) {
+							ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+							currentCategory = item.category;
+						}
+						self._renderItem(ul, item);
+					});
+				}
+			});
+		</script>
 	<script>
         var q = $.parseQuery();
         // Insert path of plugin to be loaded here
@@ -126,6 +150,9 @@
 				$("#accordion").accordion({collapsible: true, autoHeight: false});
 				$( "#radio" ).buttonset();
 				$("button").button();
+				$("#search").catcomplete({
+						source : window.blocknames,
+					});
 			});
         }
     </script>

@@ -122,7 +122,9 @@ src: url('fonts/trinigan-webfont.ttf'),
 	margin: 0;
 	padding: 0;
 	/*float: left;*/
-	font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;
+	font: 62.5% "Trebuchet MS", sans-serif;
+	margin: 0px;
+	margin-right: 7px;
 }
 
 .stage {
@@ -276,7 +278,12 @@ src: url('fonts/trinigan-webfont.ttf'),
     background-color: #854D53; /*This is a redish color*/
     margin-top: .5em;
 }
-
+/*Used in the field used to search for blocks.*/
+/*TODO really lopsided right now, needs to be fixed.*/
+.search-field{
+	font-size:15px;
+	margin-top:.25em;
+}
  /* This last one might be a bit contreversial but I think that users shouldn't 
  need to realize that the stage is just off to the right of the workspace. This
  will also make it easier for others to diable the stage with just a css rule*/
