@@ -304,26 +304,44 @@ window.show_workspace = function(){
     $('.workspace:visible .scripts_workspace').show();
 }
 
+	
+	this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
+	function menu(title, specs, show) {
+		var klass = title.toLowerCase();
+		var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo($("#accordion"));
+		var options = $('<div class="option"></div>').appendTo($('#accordion'));
 
-function menu(title, specs, show){ 
-    var klass = title.toLowerCase();
-    var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo($("#accordion"));
-    var options = $('<div class="option"></div>').appendTo($('#accordion'));
+		$.each(specs, function(idx, spec) {
+			if (spec !== undefined) {
+				spec.klass = klass;
+				var name = spec.label;
+				//changes the name to look "nicer"
+				while (name.indexOf('[') != -1) {
+					name = name.replace('[', '(');
+					name = name.replace(']', ')');
+				}
+				while (name.indexOf('#') != -1) {
+					name = name.replace('#', '');
+				}
+				options.append(Block(spec));
+				blocknames.push({
+					label : name,
+					category : spec.klass
+				});
+				nameMap[name] = Block(spec);
+				//nameMap is used inside search.js
+			}
+		});
+		/*if (show){
+		 select.addClass('selected');
+		 }else{
+		 options.hide();
+		 }*/
+		return;
+	}
 
-    $.each(specs, function(idx, spec){
-        if (spec !== undefined){
-            spec.klass = klass;
-            options.append(Block(spec));
-        }
-    });
-    /*if (show){
-        select.addClass('selected');
-    }else{
-        options.hide();
-    }*/
-    return;
-}
-window.menu = menu;
 
+	window.menu = menu;
+	window.blocknames = this.blocknames;
 })(jQuery);

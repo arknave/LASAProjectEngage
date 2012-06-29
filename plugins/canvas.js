@@ -112,18 +112,13 @@ window.choice_lists = {
         'backspace', 'tab', 'return', 'shift', 'ctrl', 'alt', 
         'pause', 'capslock', 'esc', 'space', 'pageup', 'pagedown', 
         'end', 'home', 'insert', 'del', 'numlock', 'scroll', 'meta']),
+	trig: ['sin', 'cos', 'tan'],
     unit: ['px', 'em', '%', 'pt'],
-    align: ['start', 'end', 'left', 'right', 'center'],
-    baseline: ['alphabetic', 'top', 'hanging', 'middle', 'ideographic', 'bottom'],
-    linecap: ['round', 'butt', 'square'],
-    linejoin: ['round', 'bevel', 'mitre'],
     arity: ['0', '1', '2', '3', 'array', 'object'],
     types: ['string', 'number', 'boolean', 'array', 'object', 'function', 'color', 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata', 'pixel', 'any'],
     rettypes: ['none', 'string', 'number', 'boolean', 'array', 'object', 'function', 'color', 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata','any'],
     easing: ['>', '<', '<>', 'backIn', 'backOut', 'bounce', 'elastic'],
-    fontweight: ['normal', 'bold', 'inherit'],
-    globalCompositeOperators: ['source-over', 'source-atop', 'source-in', 'source-out', 'destination-atop', 'destination-in', 'destination-out', 'destination-over', 'lighter', 'copy', 'xor'],
-    repetition: ['repeat', 'repeat-x', 'repeat-y', 'no-repeat']
+    fontweight: ['normal', 'bold', 'inherit']
 };
 
 // Hints for building blocks
@@ -641,6 +636,12 @@ var menus = {
         }
     ]),
     operators: menu('Math', [
+		{
+			label: '[choice:trig] of [number: ]',
+			'type': 'number',
+			script: "rad2deg(Math." + "{{1}}.substring" + "({{2}}))",
+			help: 'trig functions of the number'
+		},
         {
             label: '[number:0] + [number:0]', 
             'type': 'number', 
@@ -743,19 +744,31 @@ var menus = {
             script: 'Math.sqrt({{1}})',
             help: 'the square root is the same as taking the to the power of 1/2'
         },
+		{
+           label: 'ceiling of [number:10]', 
+           'type': 'number', 
+           script: 'Math.ceil({{1}})',
+           help: 'rounds up to nearest whole number'
+        },
+		{
+			label: 'floor of [number:]',
+			'type': 'number',
+			script: 'Math.floor({{1}})',
+			help: 'rounds down to the nearest whole number'
+		},
         {
             label: 'pi',
             script: 'Math.PI;',
             type: 'number',
             help: "pi is the ratio of a circle's circumference to its diameter"
-        },
+        }
     ]),
     canvas: menu('Drawing', [
-        {
-            label: 'clear rect [rect]', 
-            script: 'local.ctx.clearRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
-            help: 'clear...'
-        },
+		{
+			label: 'clear the stage',
+			script: "$('.clear_canvas').click(function(){$('.stage').replaceWith('<div class=\"stage\"></div>');});",
+			help: 'clears the stage, returning it to white'
+		},
         {
             label: 'fill circle at point [point] with radius [number:10]',
             script: 'local.ctx.beginPath();local.ctx.arc({{1}}.x,{{1}}.y,{{2}},0,Math.PI*2,true);local.ctx.closePath();local.ctx.fill();',
@@ -765,16 +778,6 @@ var menus = {
             label: 'stroke circle at point [point] with radius [number:10]',
             script: 'local.ctx.beginPath();local.ctx.arc({{1}}.x,{{1}}.y,{{2}},0,Math.PI*2,true);local.ctx.closePath();local.ctx.stroke();',
             help: 'circle...'
-        },
-        {
-            label: 'fill rect [rect]', 
-            script: 'local.ctx.fillRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
-            help: 'fill...'
-        },
-        {
-            label: 'stroke rect [rect]', 
-            script: 'local.ctx.strokeRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
-            help: 'stroke...'
         },
         // Path API
         {
@@ -791,11 +794,6 @@ var menus = {
             label: 'quadraditic curve to point [point] with control point [point]',
             script: 'local.ctx.quadraticCurveTo({{2}}.x, {{2}}.y, {{1}}.x, {{1}}.y);',
             help: 'quad curve to ...'
-        },
-        {
-            label: 'rect [rect]',
-            script: 'local.ctx.rect({{1}},{{1}},{{1}},{{1}});',
-            help: 'rect...'
         },
         {
             label: 'circle at point [point] with radius [number:10]',
@@ -839,22 +837,6 @@ var menus = {
             label: 'text [string] width',
             script: 'local.ctx.measureText({{1}}).width',
             type: 'number'
-        },
-        // Pixel Manipulation
-        {
-            label: 'get imageData## for rect [rect]',
-            script: 'local.imageData## = local.ctx.getImageData({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
-            returns: {
-                label: 'imageData##',
-                script: 'local.imageData##',
-                type: 'imagedata'
-            },
-            help: 'returns the image data from the specified rectangle'
-        },
-        {
-            label: 'draw a rect [rect] from imageData [imagedata] at point [point]',
-            script: 'local.ctx.putImageData({{2}},{{3}}.x,{{3}}.y,{{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
-            help: 'draw the given image data into the canvas from the given rect to the given position'
         },
         // Compositing
         {
@@ -958,6 +940,42 @@ var menus = {
             label: 'rect [rect] height',
             script: '{{1}}.h',
             type: 'number'
+        },
+		{
+			label: 'clear rect [rect]', 
+			script: 'local.ctx.clearRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
+			help: 'clear...'
+        },
+        {
+            label: 'fill rect [rect]', 
+            script: 'local.ctx.fillRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
+            help: 'fill...'
+        },
+        {
+            label: 'stroke rect [rect]', 
+            script: 'local.ctx.strokeRect({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
+            help: 'stroke...'
+        },
+        {
+            label: 'rect [rect]',
+            script: 'local.ctx.rect({{1}},{{1}},{{1}},{{1}});',
+            help: 'rect...'
+        },
+        // Pixel Manipulation
+        {
+            label: 'get imageData## for rect [rect]',
+            script: 'local.imageData## = local.ctx.getImageData({{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
+            returns: {
+                label: 'imageData##',
+                script: 'local.imageData##',
+                type: 'imagedata'
+            },
+            help: 'returns the image data from the specified rectangle'
+        },
+        {
+            label: 'draw a rect [rect] from imageData [imagedata] at point [point]',
+            script: 'local.ctx.putImageData({{2}},{{3}}.x,{{3}}.y,{{1}}.x,{{1}}.y,{{1}}.w,{{1}}.h);',
+            help: 'draw the given image data into the canvas from the given rect to the given position'
         }
     ]),
     video: menu('Video', [
