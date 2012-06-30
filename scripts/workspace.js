@@ -77,13 +77,13 @@ function restore_from_export(){
     reset_and_close_restore_dialog();
     $('#exp h2').html('Paste Exported Code below');
     $('#exp small').html('Paste Exported Code below');
-    $('#exp').bPopup();
+    $('#exp').dialog("open");
 
 	$('#exp .done').click(function(){
 		$('#exp .done').unbind('click');
 		var script = $('#exp textarea').val();
 		console.log(script);
-		$('#exp').bPopup().close();
+		$('#exp').dialog("close");
 		clear_scripts();
 
 		var ps = JSON.parse(script);
@@ -115,7 +115,7 @@ function populate_and_show_restore_dialog(){
         script_li.data('scripts', script_obj.scripts); // avoid re-parsing later
         list.append(script_li);
     }
-    $('#restore_dialog').bPopup();
+    $('#restore_dialog').dialog("open");
 }
 
 var allDemos = {};
@@ -126,9 +126,9 @@ function populate_demos_dialog(demos){
     $.each(demos, function(){
         allDemos[this.title] = this.scripts;
         if (this.description){
-            script_li = $('<li><span class="title">' + this.title + '</span><button class="load action">Load</button><button class="show_description action">Description</button><p class="description hidden">' + this.description + '<p></li>');
+            script_li = $('<li><span class="title">' + this.title + ' </span><button class="load action">Load</button><button class="show_description action">Description</button><p class="description hidden">' + this.description + '<p></li>');
         }else{
-            script_li = $('<li><span class="title">' + this.title + '</span><button class="load action">Load</button></li>');
+            script_li = $('<li><span class="title">' + this.title + ' </span><button class="load action">Load</button></li>');
         }
         script_li.data('scripts', this.scripts); // avoid re-parsing later
         list.append(script_li);
@@ -146,7 +146,7 @@ function restore_named_scripts(event){
 function restore_demo_scripts(event){
     clear_scripts();
     load_scripts_from_object($(this).closest('li').data('scripts'));
-    $('#demos_dialog').bPopup().close();
+    $('#demos_dialog').dialog("close");
 }
 function restore_demo_by_name(name){
     clear_scripts();
@@ -179,7 +179,6 @@ $('#restore_dialog').delegate('.restore', 'click', restore_named_scripts)
                     
 $('#demos_dialog').delegate('.load', 'click', restore_demo_scripts)
                   .delegate('.show_description', 'click', toggle_description);
-$('#demos_dialog .cancel').click(function(){$('#demos_dialog').bPopup().close();});
 //$('.demo_scripts').click(function(){$('#demos_dialog').bPopup();});
 $('.demo_scripts').click(function(){$('#demos_dialog').dialog("open");});
 

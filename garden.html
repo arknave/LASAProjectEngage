@@ -258,9 +258,9 @@
 						value = localStorage[key];
 						script_obj = JSON.parse(value);
 						if (script_obj.description){
-							script_li = $('<li><span class="title">' + script_obj.title + '</span><button class="restore action">Restore</button><button class="delete action">Delete</button><button class="show_description action">Description</button><br /><span class="timestamp">Saved on ' + new Date(script_obj.date).toDateString() + '</span><p class="description hidden">' + script_obj.description + '<p></li>');
+							script_li = $('<li><span class="title">' + script_obj.title + ' </span><button class="restore action">Restore</button><button class="delete action">Delete</button><button class="show_description action">Description</button><br /><span class="timestamp">Saved on ' + new Date(script_obj.date).toDateString() + '</span><p class="description hidden">' + script_obj.description + '<p></li>');
 						}else{
-							script_li = $('<li><span class="title">' + script_obj.title + '</span><button class="restore action">Restore</button><button class="delete action">Delete</button><br /><span class="timestamp">Saved on ' + new Date(script_obj.date).toDateString() + '</span></li>');
+							script_li = $('<li><span class="title">' + script_obj.title + ' </span><button class="restore action">Restore</button><button class="delete action">Delete</button><br /><span class="timestamp">Saved on ' + new Date(script_obj.date).toDateString() + '</span></li>');
 						}
 						script_li.data('scripts', script_obj.scripts); // avoid re-parsing later
 						list.append(script_li);
@@ -323,6 +323,15 @@
 					width: 450,
 					modal: true,
 					resizable: false,
+					buttons: [
+					{
+						text: "Cancel",
+						"class": "dialogbutton",
+						click: function() {
+							$(this).dialog("close");
+						}
+					}
+					]
 				});
 				
 				//Export Dialog
