@@ -16,17 +16,8 @@ ol,ul {
 caption,th {
     text-align:left;
 }
-
-textarea {
-	width: 95%;
-	resize: none;
-}
-input{
-	margin-left: 8px;
-	width: 93%;
-}
-	 
 h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
     font-weight:normal;
 }
 q:before,q:after {
@@ -44,7 +35,6 @@ html, body {
 
 body {
     background-color: #888;
-	font-size: 62.5%
 }
 
 @font-face
@@ -69,8 +59,6 @@ src: url('fonts/trinigan-webfont.ttf'),
 	margin-top: 1px;
 	color: black;
 }
-::-webkit-input-placeholder  { color:#AAA; font-style: italic;}
-:-moz-placeholder { color:#AAA; font-style: italic;}
 
 .content{
     position: relative;
@@ -80,7 +68,7 @@ src: url('fonts/trinigan-webfont.ttf'),
 
 .tab_bar button, .tab_bar2 button{
     float: right;
-	font: "Trebuchet MS", sans-serif;
+	font: 72.5% "Trebuchet MS", sans-serif;
 }
 
 .workspace {
@@ -109,10 +97,6 @@ src: url('fonts/trinigan-webfont.ttf'),
     display: block;
 }
 
-.scripts_text_view {
-	font-size: 1.5em;
-}
-
 .drop_cursor {
     height: 1px;
     border-bottom: 1px solid #CCC;
@@ -139,10 +123,8 @@ src: url('fonts/trinigan-webfont.ttf'),
 	padding: 0;
 	/*float: left;*/
 	font: 62.5% "Trebuchet MS", sans-serif;
-	/*font: "Trebuchet MS", sans-serif; margin: 50px;*/
 	margin: 0px;
 	margin-right: 7px;
->>>>>>> jquery-dialog
 }
 
 .stage {
@@ -156,7 +138,7 @@ src: url('fonts/trinigan-webfont.ttf'),
 }
 
 #accordion{ 
-	font: "Trebuchet MS", sans-serif;
+	font: 72.5% "Trebuchet MS", sans-serif;
 	position: absolute;
     width: 14.5%;
     height: 90%;
@@ -212,33 +194,12 @@ src: url('fonts/trinigan-webfont.ttf'),
     font-size: .8em;
     color: #515151;
 }
-
-.dialog input{
-	display: block;
-	margin-bottom:12px;
-	padding: .4em;
+/* This function isn't really needed with the left align system. */
+.layout_blocks{
+    display: none;
 }
 
-.dialog {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.dialog fieldset {
-	padding:0;
-	border:0;
-	margin-top:5px;
-	text-align: center;
-}
-
-.dialog h2 {
-	font-size: 1.2em;
-	margin: .6em 0;
-}
-.ui-dialog .ui-state-error { padding: .3em; }
-.dialog .validateTips { border: 1px solid transparent; padding: 0.3em; }
-
-/* Save/Restore Dialogs 
+/* Save/Restore Dialogs */
 
 .dialog{
     background-color: #CCC;
@@ -314,18 +275,15 @@ src: url('fonts/trinigan-webfont.ttf'),
 }
 
 .dialog button.delete, button.cancel {
-    background-color: #854D53; /*This is a redish color
+    background-color: #854D53; /*This is a redish color*/
     margin-top: .5em;
-
-}*/
-
+}
 /*Used in the field used to search for blocks.*/
 /*TODO really lopsided right now, needs to be fixed.*/
 .search-field{
 	font-size:15px;
 	margin-top:.25em;
 }
-
  /* This last one might be a bit contreversial but I think that users shouldn't 
  need to realize that the stage is just off to the right of the workspace. This
  will also make it easier for others to diable the stage with just a css rule*/

@@ -2,6 +2,20 @@
 
 // UI Chrome Section
 
+function accordion(event){
+    // console.log('accordion');
+    var self = $(this);
+    if (self.hasClass('selected')){
+        self.removeClass('selected').siblings('.option').slideUp('slow');
+        return;
+    }
+    $('.select.selected').removeClass('selected').siblings('.option').slideUp('slow');
+    self.addClass('selected').siblings('.option').slideDown('slow');
+    $('#block_menu').trigger('open', self);
+}
+$('#block_menu').delegate('.select', 'click', accordion);
+
+
 function test_block(block){
     var name = block.data('klass') + ': ' + block.data('label');
     try{
@@ -43,15 +57,29 @@ function clear_scripts(event, force){
         $('.stage').replaceWith('<div class="stage"></div>');
     }
 }
-
 $('.clear_scripts').click(clear_scripts);
 $('.goto_script').click(function(){$('#accordion')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
 $('.clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
-
 // Load and Save Section
 
-/*
+function scripts_as_object(){
+    var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
+    if (blocks.length){
+        return blocks.map(function(){return $(this).block_description();}).get();
+    }else{
+        return [];
+    }   
+}
+
+function save_current_scripts(){
+    show_workspace();
+    $('#accordion')[0].scrollIntoView();
+    localStorage['__current_scripts'] = JSON.stringify(scripts_as_object());
+}
+$(window).unload(save_current_scripts);
+
+
 function save_named_scripts(){
     var title = $('#script_name').val();
     var description = $('#script_description').val();
@@ -68,35 +96,69 @@ function save_named_scripts(){
             date: date,
             scripts: scripts_as_object()
         });
-        $("#save_block").dialog("close");
+        reset_and_close_save_dialog();
     }else   
         alert("You must enter a name");
-}*/
+}
+
+function export_named_scripts(){
+    console.log("here");
+    $('#exp h2').html('Exported Code');
+    $('#exp small').html('Copy Exported Code below');   
+    var title = $('#script_name').val();    
+    var description = $('#script_description').val();
+    var date = Date.now();
+    if (title){
+    var exp = JSON.stringify({
+        title: title,
+        description: description,
+        date: date,
+        scripts: scripts_as_object()
+    });
+    console.log("EXP: "+exp);
+    reset_and_close_save_dialog();
+    $('#exp').bPopup();
+    $('#exp textarea').html(exp);
+    $('#exp .done').bind('click',function(){
+        $('#exp').bPopup().close();
+        $('#exp .done').unbind('click');
+    });
+    }
+    else
+    alert("You must enter a name");
+}
     
 function restore_from_export(){
     reset_and_close_restore_dialog();
     $('#exp h2').html('Paste Exported Code below');
     $('#exp small').html('Paste Exported Code below');
-    $('#exp').dialog("open");
+    $('#exp').bPopup();
 
-	$('#exp .done').click(function(){
-		$('#exp .done').unbind('click');
-		var script = $('#exp textarea').val();
-		console.log(script);
-		$('#exp').dialog("close");
-		clear_scripts();
+    $('#exp .done').click(function(){
+    $('#exp .done').unbind('click');
+    var script = $('#exp textarea').val();
+    console.log(script);
+    $('#exp').bPopup().close();
+    clear_scripts();
 
-		var ps = JSON.parse(script);
-		console.log(ps.scripts);
+    var ps = JSON.parse(script);
+    console.log(ps.scripts);
 
-		load_scripts_from_object(ps.scripts);   
+    load_scripts_from_object(ps.scripts);   
     }); 
 }
-/*
+
+
+function reset_and_close_save_dialog(){
+    $('#script_name').val('');
+    $('#script_description').val('');
+    $('#save_dialog').bPopup().close();
+}
+
 function reset_and_close_restore_dialog(){
     $('#script_list').empty();
     $('#restore_dialog').bPopup().close();
-}*/
+}
 
 function populate_and_show_restore_dialog(){
     var list = $('#script_list');
@@ -115,7 +177,7 @@ function populate_and_show_restore_dialog(){
         script_li.data('scripts', script_obj.scripts); // avoid re-parsing later
         list.append(script_li);
     }
-    $('#restore_dialog').dialog("open");
+    $('#restore_dialog').bPopup();
 }
 
 var allDemos = {};
@@ -126,9 +188,9 @@ function populate_demos_dialog(demos){
     $.each(demos, function(){
         allDemos[this.title] = this.scripts;
         if (this.description){
-            script_li = $('<li><span class="title">' + this.title + ' </span><button class="load action">Load</button><button class="show_description action">Description</button><p class="description hidden">' + this.description + '<p></li>');
+            script_li = $('<li><span class="title">' + this.title + '</span><button class="load action">Load</button><button class="show_description action">Description</button><p class="description hidden">' + this.description + '<p></li>');
         }else{
-            script_li = $('<li><span class="title">' + this.title + ' </span><button class="load action">Load</button></li>');
+            script_li = $('<li><span class="title">' + this.title + '</span><button class="load action">Load</button></li>');
         }
         script_li.data('scripts', this.scripts); // avoid re-parsing later
         list.append(script_li);
@@ -136,17 +198,17 @@ function populate_demos_dialog(demos){
 }
 
 window.populate_demos_dialog = populate_demos_dialog; // expose this as a public method
-/*
+
 function restore_named_scripts(event){
     clear_scripts();
     load_scripts_from_object($(this).closest('li').data('scripts'));
     reset_and_close_restore_dialog();
-}*/
+}
 
 function restore_demo_scripts(event){
     clear_scripts();
     load_scripts_from_object($(this).closest('li').data('scripts'));
-    $('#demos_dialog').dialog("close");
+    $('#demos_dialog').bPopup().close();
 }
 function restore_demo_by_name(name){
     clear_scripts();
@@ -167,18 +229,22 @@ function toggle_description(event){
     $(this).siblings('.description').toggleClass('hidden');
 }
 
-$('.save_scripts').click(function(){$('#save_dialog').dialog("open");});
+$('#save_dialog .save').click(save_named_scripts);
+$('#save_dialog .export').click(export_named_scripts);
+$('#save_dialog .cancel').click(reset_and_close_save_dialog);
+$('.save_scripts').click(function(){$('#save_dialog').bPopup();});
 
-$('.restore_scripts').click(function(){$('#restore_dialog').dialog("open");});
-/*$('#restore_dialog .cancel').click(reset_and_close_restore_dialog);
+$('.restore_scripts').click( populate_and_show_restore_dialog );
+$('#restore_dialog .cancel').click(reset_and_close_restore_dialog);
 $('#restore_dialog .exp').click(restore_from_export);
 $('#restore_dialog').delegate('.restore', 'click', restore_named_scripts)
                     .delegate('.show_description', 'click', toggle_description)
                     .delegate('.delete', 'click', delete_named_scripts);
-*/
                     
 $('#demos_dialog').delegate('.load', 'click', restore_demo_scripts)
                   .delegate('.show_description', 'click', toggle_description);
+$('#demos_dialog .cancel').click(function(){$('#demos_dialog').bPopup().close();});
+$('.demo_scripts').click(function(){$('#demos_dialog').bPopup();});
 //$('.layout_blocks').click(layout_blocks);
 
 function layout_blocks(){
@@ -188,8 +254,6 @@ function layout_blocks(){
         $(this).css({position:'absolute', left: stagger, top: stagger});
     });
 }
-//$('.demo_scripts').click(function(){$('#demos_dialog').bPopup();});
-$('.demo_scripts').click(function(){$('#demos_dialog').dialog("open");});
 
 function load_scripts_from_object(blocks){
     var workspace = $('.workspace:visible .scripts_workspace');
@@ -241,62 +305,43 @@ window.show_workspace = function(){
 }
 
 	
-this.blocknames = new Array();
+	this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
-function menu(title, specs, show) {
-	var klass = title.toLowerCase();
-	var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo($("#accordion"));
-	var options = $('<div class="option"></div>').appendTo($('#accordion'));
-	$.each(specs, function(idx, spec) {
-		if (spec !== undefined) {
-			spec.klass = klass;
-			var name = spec.label;
-			//changes the name to look "nicer"
-			while (name.indexOf('[') != -1) {
-				name = name.replace('[', '(');
-				name = name.replace(']', ')');
+	function menu(title, specs, show) {
+		var klass = title.toLowerCase();
+		var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo($("#accordion"));
+		var options = $('<div class="option"></div>').appendTo($('#accordion'));
+
+		$.each(specs, function(idx, spec) {
+			if (spec !== undefined) {
+				spec.klass = klass;
+				var name = spec.label;
+				//changes the name to look "nicer"
+				while (name.indexOf('[') != -1) {
+					name = name.replace('[', '(');
+					name = name.replace(']', ')');
+				}
+				while (name.indexOf('#') != -1) {
+					name = name.replace('#', '');
+				}
+				options.append(Block(spec));
+				blocknames.push({
+					label : name,
+					category : spec.klass
+				});
+				nameMap[name] = Block(spec);
+				//nameMap is used inside search.js
 			}
-			while (name.indexOf('#') != -1) {
-				name = name.replace('#', '');
-			}
-			options.append(Block(spec));
-			blocknames.push({
-				label : name,
-				category : spec.klass
-			});
-			nameMap[name] = Block(spec);
-			/nameMap is used inside search.js
-		}
-	});
-	/*if (show){
-	 select.addClass('selected');
-	 }else{
-	 options.hide();
-	 }*/
-	return;
-}
+		});
+		/*if (show){
+		 select.addClass('selected');
+		 }else{
+		 options.hide();
+		 }*/
+		return;
+	}
 
-function menu(title, specs, show){ 
-    var klass = title.toLowerCase();
-	var body = $('<section class="submenu"></section>');
-    var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo(body);
-    var options = $('<div class="option"></div>').appendTo(body);
 
-    $.each(specs, function(idx, spec){
-        if (spec !== undefined){
-            spec.klass = klass;
-            options.append(Block(spec));
-        }
-    });
-	$("#accordion").append(body);
-    /*if (show){
-        select.addClass('selected');
-    }else{
-        options.hide();
-    }*/
-    return body;
-}
-
-window.menu = menu;
-window.blocknames = this.blocknames;
+	window.menu = menu;
+	window.blocknames = this.blocknames;
 })(jQuery);
