@@ -74,8 +74,9 @@ function save_named_scripts(){
 }*/
     
 function restore_from_export(){
-    reset_and_close_restore_dialog();
-    $('#exp h2').html('Paste Exported Code below');
+    //reset_and_close_restore_dialog();
+    $(this).dialog("close");
+	$('#exp h2').html('Paste Exported Code below');
     $('#exp small').html('Paste Exported Code below');
     $('#exp').dialog("open");
 
