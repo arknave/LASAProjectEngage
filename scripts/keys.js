@@ -5,7 +5,6 @@
 var keys = Array();
 $(document).keydown(function(e) {
 	keys[e.keyCode] = true;
-	console.log(keys);
 	check();
 });
 $(document).keyup(function(e) {
@@ -18,7 +17,6 @@ function check() {
 		$('#accordion')[0].scrollIntoView();
 	if (keys[ENTER])
 		$('#search_enter').click();
-
 }
 
 var BACKSPACE = 8;
