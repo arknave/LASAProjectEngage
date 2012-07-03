@@ -580,13 +580,13 @@ var menus = {
         {
             label: 'mouse x', 
             'type': 'number', 
-            script: 'global.mouse_x',
+            script: 'mouse_x',
             help: 'The current horizontal mouse position'
         },
         {
             label: 'mouse y', 
             'type': 'number', 
-            script: 'global.mouse_y',
+            script: 'mouse_y',
             help: 'the current vertical mouse position'
         },
         {
@@ -774,7 +774,7 @@ var menus = {
     canvas: menu('Drawing', [
 		{
 			label: 'clear the stage',
-			script: "$('.clear_canvas').click(function(){$('.stage').replaceWith('<div class=\"stage\"></div>');});",
+			script: "local.ctx.clearRect ( 0 , 0 , global.stage_width , global.stage_height );",
 			help: 'clears the stage, returning it to white'
 		},
         {

@@ -2,8 +2,9 @@
 // Also provide a runtime environment for the block script
 
 var DEGREE = Math.PI / 180;
-
-function Local(){
+var mouse_x = 0;
+var mouse_y = 0;
+function Local() {
     this.shape = null;
     this.shape_references = {};
     this.array_references = {};
@@ -15,11 +16,11 @@ function Local(){
     this.variables = {};
 };
 
-Local.prototype.set = function(type, name, value){
-    if (this[type] === undefined){
+Local.prototype.set = function(type, name, value) {
+    if (this[type] === undefined) {
         this[type] = {};
     }
-    if (this[type][name] !== undefined){
+    if (this[type][name] !== undefined) {
         console.log('Warning: overwriting %s named %s', type, name);
     }
     this[type][name] = value;
@@ -27,12 +28,12 @@ Local.prototype.set = function(type, name, value){
     return this;
 };
 
-Local.prototype.get = function(type, name){
-    if (this[type] === undefined){
+Local.prototype.get = function(type, name) {
+    if (this[type] === undefined) {
         console.log('Cannot remove %s from unknown type %s', name, type);
         return undefined;
     }
-    if (this[type][name] === undefined){
+    if (this[type][name] === undefined) {
         console.log('No %s named %s to remove', type, name);
         return undefined;
     }
@@ -40,12 +41,12 @@ Local.prototype.get = function(type, name){
 };
 
 // delete is a reserved word in IE, so this was renamed to del
-Local.prototype.del = function(type, name){
-    if (this[type] === undefined){
+Local.prototype.del = function(type, name) {
+    if (this[type] === undefined) {
         console.log('Cannot remove %s from unknown type %s', name, type);
         return undefined;
     }
-    if (this[type][name] === undefined){
+    if (this[type][name] === undefined) {
         console.log('No %s named %s to remove', type, name);
         return undefined;
     }
@@ -54,7 +55,7 @@ Local.prototype.del = function(type, name){
     return value;
 };
 
-function Global(){
+function Global() {
     this.timer = new Timer();
     this.subscribe_mouse_events();
     var stage = $('.stage');
@@ -67,69 +68,80 @@ function Global(){
     this.mouse_down = false;
 };
 
-Global.prototype.subscribe_mouse_events = function(){
+Global.prototype.subscribe_mouse_events = function() {
     var self = this;
-    $('.stage').mousedown(function(evt){self.mouse_down = true;})
-               .mousemove(function(evt){self.mouse_x = evt.offset_x;
-                                        self.mouse_y = evt.offset_y;});
-    $(document.body).mouseup(function(evt){self.mouse_down = false;});
+    $('.stage').mousedown(function(evt) {
+        self.mouse_down = true;
+    }).mousemove(function(evt) {
+        self.mouse_x = evt.offset_x;
+        self.mouse_y = evt.offset_y;
+    });
+    $(document.body).mouseup(function(evt) {
+        self.mouse_down = false;
+    });
 };
 
 // Timer utility
 
-function Timer(){
+function Timer() {
     this.time = 0;
     this.start_time = new Date().getTime();
     this.update_time();
 }
 
-Timer.prototype.update_time = function(){
+Timer.prototype.update_time = function() {
     var self = this;
     this.time = Math.round(new Date().getTime() - this.start_time);
-    setTimeout(function(){self.update_time()}, 1000);
+    setTimeout(function() {
+        self.update_time()
+    }, 1000);
 };
 
-Timer.prototype.reset = function(){
+Timer.prototype.reset = function() {
     this.start_time = Date.now();
     this.time = 0;
 };
 
-Timer.prototype.value = function(){
+Timer.prototype.value = function() {
     return this.time;
 };
 
+$(document).mousemove(function(e) { //wasnt really sure where to put this, might move it to keys.
+    mouse_x = e.pageX;
+    mouse_y = e.pageY;
+});
 // Utility methods
-function rad2deg(rad){
+function rad2deg(rad) {
     return rad / DEGREE;
 }
 
-function deg2rad(deg){
+function deg2rad(deg) {
     return deg * DEGREE;
 }
 
-function range(start, end, step){
+function range(start, end, step) {
     var rg = [];
-    if (end === undefined){
+    if (end === undefined) {
         end = start;
         start = 0;
     }
-    if (step === undefined){
+    if (step === undefined) {
         step = 1;
     }
-    var i,val;
+    var i, val;
     len = end - start;
-    for (i = 0; i < len; i++){
+    for ( i = 0; i < len; i++) {
         val = i * step + start;
-        if (val > (end-1)) break;
+        if (val > (end - 1))
+            break;
         rg.push(val);
     }
     return rg;
 }
 
-
-function randint(start, stop){
+function randint(start, stop) {
     // return an integer between start and stop, inclusive
-    if (stop === undefined){
+    if (stop === undefined) {
         stop = start;
         start = 0;
     }
@@ -137,9 +149,10 @@ function randint(start, stop){
     return Math.floor(Math.random() * factor) + start;
 }
 
-function angle(shape){
+function angle(shape) {
     // return the angle of rotation
     var tform = shape.rotate();
-    if (tform === 0) return tform;
+    if (tform === 0)
+        return tform;
     return parseInt(tform.split(/\s+/)[0], 10);
 }
