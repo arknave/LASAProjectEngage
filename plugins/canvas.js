@@ -23,7 +23,9 @@ jQuery.fn.extend({
   extract_script: function(){
       if (this.length === 0) return '';
       if (this.is(':input')){
-          if (this.parent().is('.string')){
+		  if (this.parent().is('.trig')){
+		      return this.val();
+          }else if (this.parent().is('.string')){
               return '"' + this.val() + '"';
           }else{
               return this.val();
@@ -639,8 +641,14 @@ var menus = {
 		{
 			label: '[choice:trig] of [number: ]',
 			'type': 'number',
-			script: "rad2deg(Math." + "{{1}}.substring" + "({{2}}))",
+			script: "Math.{{1}}(deg2rad({{2}}))",
 			help: 'trig functions of the number'
+		},
+		{
+			label: ' inverse [choice:trig] of [number: ]',
+			'type': 'number',
+			script: "rad2deg(Math.a{{1}}({{2}}))",
+			help: 'inverse trig functions of the number'
 		},
         {
             label: '[number:0] + [number:0]', 
