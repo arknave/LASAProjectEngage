@@ -41,6 +41,9 @@
     // TODO: update this whenever we switch to a new workspace
     var target_canvas = $('.workspace:visible .scripts_workspace');
 	var snap_dist = 25; //this is pixels
+	var SCROLL_HIT_TOP = 100;
+    var SCROLL_HIT_BOTTOM = 100;
+    var SCROLL_SPEED = 100;
     
     function reset(){
         drag_target = null;
@@ -189,6 +192,12 @@
         var curr_pos = drag_target.offset();
         drag_target.offset({left: curr_pos.left + dX, top: curr_pos.top + dY});
         current_position = next_position;
+		// TODO: Add scrolling if dragging off of workspace:
+		console.log(current_position.left + "," + current_position.top);
+        if(current_position.top<SCROLL_HIT_TOP)
+        $('.workspace').scrollTo('-='+(SCROLL_SPEED)+'px', 0);
+        if(current_position.top>$(window).height()-SCROLL_HIT_BOTTOM)
+        $('.workspace').scrollTo('+='+SCROLL_SPEED+'px', 0);
         return false;
     }
     
