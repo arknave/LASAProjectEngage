@@ -16,6 +16,14 @@ ol, ul {
 caption, th {
 	text-align: left;
 }
+textarea {
+	width: 95%;
+	resize: none
+}
+input {
+	width:93%;
+	margin-left: 10px;
+}
 h1, h2, h3, h4, h5, h6 {
 	font-size: 100%;
 	font-weight: normal;
@@ -80,9 +88,6 @@ body {
 	overflow-y: auto;
 }
 
-.ui-button-text {
-	color: #000000;
-}
 .scripts_workspace, .scripts_text_view {
 	min-width: 50%;
 	min-height: 100%;
