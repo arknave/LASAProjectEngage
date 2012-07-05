@@ -90,7 +90,7 @@
     }
     
     function step_targets(){
-        return target_canvas.find('.slot:only-child');
+        return target_canvas.find('.slot');
     }
     
     function socket_targets(type){
