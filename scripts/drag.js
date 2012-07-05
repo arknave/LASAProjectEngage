@@ -148,7 +148,7 @@
         // set last offset
         // TODO: handle detach better
         if (drag_target.parent().is('.socket')){////////look at this if statement
-			 /*var classes = drag_target.parent().attr('class');
+			 var classes = drag_target.parent().attr('class');
 
             classes = classes.replace("socket","").trim();
             // console.log(classes);
@@ -159,7 +159,7 @@
                     classes = '\"text\"';
                 }
                 drag_target.parent().append('<input type="'+classes+'"/>');
-            }*/
+            }
 			drag_target.parent().append('<input />');
         }
         drag_target.css('position', 'absolute');
