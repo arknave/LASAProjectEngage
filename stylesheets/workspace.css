@@ -1,57 +1,54 @@
 /* YUI Reset, adapted */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
-    margin:0;
-    padding:0;
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
 }
-img { 
-    border:0;
+img {
+	border: 0;
 }
-caption,cite,code,em,strong,th {
-    font-style:normal;
-    font-weight:normal;
+caption, cite, code, em, strong, th {
+	font-style: normal;
+	font-weight: normal;
 }
-ol,ul {
-    list-style:none;
+ol, ul {
+	list-style: none;
 }
-caption,th {
-    text-align:left;
+caption, th {
+	text-align: left;
 }
-h1,h2,h3,h4,h5,h6 {
-    font-size:100%;
-    font-weight:normal;
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
 }
-q:before,q:after {
-    content:'';
+q:before, q:after {
+	content: '';
 }
-abbr,acronym { 
-    border:0;
+abbr, acronym {
+	border: 0;
 }
- 
+
 /* Scratch Layout Styles */
 
 html, body {
-    height: 100%;
+	height: 100%;
 }
 
 body {
-    background-color: #888;
+	background-color: #888;
 }
 
-@font-face
-{
-font-family: TriniganFGRegular;
-src: url('fonts/trinigan-webfont.ttf'),
-     url('fonts/trinigan-webfont.woff'),
-	 url('fonts/trinigan-webfont.eot');
+@font-face {
+	font-family: TriniganFGRegular;
+	src: url('fonts/trinigan-webfont.ttf'), url('fonts/trinigan-webfont.woff'), url('fonts/trinigan-webfont.eot');
 }
 
-#bearPic{
+#bearPic {
 	position: absolute;
 	margin-top: 3px;
 	margin-left: 10px;
 }
 
-#logo{
+#logo {
 	position: absolute;
 	font-size: 220%;
 	font-family: 'TriniganFGRegular';
@@ -60,65 +57,69 @@ src: url('fonts/trinigan-webfont.ttf'),
 	color: black;
 }
 
-.content{
-    position: relative;
-    width: 200%;
-    height: 100%;
+.content {
+	position: relative;
+	width: 200%;
+	height: 100%;
 }
 
-.tab_bar button, .tab_bar2 button{
-    float: right;
+.tab_bar button, .tab_bar2 button {
+	float: right;
 	font: 72.5% "Trebuchet MS", sans-serif;
 }
 
 .workspace {
-    position: absolute;
-    left: 15%;
-    bottom: 0px;
-    width: 34.8%;
-    height: 93.5%;
-    background-color: #CCC;
-    border: 1px solid #111;
-    overflow-x: auto;
-    overflow-y: auto; 
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	position: absolute;
+	left: 15%;
+	bottom: 5px;
+	width: 34.8%;
+	height: 92.7%;
+	background-color: #FFFFFF;
+	background-image:url('bgdesert.jpg');
+	border: 1px solid #111;
+	overflow-x: auto;
+	overflow-y: auto;
 }
 
 .scripts_workspace, .scripts_text_view {
-    min-width: 50%;
-    min-height: 100%;
-    position: relative;
-    display: none;
-    padding: 15px;
-    padding-top: 30px;
-    padding-bottom: 60px;
+	min-width: 50%;
+	min-height: 100%;
+	position: relative;
+	display: none;
+	padding: 15px;
+	padding-top: 30px;
+	padding-bottom: 60px;
 }
 
 .scripts_workspace {
-    display: block;
+	display: block;
 }
 
 .drop_cursor {
-    height: 1px;
-    border-bottom: 1px solid #CCC;
+	height: 1px;
+	border-bottom: 1px solid #CCC;
 }
 
-.tab_bar{
-    position: absolute;
-    left: 15%;
-    top: 6px;
-    width: 34.8%;
-    z-index: 15;
+.tab_bar {
+	position: absolute;
+	left: 15%;
+	top: 6px;
+	width: 34.8%;
+	z-index: 15;
 }
 
-.tab_bar2{
-    position: absolute;
-    right: -0.1%;
-    top: 30px;
-    width: 50%;
-    z-index: 15;
+.tab_bar2 {
+	position: absolute;
+	right: -0.1%;
+	top: 30px;
+	width: 50%;
+	z-index: 15;
 }
 
-#radio{
+#radio {
 	margin: 0;
 	padding: 0;
 	/*float: left;*/
@@ -128,171 +129,171 @@ src: url('fonts/trinigan-webfont.ttf'),
 }
 
 .stage {
-    position: absolute;
-    height: 95%;
-    right: 0px;
-    width: 49.8%;
-    /*bottom: -20px;*/
-    background-color: #FFF;
-    border: 1px solid #CCC;
+	position: absolute;
+	height: 95%;
+	right: 0px;
+	width: 49.8%;
+	/*bottom: -20px;*/
+	background-color: #FFF;
+	border: 1px solid #CCC;
 }
 
-#accordion{ 
+#accordion {
 	font: 72.5% "Trebuchet MS", sans-serif;
 	position: absolute;
-    width: 14.5%;
-    height: 90%;
-    left: 0px;
+	width: 14.5%;
+	height: 90%;
+	left: 0px;
 	top: 0px;
-    overflow: auto;
+	overflow: auto;
 	margin-top: 43px;
 	margin-left: 5px;
 }
-#accordion div{
+#accordion div {
 	overflow: hidden;
 }
-#accordion *{
+#accordion * {
 	text-decoration: none;
 }
-#accordion div p a:hover{
+#accordion div p a:hover {
 	color: #CC5500;
 	text-decoration: underline;
 }
-.option{
-    position: relative;
-    overflow: hidden;
-    padding: 15px;
+.option {
+	position: relative;
+	overflow: hidden;
+	padding: 15px;
 }
 
 .option input {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .submenu .wrapper {
-    margin-bottom: 20px;
-    margin-right: 35px;
-    float: left;
+	margin-bottom: 20px;
+	margin-right: 35px;
+	float: left;
 }
 
-.hidden{
-    display: none;
+.hidden {
+	display: none;
 }
 
-#color_popup{
-    background-color: green;
-    padding: 5px 10px 15px 10px;
+#color_popup {
+	background-color: green;
+	padding: 5px 10px 15px 10px;
 }
 
-#color_contents{
-    width: 300px;
-    height: 300px;
-    background-color: blue;
+#color_contents {
+	width: 300px;
+	height: 300px;
+	background-color: blue;
 }
 
 /*Description of saves*/
-.description{
-    font-size: .8em;
-    color: #515151;
+.description {
+	font-size: .8em;
+	color: #515151;
 }
 /* This function isn't really needed with the left align system. */
-.layout_blocks{
-    display: none;
+.layout_blocks {
+	display: none;
 }
 
 /* Save/Restore Dialogs */
 
-.dialog{
-    background-color: #CCC;
-    font-family: Helvetica;
-    padding: 1em;
-    border: 0px;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
+.dialog {
+	background-color: #CCC;
+	font-family: Helvetica;
+	padding: 1em;
+	border: 0px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
 }
 
-.dialog h2{
-    font-size: 200%;
-    font-weight: bold;
-    text-align: center;
+.dialog h2 {
+	font-size: 200%;
+	font-weight: bold;
+	text-align: center;
 }
 
-.dialog input{
-    font-size: 180%;
-    margin-bottom: 1em;
-    width: 99%;
-    border: 0px;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
-    padding-left: 10px;
+.dialog input {
+	font-size: 180%;
+	margin-bottom: 1em;
+	width: 99%;
+	border: 0px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	padding-left: 10px;
 }
 
-.dialog textarea{
-    width: 100%;
-    height: 5em;
-    font-size: 150%;
+.dialog textarea {
+	width: 100%;
+	height: 5em;
+	font-size: 150%;
 }
 
-.dialog ul{
-    min-width: 400px;
-    margin-top: 1em;
-    margin-bottom: 1.5em;
+.dialog ul {
+	min-width: 400px;
+	margin-top: 1em;
+	margin-bottom: 1.5em;
 }
 
-.dialog button{
-    font-size: 120%;
-    float: right;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin-left: 1em;
-    background-color: #4D736D;
-    color: white;
-    margin-left: 1em;
-    border: 0px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-top: .5em;
+.dialog button {
+	font-size: 120%;
+	float: right;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin-left: 1em;
+	background-color: #4D736D;
+	color: white;
+	margin-left: 1em;
+	border: 0px;
+	padding: 5px 10px;
+	cursor: pointer;
+	margin-top: .5em;
 }
 
-.dialog .action{
-    margin-left: .2em;
-    font-size: 90%;
+.dialog .action {
+	margin-left: .2em;
+	font-size: 90%;
 }
 
-.dialog li{
-    display: block;
-    clear: both;
-    margin-bottom: .5em
+.dialog li {
+	display: block;
+	clear: both;
+	margin-bottom: .5em
 }
 
-.dialog .timestamp{
-    clear: both;
-    font-size: 80%;
-    color: #666;
-    margin-top: 1.5em;
+.dialog .timestamp {
+	clear: both;
+	font-size: 80%;
+	color: #666;
+	margin-top: 1.5em;
 }
 
 .dialog button.delete, button.cancel {
-    background-color: #854D53; /*This is a redish color*/
-    margin-top: .5em;
+	background-color: #854D53; /*This is a redish color*/
+	margin-top: .5em;
 }
 /*Used in the field used to search for blocks.*/
 /*TODO really lopsided right now, needs to be fixed.*/
-.search-field{
-	font-size:15px;
-	margin-top:.25em;
+.search-field {
+	font-size: 15px;
+	margin-top: .25em;
 }
- /* This last one might be a bit contreversial but I think that users shouldn't 
+/* This last one might be a bit contreversial but I think that users shouldn't
  need to realize that the stage is just off to the right of the workspace. This
  will also make it easier for others to diable the stage with just a css rule*/
 html, body {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 /* Lists of scripts to scroll. Used in demo & restore dialog*/
-.scrollList{
-    max-height: 300px;
-    overflow-y:scroll;
+.scrollList {
+	max-height: 300px;
+	overflow-y: scroll;
 }
