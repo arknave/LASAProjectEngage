@@ -17,11 +17,11 @@ caption,th {
     text-align:left;
 }
 textarea{
-	width: 95%;
+	width:95%;
 	resize: none
 }
+
 input{
-	width:93%;
 	margin-left: 10px;
 }
 
@@ -209,6 +209,7 @@ src: url('fonts/trinigan-webfont.ttf'),
 }
 
 .dialog input{
+
 	display: block;
 	margin-bottom:12px;
 	padding: .4em;
@@ -233,6 +234,9 @@ src: url('fonts/trinigan-webfont.ttf'),
 .ui-dialog .ui-state-error { padding: .3em; }
 .dialog .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
+#script_name {
+	width: 93%;
+}
 /* Lists of scripts to scroll. Used in demo & restore dialog*/
 .scrollList{
     max-height: 300px;
