@@ -70,6 +70,12 @@ function scripts_as_object(){
     }   
 }
 
+// Expose this for dragging and saving functionality
+window.show_workspace = function(){
+    $('.workspace:visible .scripts_text_view').hide();
+    $('.workspace:visible .scripts_workspace').show();
+}	
+
 function save_current_scripts(){
     show_workspace();
     $('#accordion')[0].scrollIntoView();
@@ -257,7 +263,7 @@ window.load_current_scripts = function(){
 
 // UI Section
 
-$("input[name='scriptview']").change(function () {
+/*$("input[name='scriptview']").change(function () {
 	//alert(""+($("#sblock").attr('checked'))+" "+($("#stext").attr('checked')));
     var self = $(this);
     $('.tab_bar .selected').removeClass('selected');
@@ -271,12 +277,12 @@ $("input[name='scriptview']").change(function () {
         update_scripts_view();
 	}
 }).change();
+*/
 
-// Expose this for dragging and saving functionality
-window.show_workspace = function(){
-    $('.workspace:visible .scripts_text_view').hide();
-    $('.workspace:visible .scripts_workspace').show();
-}	
+$("#scripttabs").bind( "tabsselect", function() {
+	update_scripts_view();
+});
+
 	this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
 	function menu(title, specs, show) {

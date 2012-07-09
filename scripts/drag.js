@@ -39,13 +39,13 @@
     window.is_touch = typeof (window.ontouchstart) !== "undefined";
     var drag_timeout = 20;
     // TODO: update this whenever we switch to a new workspace
-    var target_canvas = $('.workspace:visible .scripts_workspace');
+    var target_canvas = $('#workspace:visible #scripts_workspace');
 
     var snap_dist = 25;
     var SCROLL_HIT_TOP = 100;
     var SCROLL_HIT_BOTTOM = 100;
     var SCROLL_SPEED = 100;
-        //In pixels
+    //In pixels
         
     function reset() {
         drag_target = null;
@@ -125,7 +125,7 @@
             return undefined;
         }
         var eT = $(event.target);
-        if (eT.is(':input') && ! eT.contained_by($('.block_menu'))) {
+        if (eT.is(':input') && ! eT.contained_by($('#accordion'))) {
             return undefined;
         }
         // console.log('init_drag');
@@ -133,7 +133,7 @@
         if (target.length) {
             drag_target = target;
             start_position = target.offset();
-            if (! target.parent().is('.scripts_workspace')) {
+            if (! target.parent().is('#scripts_workspace')) {
                 start_parent = target.parent();
             }
         } else {
@@ -144,7 +144,7 @@
     }
 
     function start_drag(event) {
-        // console.log('trying to start drag');
+        console.log('trying to start drag');
         // called on mousemove or touchmove if not already dragging
         if (!blend(event)) {
             return undefined;
@@ -161,7 +161,7 @@
             top : event.pageY
         };
         // target = clone target if in menu
-        if (drag_target.is('.block_menu .wrapper')) {
+        if (drag_target.is('#accordion .wrapper')) {
             drag_target.removeClass('drag_indication');
             drag_target = drag_target.clone(true);
             drag_target.addClass('drag_indication');
@@ -188,7 +188,7 @@
             }
         }
         drag_target.css('position', 'absolute');
-        if (drag_target.is('.scripts_workspace .wrapper')) {
+        if (drag_target.is('#scripts_workspace .wrapper')) {
             drag_placeholder = $('<div class="drag_placeholder"></div>');
             drag_placeholder.height(drag_target.outerHeight());
             drag_target.before(drag_placeholder);
@@ -287,7 +287,7 @@
                 });
                 drag_target.trigger('add_to_socket');
             }
-        } else if ($('.block_menu').cursor_over()) {
+        } else if ($('#accordion').cursor_over()) {
             // delete block if dragged back to menu
             // console.log('deleting a block');
             drag_target.trigger('delete_block')
@@ -306,7 +306,7 @@
                 display : 'block'
             });
             drag_target.trigger('add_to_workspace');
-            $('.scripts_workspace').trigger('add');
+            $('#scripts_workspace').trigger('add');
         } else {
             if (cloned) {
                 // console.log('remove cloned block');
@@ -413,11 +413,11 @@
 
     // Initialize event handlers
     if (is_touch) {
-        $('.scripts_workspace, .block_menu').delegate('.block', 'touchstart', init_drag);
+        $('#scripts_workspace, #accordion').delegate('.block', 'touchstart', init_drag);
         $('.content').live('touchmove', drag);
         $('.content').live('touchend', end_drag);
     } else {
-        $('.scripts_workspace, .block_menu').delegate('.block', 'mousedown', init_drag);
+        $('#scripts_workspace, #accordion').delegate('.block', 'mousedown', init_drag);
         $('.content').live('mousemove', drag);
         $('.content').live('mouseup', end_drag);
     }

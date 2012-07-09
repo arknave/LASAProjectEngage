@@ -96,7 +96,7 @@ window.update_scripts_view = function(){
 }
 
 function run_scripts(event){
-    $('.stage')[0].scrollIntoView();
+    //$('.stage')[0].scrollIntoView();
     var blocks = $('.workspace:visible .scripts_workspace > .trigger');
     // Why not just eval?
     $('.stage').replaceWith('<div class="stage"><script>' + blocks.wrap_script() + '</script></div>');
