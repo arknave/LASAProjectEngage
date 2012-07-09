@@ -102,7 +102,7 @@ function run_scripts(event){
     $('.stage').replaceWith('<div class="stage"><script>' + blocks.wrap_script() + '</script></div>');
     //eval(blocks.wrap_script());
 }
-$('.run_scripts').click(run_scripts);
+$('#run_scripts').click(run_scripts);
 
 // End UI section
 

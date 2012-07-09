@@ -55,10 +55,11 @@ function clear_scripts(event, force){
         $('.stage').replaceWith('<div class="stage"></div>');
     }
 }
-$('.clear_scripts').click(clear_scripts);
+
+$('#clear_scripts').click(clear_scripts);
 $('.goto_script').click(function(){$('#accordion')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
-$('.clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
+$('#clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
 // Load and Save Section
 
 function scripts_as_object(){
@@ -211,9 +212,9 @@ $('#save_dialog .export').click(export_named_scripts);
 $('#save_dialog .cancel').click(reset_and_close_save_dialog);
 $('.save_scripts').click(function(){$('#save_dialog').bPopup();});*/
 
-$('.save_scripts').click(function(){$('#save_dialog').dialog("open");});
+$('#save_scripts').click(function(){$('#save_dialog').dialog("open");});
 
-$('.restore_scripts').click( populate_and_show_restore_dialog );
+$('#restore_scripts').click( populate_and_show_restore_dialog );
 /*$('#restore_dialog .cancel').click(reset_and_close_restore_dialog);
 $('#restore_dialog .exp').click(restore_from_export);*/
 $('#restore_dialog').delegate('.restore', 'click', restore_named_scripts)
@@ -224,7 +225,7 @@ $('#demos_dialog').delegate('.load', 'click', restore_demo_scripts)
                   .delegate('.show_description', 'click', toggle_description);
 				  
 //$('#demos_dialog .cancel').click(function(){$('#demos_dialog').bPopup().close();});
-$('.demo_scripts').click(function(){$('#demos_dialog').dialog("open");});
+$('#demo_scripts').click(function(){$('#demos_dialog').dialog("open");});
 //$('.layout_blocks').click(layout_blocks);
 
 function layout_blocks(){
