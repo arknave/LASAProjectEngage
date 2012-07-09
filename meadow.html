@@ -10,19 +10,25 @@
 	</head>
 	<body>
 		<section id="toolbar" class="ui-widget-header">
-			<button class="restore_scripts">
+			<button id="about">
 				Restore
 			</button>
-			<button class="save_scripts">
+			<button id="restore_scripts">
+				Restore
+			</button>
+			<button id="save_scripts">
 				Save
 			</button>
-			<button class="demo_scripts">
+			<button id="demo_scripts">
 				Demos
 			</button>
-			<button class="clear_scripts">
+			<button id="clear_scripts">
 				Clear Scripts
 			</button>
-			<button class="run_scripts">
+			<button id="clear_canvas">
+				Clear Stage
+			</button>
+			<button id="run_scripts">
 				Run
 			</button>
 		</section>
@@ -63,6 +69,23 @@
 					
 					<div id="stage" class="stage ui-corner-all ui-content"></div>
 				</div>
+			</div>
+		</div>
+		<div class="dialog" id="about_dialog">
+			<div id="about_dialog_contents">
+				<p>
+					<a href="index.html">Info</a>
+				</p>
+				<p>
+					<a href="docs/index.html">Documentation</a>
+				</p>
+				<!-- Not sure if this is necessary, better safe than sorry -->
+				<p>
+					<a href="license">License</a>
+				</p>
+				<p>
+					<a href="index.html#help">Help</a>
+				</p>
 			</div>
 		</div>
 		<div class="dialog" id="save_dialog" title="Save Script">
@@ -173,11 +196,68 @@
 		</script>
 		<script>
 			$(document).ready(function() {
+				//Buttons
+				$("#about").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-info"
+					}					
+				}).click( function() {
+					$('#about_dialog').dialog("open");
+				});
+				$("#restore_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-folder-open"
+					}					
+				});
+				$("#save_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-disk"
+					}
+				});
+				$("#demo_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-notice"
+					}
+				});
+				$("#clear_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-document"
+					}
+				});
+				$("#clear_canvas").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-close"
+					}
+				});
+				$("#run_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-check"
+					}
+				});
+				
+				//Tabs			
 				$("#blocktabs").tabs();
 				$("#scripttabs").tabs();
+				
+				//Search
 				$("#search").catcomplete({
 					source : window.blocknames,
 				});
+
+				//Dialogs
+				$("#about_dialog").dialog({
+					autoOpen: false,
+					modal: true,
+					resizable: false,
+				});
+								
 				$("#save_dialog").dialog({
 					autoOpen: false,
 					height: 300,

@@ -10,6 +10,16 @@ body {
 	min-height: 600px;
 	background-color: grey;
 }
+
+ol,ul {
+    list-style:none;
+}
+
+textarea{
+	width:95%;
+	resize: none
+}
+
 #toolbar {
 	float: right;
 }
@@ -46,8 +56,13 @@ body {
 
 #accordion {
 	padding: 0;
+	text-decoration: none;
+	font: "Trebuchet MS", sans-serif;
 }
 
+#accordion * {
+	text-decoration: none;
+}
 #workspace > div{
 	padding: 10px;
 }
@@ -65,4 +80,36 @@ body {
 .ui-tabs-hide {
     position: absolute;
     left: -1000px;
-} 
+}
+
+
+.dialog input{
+
+	display: block;
+	margin-bottom:12px;
+	padding: .4em;
+}
+
+.dialog {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dialog fieldset {
+	padding:0;
+	border:0;
+	margin-top:5px;
+	text-align: center;
+}
+
+.dialog h2 {
+	font-size: 1.2em;
+	margin: .6em 0;
+}
+.ui-dialog .ui-state-error { padding: .3em; }
+.dialog .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+
+#script_name {
+	width: 93%;
+}
