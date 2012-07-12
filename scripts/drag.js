@@ -133,6 +133,11 @@
         // called on mousemove or touchmove if not already dragging
         if (!blend(event)) {return undefined;}
         if (!drag_target) {return undefined;}
+		var self = $(event.target);
+		if(self.text('►')){
+			console.log('is this still true?')
+			return false;
+		}
 		 drag_target.addClass("drag_indication");
         // console.log('start_drag');
         current_position = {left: event.pageX, top: event.pageY};
@@ -144,6 +149,8 @@
             cloned = true;
         }
         dragging = true;
+		
+		
         // get position and append target to .content, adjust offsets
         // set last offset
         // TODO: handle detach better
