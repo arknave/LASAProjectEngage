@@ -58,12 +58,14 @@ Local.prototype.del = function(type, name) {
 function Global() {
     this.timer = new Timer();
     this.subscribe_mouse_events();
-    var stage = $('.stage');
+    var stage = $('#stage');
     this.mouse_x = -1;
     this.mouse_y = -1;
-    this.stage_width = stage.outerWidth();
-    this.stage_height = stage.outerHeight();
-    this.stage_center_x = this.stage_width / 2;
+    //this.stage_width = stage.outerWidth();
+    //this.stage_height = stage.outerHeight();
+	this.stage_width = 200;
+	this.stage_height = 200;
+	this.stage_center_x = this.stage_width / 2;
     this.stage_center_y = this.stage_height / 2;
     this.mouse_down = false;
 };
