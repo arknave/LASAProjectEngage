@@ -130,14 +130,15 @@
         }
         // console.log('init_drag');
         var target = eT.closest('.wrapper');
-        if (target.length) {
-            drag_target = target;
+		if (target.length) {
+			drag_target = target;
             start_position = target.offset();
             if (! target.parent().is('#scripts_workspace')) {
                 start_parent = target.parent();
+				console.log('target set');
             }
         } else {
-            //console.log('no target in init_drag');
+			console.log('no target in init_drag');
             drag_target = null;
         }
         return false;
