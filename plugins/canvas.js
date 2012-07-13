@@ -73,7 +73,7 @@ jQuery.fn.extend({
   wrap_script: function(){
       // wrap the top-level script to prevent leaking into globals
       var script = this.pretty_script();
-      var retval = 'var global = new Global();(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '}catch(e){alert(e);}})(jQuery);';
+      var retval = 'var global = new Global();console.log(global);(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");local.ctx.fillStyle="white";local.ctx.fillRect(0,0,200,200);' + script + '}catch(e){alert(e);}})(jQuery);';
       //var retval = 'var global = new Global();(function($){var local = new Local();local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '})(jQuery);';
       return retval;
   },
@@ -90,14 +90,14 @@ function setup(){
     // This file depends on the runtime extensions, which should probably be moved into this namespace rather than made global
 
 window.update_scripts_view = function(){
-    var blocks = $('.workspace:visible .scripts_workspace > .wrapper');
-    var view = $('.workspace:visible .scripts_text_view');
+    var blocks = $('#workspace:visible #scripts_workspace > .wrapper');
+    var view = $('#workspace:visible #scripts_text_view');
     blocks.write_script(view);
 }
 
 function run_scripts(event){
     //$('.stage')[0].scrollIntoView();
-    var blocks = $('.workspace:visible .scripts_workspace > .trigger');
+    var blocks = $('#workspace:visible #scripts_workspace > .trigger');
     // Why not just eval?
     $('.stage').replaceWith('<div class="stage"><script>' + blocks.wrap_script() + '</script></div>');
     //eval(blocks.wrap_script());
