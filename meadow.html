@@ -3,71 +3,77 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Project Engage Programming</title>
+		<link type="text/css" href="stylesheets/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
 		<link href="stylesheets/blocks.css" rel="stylesheet" />
 		<link href="stylesheets/meadow.css" rel="stylesheet" />
-		<link type="text/css" href="stylesheets/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
 		<meta name="viewport" content="height=device-height, initial-scale=1.0" />
 	</head>
 	<body>
-		<section id="toolbar" class="ui-widget-header">
-			<button id="about">
-				Restore
-			</button>
-			<button id="restore_scripts">
-				Restore
-			</button>
-			<button id="save_scripts">
-				Save
-			</button>
-			<button id="demo_scripts">
-				Demos
-			</button>
-			<button id="clear_scripts">
-				Clear Scripts
-			</button>
-			<button id="clear_canvas">
-				Clear Stage
-			</button>
-			<button id="run_scripts">
-				Run
-			</button>
-		</section>
-		<div class="content">
-			<div id="pane1" class="pane">
-				<div id="pane1-content" class="panecontent">
-					<div id="blocktabs">
-						<ul>
-							<li><a href="#accordion">Block List</a></li>
-							<li><a href="#blocksearch">Block Search</a></li>
-						</ul>
-						<div id="accordion">
-						</div>
-						<div id="blocksearch">
-							<input id="search" class='search-field'/>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="pane2" class="pane">
-				<div id="pane2-content" class="panecontent">
-					<div id="scripttabs">
-						<ul>
-							<li><a href="#scripts_workspace">Block View</a></li>
-							<li><a href="#scripts_text_view">Text View</a></li>
-						</ul>
-						<div id="workspace" class="workspace">
-							<div id="scripts_workspace" class="scripts_workspace">
-							</div>
-							<div id="scripts_text_view" class="scripts_text_view">
+		<div id="header" class="ui-widget-header">
+			<span id="logo">
+				Waterbear
+			</span>
+			<section id="toolbar" >
+				<button id="about">
+					Restore
+				</button>
+				<button id="restore_scripts">
+					Restore
+				</button>
+				<button id="save_scripts">
+					Save
+				</button>
+				<button id="demo_scripts">
+					Demos
+				</button>
+				<button id="clear_scripts">
+					Clear Scripts
+				</button>
+				<button id="clear_canvas">
+					Clear Stage
+				</button>
+				<button id="run_scripts">
+					Run
+				</button>
+			</section>
+		</div>
+		<div id="colmask">
+			<div id="colmid">
+				<div id="colright">
+					<div id="col1wrap">
+						<div id="col1pad">
+							<div id="col1">
+								<div id="scripttabs">
+									<ul>
+										<li><a href="#scripts_workspace">Block View</a></li>
+										<li><a href="#scripts_text_view">Text View</a></li>
+									</ul>
+									<div id="workspace" class="workspace">
+										<div id="scripts_workspace" class="scripts_workspace">
+										</div>
+										<div id="scripts_text_view" class="scripts_text_view">
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div id="pane3" class="pane">
-				<div id="pane3-content" class="panecontent">
-					
-					<div id="stage" class="stage ui-corner-all ui-content"></div>
+					<div id="col2">
+						<div id="blocktabs">
+							<ul>
+								<li><a href="#accordion">Block List</a></li>
+								<li><a href="#blocksearch">Block Search</a></li>
+							</ul>
+							<div id="accordion">
+							</div>
+							<div id="blocksearch">
+								<input id="search" class='search-field'/>
+							</div>
+						</div>
+					</div>
+					<div id="col3">
+						<div id="stage" class="stage ui-content"></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -196,6 +202,7 @@
 		</script>
 		<script>
 			$(document).ready(function() {
+
 				//Buttons
 				$("#about").button({
 					text: false,
