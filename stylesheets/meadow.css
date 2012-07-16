@@ -117,9 +117,21 @@ src: url('fonts/trinigan-webfont.ttf'),
 	font-size: 1.2em;
 }
 
-#stage {
+#stage, #spritebank {
 	background-color: white;
 	height: 200px;
+	margin-bottom: 50px;
+	padding: 0;
+}
+
+#spritebank img {
+	padding: 0px 0px;
+	height: 50px;
+	width: 50px;
+}
+
+#spritelist {
+	padding: 5px;
 }
 
 .ui-tabs-hide {
