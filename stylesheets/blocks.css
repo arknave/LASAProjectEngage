@@ -14,7 +14,7 @@
 
 .locals{
     display: block;
-    background-color: white;
+    background-color: #EEE;
     width: auto;
     position: relative;
     padding: 1px 3px 1px;
@@ -150,14 +150,14 @@
 .slot {
     top: -7px;
     position: absolute;
-    background-color: #FFF;
+    background-color: #EEE;
     width: 20px;
 }
 
 
 .contained {
   display: block;
-  background-color: white;
+  background-color: #EEE;
   position: relative;
   padding-top: 1px;
   margin-left: 10px;
@@ -193,7 +193,7 @@
   border: 0px;
   padding: 0px;
   height: 16px;
-  background-color: white;
+  background-color: #EEE;
 }
 
 .block .blockhead{
