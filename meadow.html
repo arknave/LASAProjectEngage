@@ -4,37 +4,24 @@
 		<meta charset="utf-8" />
 		<title>Project Engage Programming</title>
 		<link type="text/css" href="stylesheets/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+		<link href="lib/scrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 		<link href="stylesheets/blocks.css" rel="stylesheet" />
 		<link href="stylesheets/meadow.css" rel="stylesheet" />
 		<meta name="viewport" content="height=device-height, initial-scale=1.0" />
 	</head>
 	<body>
 		<div id="header" class="ui-widget-header">
-			<span id="logo">
+			<span id="logo" class="title">
 				Waterbear
 			</span>
 			<section id="toolbar" >
-				<button id="about">
-					Restore
-				</button>
-				<button id="restore_scripts">
-					Restore
-				</button>
-				<button id="save_scripts">
-					Save
-				</button>
-				<button id="demo_scripts">
-					Demos
-				</button>
-				<button id="clear_scripts">
-					Clear Scripts
-				</button>
-				<button id="clear_canvas">
-					Clear Stage
-				</button>
-				<button id="run_scripts">
-					Run
-				</button>
+				<button id="about">About</button>
+				<button id="restore_scripts">Restore</button>
+				<button id="save_scripts">Save</button>
+				<button id="demo_scripts">Demos</button>
+				<button id="clear_scripts">Clear Scripts</button>
+				<button id="clear_canvas">Clear Stage</button>
+				<button id="run_scripts">Run</button>
 			</section>
 		</div>
 		<div id="colmask">
@@ -72,7 +59,7 @@
 						</div>
 					</div>
 					<div id="col3">
-						<div id="stage" class="stage ui-content"></div>
+						<!--<div id="stage" class="stage ui-content"></div>
 						<div id="spritebank" class="spritebank ui-content">
 							<ul id="spritelist">
 								<img src="images/sprites/Archie_Che_Guevara.svg" class="sprite" />
@@ -81,7 +68,18 @@
 								<img src="images/sprites/casifish_stallman.svg" class="sprite" />
 							</ul>
 						</div>
-
+						-->
+						<canvas id="stage" class="stage">
+							<p> Sorry, but your browser doesn't support canvas. Please use the latest version of Firefox </p>
+						</canvas>
+						<div id="spritebank" class="ui-widget">
+							<div id="spriteheader" class="ui-widget-header">
+								<h4 id="spritetitle" class='title'>Sprites</h4>
+								<button id="newsprite">Import Sprite</button>
+							</div>
+							<div id="spritecontainer" class="ui-widget-content">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -148,6 +146,9 @@
 		<script src="lib/jquery.autoGrowInput.js"></script>
 		<script src="lib/json2.js"></script><!-- Make this conditional -->
 		<script src="lib/jquery.scrollTo.js"></script>
+		<script src="lib/jquery-ui-1.8.21.custom.min.js"></script>
+		<script src="lib/scrollbar/jquery.mousewheel.min.js"></script>
+		<script src="lib/scrollbar/jquery.mCustomScrollbar.js"></script>
 		<script src="scripts/drag.js"></script>
 		<script src="scripts/blocks.js"></script>
 		<script src="scripts/runtime.js"></script>
@@ -155,7 +156,6 @@
 		<script src="scripts/workspace.js"></script>
 		<script src="scripts/search.js"></script>
 		<script src="scripts/keys.js"></script>
-		<script type="text/javascript" src="lib/jquery-ui-1.8.21.custom.min.js"></script>
 		<script>
 			/*Runs the categories in the search field.*/
 			$.widget("custom.catcomplete", $.ui.autocomplete, {
@@ -206,12 +206,10 @@
 						ui.item.children( "h3" ).triggerHandler( "focusout" );
 					}
 				});
-
 			}
 		</script>
 		<script>
 			$(document).ready(function() {
-
 				//Buttons
 				$("#about").button({
 					text: false,
@@ -257,11 +255,24 @@
 						primary: "ui-icon-check"
 					}
 				});
+				$("#newsprite").button({
+					text:false,
+					icons: {
+						primary: "ui-icon-arrowthick-1-s"
+					}
+				});
 				
 				//Tabs			
 				$("#blocktabs").tabs();
 				$("#scripttabs").tabs();
-				
+				/*
+				$("#scripts_workspace").mCustomScrollbar({
+					horizontalScroll: true,
+					advanced:{
+						autoExpandHorizontalScroll: true
+					},
+					setHeight: 50
+				});*/
 				//Search
 				$("#search").catcomplete({
 					source : window.blocknames,
@@ -394,6 +405,14 @@
 					],
 				});
 			});
+			var glob = new Global();
+			var canvas = document.getElementsByTagName('canvas')[0];
+			canvas.width = glob.stage_width;
+			canvas.height = glob.stage_height;
+			var ctx = canvas.getContext('2d');
+			ctx.fillStyle="rgb(255,255,255)";
+			ctx.fillRect(0,0,canvas.width-50,glob.stage_height);
+			add_sprite('Archie_Che_Guevara.svg');
 		</script>
 	</body>
 </html>

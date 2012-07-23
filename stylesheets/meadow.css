@@ -34,17 +34,19 @@ src: url('fonts/trinigan-webfont.ttf'),
 	float: left;
 	width: 100%;
 	border-bottom: 1px solid black;
-	margin-bottom: 15px;
-	padding: 5px 0px 5px 0px;
+	margin-bottom: 5px;
+	padding: 5px 0px;
 }
 
 #logo{
 	font-size: 220%;
-	font-family: 'TriniganFGRegular';
 	float: left;
-	margin-left	: 5px;
+	margin-left: 5px;
+	margin-top: 2px;
 }
-
+.title {
+	font-family: 'TriniganFGRegular';
+}
 #toolbar {
 	display: inline;
 	float: right;
@@ -56,55 +58,61 @@ src: url('fonts/trinigan-webfont.ttf'),
 	clear:both;
 	float:left;
 	width:100%;				/* width of whole page */
-	overflow:hidden;		/* This chops off any overhanging divs */
+	/*overflow:hidden;		 This chops off any overhanging divs */
 }
+
 #colmid {
 	float:left;
 	width:200%;
 	position:relative;
-	left:250px;
+	left:200px;
 }
+
 #colright {
 	float:left;
 	width:100%;
 	position:relative;
 	left:50%;
-	margin-left:-500px;
+	margin-left:-450px;
+	background-color: gray;
 }
+
 #col1wrap {
 	float:right;
 	width:50%;
 	position:relative;
 	right:100%;
 }
+
 #col1pad {
-	margin:0 25px 0 525px;
-	overflow:hidden;
+	margin:0 2px 0 450px;
 }
+
 #col1 {
 	width:100%;
-	overflow:hidden;
+	overflow-y: hidden;
+	overflow-x: scroll;
 }
+
 #col2 {
 	float:left;
-	width:200px;
+	width:190px;
 	position:relative;
 	margin-left:-50%;
-	left:275px;
-	overflow:hidden;
+	left:255px;
 }
+
 #col3 {
 	float:left;
-	width:200px;
 	position:relative;
-	left:25px;
-	overflow:hidden;
+	left:5px;
 }
 
 #accordion {
 	padding: 0;
 	text-decoration: none;
 }
+
 .ui-accordion .ui-accordion-content {
 	padding: 5px;
 }
@@ -113,25 +121,35 @@ src: url('fonts/trinigan-webfont.ttf'),
 	padding: 10px;
 }
 
+#scripts_workspace {
+	overflow: visible;
+}
+
 #scripts_text_view {
 	font-size: 1.2em;
 }
 
-#stage, #spritebank {
-	background-color: white;
-	height: 200px;
-	margin-bottom: 50px;
-	padding: 0;
-}
+#spritebank {
+	min-height: 290px;
+	margin-right: 50px;
 
-#spritebank img {
-	padding: 0px 0px;
-	height: 50px;
-	width: 50px;
 }
-
-#spritelist {
+#spriteheader {
 	padding: 5px;
+}
+#spriteheader > *{
+	display: inline;
+}
+#spritetitle {
+	font-size: 1.4em;
+}
+#newsprite {
+	margin-left: 160px;
+}
+
+#spritecontainer {
+	min-height: 250px;
+	clear: both;
 }
 
 .ui-tabs-hide {
@@ -174,4 +192,8 @@ src: url('fonts/trinigan-webfont.ttf'),
 
 #script_name {
 	width: 93%;
+}
+ 
+.containerBlock {
+	overflow: visible;
 }
