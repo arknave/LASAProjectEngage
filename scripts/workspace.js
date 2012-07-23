@@ -291,7 +291,12 @@ var spritewidth = 50;
 function add_sprite(filename) {
 	var spritebox = $('#spritecontainer');
 	spritebox.append('<canvas id="sprite'+spriteid+'" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
-	eval("var ctx = document.getElementById('sprite"+spriteid+"').getContext('2d');var img = new Image();img.src = 'images/sprites/"+filename+"';img.onload = function(){ctx.drawImage(img, 0, 0, "+spriteheight+", "+spritewidth+");}");
+	var ctx = document.getElementById('sprite'+spriteid).getContext('2d');
+	var img = new Image();
+	img.src = 'images/sprites/'+filename;
+	img.onload = function(){
+		ctx.drawImage(img, 0, 0, spriteheight, spritewidth);
+	}
 }
 
 $("#scripttabs").bind( "tabsselect", function() {
