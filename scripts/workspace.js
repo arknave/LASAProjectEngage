@@ -56,10 +56,16 @@ function clear_scripts(event, force){
     }
 }
 
+function clear_canvas(event, force){
+	if(force || confirm('Clear the stage?')){
+		$('.stage').replaceWith('<div id="stage" class="stage"></div>');
+	}
+}
+
 $('#clear_scripts').click(clear_scripts);
 $('.goto_script').click(function(){$('#accordion')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
-$('#clear_canvas').click(function(){$('.stage').replaceWith('<div class="stage"></div>');});
+$('#clear_canvas').click(clear_canvas);
 // Load and Save Section
 
 function scripts_as_object(){
@@ -279,49 +285,56 @@ window.load_current_scripts = function(){
 	}
 }).change();
 */
+var spriteid = 1;
+var spriteheight = 50;
+var spritewidth = 50;
+function add_sprite(filename) {
+	var spritebox = $('#spritecontainer');
+	spritebox.append('<canvas id="sprite'+spriteid+'" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
+	eval("var ctx = document.getElementById('sprite"+spriteid+"').getContext('2d');var img = new Image();img.src = 'images/sprites/"+filename+"';img.onload = function(){ctx.drawImage(img, 0, 0, "+spriteheight+", "+spritewidth+");}");
+}
 
 $("#scripttabs").bind( "tabsselect", function() {
 	update_scripts_view();
 });
 
-	this.blocknames = new Array();
+this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
-	function menu(title, specs, show) {
-		var klass = title.toLowerCase();
-		var body = $('<section class="submenu"></section>');
-		var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo(body);
-		var options = $('<div class="option"></div>').appendTo(body);
+function menu(title, specs, show) {
+	var klass = title.toLowerCase();
+	var body = $('<section class="submenu"></section>');
+	var select = $('<h3 class="select"><a href="#">' + title + '</a></h3>').appendTo(body);
+	var options = $('<div class="option"></div>').appendTo(body);
 
-		$.each(specs, function(idx, spec) {
-			if (spec !== undefined) {
-				spec.klass = klass;
-				var name = spec.label;
-				//changes the name to look "nicer"
-				while (name.indexOf('[') != -1) {
-					name = name.replace('[', '(');
-					name = name.replace(']', ')');
-				}
-				while (name.indexOf('#') != -1) {
-					name = name.replace('#', '');
-				}
-				options.append(Block(spec));
-				blocknames.push({
-					label : name,
-					category : spec.klass
-				});
-				nameMap[name] = Block(spec);
-				//nameMap is used inside search.js
+	$.each(specs, function(idx, spec) {
+		if (spec !== undefined) {
+			spec.klass = klass;
+			var name = spec.label;
+			//changes the name to look "nicer"
+			while (name.indexOf('[') != -1) {
+				name = name.replace('[', '(');
+				name = name.replace(']', ')');
 			}
-		});
-		$('#accordion').append(body);
-		/*if (show){
-		 select.addClass('selected');
-		 }else{
-		 options.hide();
-		 }*/
-		return;
-	}
+			while (name.indexOf('#') != -1) {
+				name = name.replace('#', '');
+			}
+			options.append(Block(spec));
+			blocknames.push({
+				label : name,
+				category : spec.klass
+			});
+			nameMap[name] = Block(spec);
+			//nameMap is used inside search.js
+		}
+	});
+	$('#accordion').append(body);
+	/*if (show){
+	 select.addClass('selected');
+	 }else{
+	 options.hide();
+	 }*/
+	return;
+}
 
-
-	window.menu = menu;
-	window.blocknames = this.blocknames;
+window.menu = menu;
+window.blocknames = this.blocknames;
