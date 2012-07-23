@@ -69,9 +69,11 @@
 							</ul>
 						</div>
 						-->
-						<canvas id="stage" class="stage">
+						<div id="stage" class="stage">
+							<canvas>
 							<p> Sorry, but your browser doesn't support canvas. Please use the latest version of Firefox </p>
-						</canvas>
+							</canvas>
+						</div>
 						<div id="spritebank" class="ui-widget">
 							<div id="spriteheader" class="ui-widget-header">
 								<h4 id="spritetitle" class='title'>Sprites</h4>
@@ -260,6 +262,8 @@
 					icons: {
 						primary: "ui-icon-arrowthick-1-s"
 					}
+				}).click( function() {
+					add_sprite('Archie_Che_Guevara.svg');
 				});
 				
 				//Tabs			
@@ -412,7 +416,6 @@
 			var ctx = canvas.getContext('2d');
 			ctx.fillStyle="rgb(255,255,255)";
 			ctx.fillRect(0,0,canvas.width-50,glob.stage_height);
-			add_sprite('Archie_Che_Guevara.svg');
 		</script>
 	</body>
 </html>

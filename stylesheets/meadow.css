@@ -129,6 +129,10 @@ src: url('fonts/trinigan-webfont.ttf'),
 	font-size: 1.2em;
 }
 
+.stagesprite {
+	position: relative;
+}
+
 #spritebank {
 	min-height: 290px;
 	margin-right: 50px;
@@ -152,11 +156,14 @@ src: url('fonts/trinigan-webfont.ttf'),
 	clear: both;
 }
 
+.currentsprite {
+	border: 1px solid black;
+}
+
 .ui-tabs-hide {
     position: absolute;
     left: -1000px;
 }
-
 
 .dialog input{
 

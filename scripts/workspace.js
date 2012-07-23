@@ -288,15 +288,26 @@ window.load_current_scripts = function(){
 var spriteid = 1;
 var spriteheight = 50;
 var spritewidth = 50;
+var img = new Image();
 function add_sprite(filename) {
 	var spritebox = $('#spritecontainer');
-	spritebox.append('<canvas id="sprite'+spriteid+'" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
-	var ctx = document.getElementById('sprite'+spriteid).getContext('2d');
-	var img = new Image();
+	spritebox.append('<canvas id="listsprite'+spriteid+'" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
+	var ctx = document.getElementById('listsprite'+spriteid).getContext('2d');
 	img.src = 'images/sprites/'+filename;
 	img.onload = function(){
 		ctx.drawImage(img, 0, 0, spriteheight, spritewidth);
 	}
+	$('.listsprite').removeClass('currentsprite');
+	$('#listsprite'+spriteid).addClass('currentsprite');
+	$("#stage > canvas").append('<canvas id="stagesprite'+spriteid+'" class="stagesprite" style="z-index: 2500"></canvas>');
+	/*var ctx2 = document.getElementById('stagesprite'+spriteid).getContext('2d');
+	img.onload = function(){
+		ctx2.drawImage(img, 0, 0, spriteheight, spritewidth);
+	}
+	$('#stagesprite'+spriteid).css('top', function(){return spriteid*5})
+	.css('left', function(){return spriteid*5});*/
+	$("#stagesprite1").addClass('currentsprite');
+	spriteid++;
 }
 
 $("#scripttabs").bind( "tabsselect", function() {

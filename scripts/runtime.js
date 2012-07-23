@@ -58,7 +58,7 @@ Local.prototype.del = function(type, name) {
 function Global() {
     this.timer = new Timer();
     this.subscribe_mouse_events();
-    var stage = $('#stage');
+    var stage = $('#stage > canvas');
     this.mouse_x = -1;
     this.mouse_y = -1;
     this.stage_width = stage.outerWidth() - 10;
