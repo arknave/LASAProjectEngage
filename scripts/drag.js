@@ -229,6 +229,17 @@
             if (drag_target.block_type() === 'step'){
                 // Drag a step to snap to a step
                 // console.log('snapping a step togther')
+				if (drop_target.children().size()>0) {
+					return;
+					var children = drop_target.children();
+					drop_target.children().remove();
+					/*drop_target.css({
+						position :'absolute',
+						left :0,
+						top: 0,
+						display: 'inline-block'
+					});*/
+					}
                 drop_target.parent().append(drag_target);
                 drag_target.css({
                     position: 'relative',
