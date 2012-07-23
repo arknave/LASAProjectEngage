@@ -61,10 +61,8 @@ function Global() {
     var stage = $('#stage');
     this.mouse_x = -1;
     this.mouse_y = -1;
-    //this.stage_width = stage.outerWidth();
-    //this.stage_height = stage.outerHeight();
-	this.stage_width = 200;
-	this.stage_height = 200;
+    this.stage_width = stage.outerWidth() - 10;
+	this.stage_height = this.stage_width;
 	this.stage_center_x = this.stage_width / 2;
     this.stage_center_y = this.stage_height / 2;
     this.mouse_down = false;
@@ -157,4 +155,24 @@ function angle(shape) {
     if (tform === 0)
         return tform;
     return parseInt(tform.split(/\s+/)[0], 10);
+}
+
+function inRange(val, min, max) {
+	return (val >= min) && (val <= max);
+}
+
+function overlap(e1, e2){
+	var os1 = $(e1).offset(); //os is short for offset
+	var os2 = $(e2).offset();
+	var x1 = os1.left;
+	var x2 = os2.left;
+	var y1 = os1.top;
+	var y2 = os2.top;
+	var w1 = $(e1).outerWidth();
+	var w2 = $(e2).outerWidth();
+	var h1 = $(e1).outerHeight();
+	var h2 = $(e2).outerHeight();
+	xOverlap = inRange(x1, x2, x2 + w2) || inRange(x2, x1, x1 + w1);
+	yOverlap = inRange(y1, y2, y2 + h2) || inRange(y2, y1, y1 + h1);
+	return xOverlap && yOverlap;
 }
