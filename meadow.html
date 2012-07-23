@@ -71,7 +71,7 @@
 						-->
 						<div id="stage" class="stage">
 							<canvas>
-							<p> Sorry, but your browser doesn't support canvas. Please use the latest version of Firefox </p>
+								<p> Sorry, but your browser doesn't support canvas. Please use the latest version of Firefox </p>
 							</canvas>
 						</div>
 						<div id="spritebank" class="ui-widget">
@@ -409,13 +409,7 @@
 					],
 				});
 			});
-			var glob = new Global();
-			var canvas = document.getElementsByTagName('canvas')[0];
-			canvas.width = glob.stage_width;
-			canvas.height = glob.stage_height;
-			var ctx = canvas.getContext('2d');
-			ctx.fillStyle="rgb(255,255,255)";
-			ctx.fillRect(0,0,canvas.width-50,glob.stage_height);
+			clear_canvas();
 		</script>
 	</body>
 </html>

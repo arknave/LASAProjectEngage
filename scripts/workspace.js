@@ -56,16 +56,28 @@ function clear_scripts(event, force){
     }
 }
 
-function clear_canvas(event, force){
+function confirm_clear_canvas(event, force){
 	if(force || confirm('Clear the stage?')){
-		$('.stage').replaceWith('<div id="stage" class="stage"></div>');
+		clear_canvas();
 	}
+}
+
+function clear_canvas(event){
+	$('#stage').empty().append('<canvas><p>Sorry, but your browser doesn\'t support canvas. Please use the latest version of Firefox </p></canvas>');
+	var glob = new Global();
+	var canvas = document.getElementsByTagName('canvas')[0];
+	canvas.width = glob.stage_width;
+	canvas.height = glob.stage_height;
+	var ctx = canvas.getContext('2d');
+	ctx.fillStyle="rgb(255,255,255)";
+	ctx.fillRect(0,0,canvas.width-50,canvas.height);
+	$("#spritecontainer").empty();
 }
 
 $('#clear_scripts').click(clear_scripts);
 $('.goto_script').click(function(){$('#accordion')[0].scrollIntoView();});
 $('.goto_stage').click(function(){$('.stage')[0].scrollIntoView();});
-$('#clear_canvas').click(clear_canvas);
+$('#clear_canvas').click(confirm_clear_canvas);
 // Load and Save Section
 
 function scripts_as_object(){
@@ -285,6 +297,15 @@ window.load_current_scripts = function(){
 	}
 }).change();
 */
+
+function sprite_drag(){
+	$(".stagesprite").draggable({
+		containment: "#stage",
+		scroll: true,
+		zIndex: 9001, 
+	});
+}
+
 var spriteid = 1;
 var spriteheight = 50;
 var spritewidth = 50;
@@ -294,19 +315,20 @@ function add_sprite(filename) {
 	spritebox.append('<canvas id="listsprite'+spriteid+'" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
 	var ctx = document.getElementById('listsprite'+spriteid).getContext('2d');
 	img.src = 'images/sprites/'+filename;
-	img.onload = function(){
-		ctx.drawImage(img, 0, 0, spriteheight, spritewidth);
-	}
 	$('.listsprite').removeClass('currentsprite');
 	$('#listsprite'+spriteid).addClass('currentsprite');
-	$("#stage > canvas").append('<canvas id="stagesprite'+spriteid+'" class="stagesprite" style="z-index: 2500"></canvas>');
-	/*var ctx2 = document.getElementById('stagesprite'+spriteid).getContext('2d');
+	$("#stage").append('<div id="stagesprite'+spriteid+'" class="stagesprite"><canvas height="'+spriteheight+'" width="'+spritewidth+'"></canvas></div>');
+	var ctx2 = $('#stagesprite'+spriteid+' > canvas')[0].getContext('2d');
 	img.onload = function(){
+		ctx.drawImage(img, 0, 0, spriteheight, spritewidth);
 		ctx2.drawImage(img, 0, 0, spriteheight, spritewidth);
 	}
-	$('#stagesprite'+spriteid).css('top', function(){return spriteid*5})
-	.css('left', function(){return spriteid*5});*/
-	$("#stagesprite1").addClass('currentsprite');
+	$('#stagesprite'+spriteid).css('top', function(){
+		return (Math.random()*220)-280 -(50*(spriteid-1)) //ranges from -60 to -280, accounts for other sprites
+	}).css('left', function(){
+		return Math.random()*185 // 0 to 185
+	});
+	sprite_drag()
 	spriteid++;
 }
 

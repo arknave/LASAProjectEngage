@@ -129,13 +129,21 @@ src: url('fonts/trinigan-webfont.ttf'),
 	font-size: 1.2em;
 }
 
+#stage {
+	overflow: hidden;
+	height: 300px;
+	width: 300px;
+}
+
 .stagesprite {
 	position: relative;
+	height: 50px;
+	width: 50px;
 }
 
 #spritebank {
 	min-height: 290px;
-	margin-right: 50px;
+	margin-right: 60px;
 
 }
 #spriteheader {
