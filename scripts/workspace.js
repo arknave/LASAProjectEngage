@@ -299,10 +299,14 @@ window.load_current_scripts = function(){
 */
 
 function sprite_drag(){
+	var glob = new Global();
+	var oset = $("#stage").offset();
+	var bounds = [oset.left, oset.top, oset.left+glob.stage_width-90, oset.top+glob.stage_height-40];
+	console.log(bounds);
 	$(".stagesprite").draggable({
-		containment: "#stage",
-		scroll: true,
-		zIndex: 9001, 
+		containment: bounds,
+		scroll: false,
+		stack: ".stagesprite",
 	});
 }
 
@@ -310,6 +314,7 @@ var spriteid = 1;
 var spriteheight = 50;
 var spritewidth = 50;
 var img = new Image();
+
 function add_sprite(filename) {
 	var spritebox = $('#spritecontainer');
 	spritebox.append('<canvas id="listsprite'+spriteid+'" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
@@ -324,9 +329,9 @@ function add_sprite(filename) {
 		ctx2.drawImage(img, 0, 0, spriteheight, spritewidth);
 	}
 	$('#stagesprite'+spriteid).css('top', function(){
-		return (Math.random()*220)-280 -(50*(spriteid-1)) //ranges from -60 to -280, accounts for other sprites
+		return Math.random()*235; //0 to 235
 	}).css('left', function(){
-		return Math.random()*185 // 0 to 185
+		return Math.random()*190; // 0 to 190
 	});
 	sprite_drag()
 	spriteid++;
