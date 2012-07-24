@@ -1,113 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
 		<meta charset="utf-8" />
 		<title>Project Engage Programming</title>
-
-		<link href="stylesheets/workspace.css" rel="stylesheet" />
-		<link href="stylesheets/blocks.css" rel="stylesheet" />
 		<link type="text/css" href="stylesheets/custom-theme/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+		<link href="lib/scrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+		<link href="stylesheets/blocks.css" rel="stylesheet" />
+		<link href="stylesheets/meadow.css" rel="stylesheet" />
 		<meta name="viewport" content="height=device-height, initial-scale=1.0" />
 	</head>
 	<body>
-		<div class="content">
-			<div id="bearPic">
-				<img src="images/waterbear_steampunk_trans.png" alt="bear" width=30px height=39px />
-			</div>
-			<div id="logo">
-				<h4>Waterbear</h4>
-			</div>
-			<div id="accordion" class="block_menu ui-accordion">
-				<section class="submenu">
-				<h3 class="select"><a href="#">About</a></h3>
-				<div class="option">
-					<p>
-						<a href="index.html">Info</a>
-					</p>
-					<p>
-						<a href="docs/index.html">Documentation</a>
-					</p>
-					<!-- Not sure if this is necessary, better safe than sorry -->
-					<p>
-						<a href="license">License</a>
-					</p>
-					<p>
-						<a href="index.html#help">Help</a>
-					</p>
+		<div id="header" class="ui-widget-header">
+			<span id="logo" class="title">
+				Waterbear
+			</span>
+			<section id="toolbar" >
+				<button id="about">About</button>
+				<button id="restore_scripts">Restore</button>
+				<button id="save_scripts">Save</button>
+				<button id="demo_scripts">Demos</button>
+				<button id="clear_scripts">Clear Scripts</button>
+				<button id="clear_canvas">Clear Stage</button>
+				<button id="run_scripts">Run</button>
+			</section>
+		</div>
+		<div id="colmask">
+			<div id="colmid">
+				<div id="colright">
+					<div id="col1wrap">
+						<div id="col1pad">
+							<div id="col1">
+								<div id="scripttabs">
+									<ul>
+										<li><a href="#scripts_workspace">Stage</a></li>
+										<li><a href="#scripts_text_view">Text View</a></li>
+									</ul>
+									<div id="workspace" class="workspace">
+										<div id="scripts_workspace" class="scripts_workspace">
+										</div>
+										<div id="scripts_text_view" class="scripts_text_view">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="col2">
+						<div id="blocktabs">
+							<ul>
+								<li><a href="#accordion">Block List</a></li>
+								<li><a href="#blocksearch">Block Search</a></li>
+							</ul>
+							<div id="accordion">
+							</div>
+							<div id="blocksearch">
+								<input id="search" class='search-field'/>
+							</div>
+						</div>
+					</div>
+					<div id="col3">
+						<!--<div id="stage" class="stage ui-content"></div>
+						<div id="spritebank" class="spritebank ui-content">
+							<ul id="spritelist">
+								<img src="images/sprites/Archie_Che_Guevara.svg" class="sprite" />
+								<img src="images/sprites/bob_marley.svg" class="sprite" />
+								<img src="images/sprites/mozart.svg" class="sprite" />
+								<img src="images/sprites/casifish_stallman.svg" class="sprite" />
+							</ul>
+						</div>
+						-->
+						<div id="stage" class="stage">
+							<canvas>
+								<p> Sorry, but your browser doesn't support canvas. Please use the latest version of Firefox </p>
+							</canvas>
+						</div>
+						<div id="spritebank" class="ui-widget">
+							<div id="spriteheader" class="ui-widget-header">
+								<h4 id="spritetitle" class='title'>Sprites</h4>
+								<button id="newsprite">Import Sprite</button>
+							</div>
+							<div id="spritecontainer" class="ui-widget-content">
+							</div>
+						</div>
+					</div>
 				</div>
-				</section>
 			</div>
-			<div class="tab_bar">
-				<span id="radio">
-					<input type="radio" id="sblock" name="scriptview" checked="yes" />
-					<label for="sblock">Script Blocks</label>
-					<input type="radio" id="stext" name="scriptview"/>
-					<label for="stext">Script Text</label> </span>
-				<button class="run_scripts">
-					Run
-				</button>
-				<button class="goto_stage">
-					Show Stage
-				</button>
-				<button class="clear_scripts">
-					Clear Scripts
-				</button>
-				<button class="demo_scripts">
-					Demos
-				</button>
-				<button class="save_scripts">
-					Save
-				</button>
-				<button class="restore_scripts">
-					Restore
-				</button>
-				<button id="search_enter" type="button" onClick="search($('#search').val());$('#search').val('')">
-					Enter
-				</button>
-
-				<input id="search" class = 'search-field'/>
-			</div>
-			<div class="tab_bar2">
-				<button class="goto_script">
-					Back to Script
-				</button>
-				<button class="clear_canvas">
-					Clear Stage
-				</button>
-				<button class="run_scripts">
-					Run
-				</button>
-			</div>
-			<div class="workspace">
-				<div class="scripts_workspace"></div>
-				<div class="scripts_text_view"></div>
-			</div>
-			<div class="stage"></div>
 		</div>
-		<div class="hidden" id="color_popup">
-			<div id="color_contents"></div>
-		</div>
-		<!--<div class="hidden dialog" id="save_dialog">
-			<div id="save_dialog_contents">
-				<h2>Save the current script</h2>
-				<input id="script_name" placeholder="Script Name" />
-				<textarea id="script_description" placeholder="Optional Description"></textarea>
-				<button class="save">
-					Save
-				</button>
-				<button class="export">
-					Export
-				</button>
-				<button class="cancel">
-					Cancel
-				</button>
+		<div class="dialog" id="about_dialog">
+			<div id="about_dialog_contents">
+				<p>
+					<a href="index.html">Info</a>
+				</p>
+				<p>
+					<a href="docs/index.html">Documentation</a>
+				</p>
+				<!-- Not sure if this is necessary, better safe than sorry -->
+				<p>
+					<a href="license">License</a>
+				</p>
+				<p>
+					<a href="index.html#help">Help</a>
+				</p>
 			</div>
-		</div>-->
+		</div>
 		<div class="dialog" id="save_dialog" title="Save Script">
 			<form id="save_form" class="dialogform">
 				<fieldset id="save_fieldset" class="dialogfieldset">
 					<h2>Save the current script</h2>
-					<input id="script_name" name="script_name" class ="text ui-widget-content ui-corner-all" placeholder="Script Name" />
+					<input id="script_name" name="script_name" class ="text ui-widget-content ui-corner-all diaginput" placeholder="Script Name" />
 					<textarea id="script_description" name="script_description" class ="text ui-widget-content ui-corner-all" rows=8 placeholder="Optional Description"></textarea>
 				</fieldset>
 			</form>
@@ -136,6 +136,11 @@
 			Paste the code generated by the export dialog below.
 			<textarea rows=10 class="text ui-widget-content ui-corner-all"></textarea>
 		</div>
+		<div class="dialog" id="spritediag" title="New Sprite">
+			<h2>Add new Sprite</h2>
+			Enter the name of a sprite below.
+			<input id="sprite_name" name="sprite_name" class ="text ui-widget-content ui-corner-all diaginput"/>
+		</div>
 		<script src="lib/jquery-1.7.2.min.js"></script>
 		<!--<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>-->
 		<script src="lib/jquery.ui.core.js"></script>
@@ -148,6 +153,9 @@
 		<script src="lib/jquery.autoGrowInput.js"></script>
 		<script src="lib/json2.js"></script><!-- Make this conditional -->
 		<script src="lib/jquery.scrollTo.js"></script>
+		<script src="lib/jquery-ui-1.8.21.custom.min.js"></script>
+		<script src="lib/scrollbar/jquery.mousewheel.min.js"></script>
+		<script src="lib/scrollbar/jquery.mCustomScrollbar.js"></script>
 		<script src="scripts/drag.js"></script>
 		<script src="scripts/blocks.js"></script>
 		<script src="scripts/runtime.js"></script>
@@ -155,7 +163,6 @@
 		<script src="scripts/workspace.js"></script>
 		<script src="scripts/search.js"></script>
 		<script src="scripts/keys.js"></script>
-		<script type="text/javascript" src="lib/jquery-ui-1.8.21.custom.min.js"></script>
 		<script>
 			/*Runs the categories in the search field.*/
 			$.widget("custom.catcomplete", $.ui.autocomplete, {
@@ -191,152 +198,251 @@
 				$("#accordion").accordion({
 						header: "> section > h3",
 						collapsible : true,
-						autoHeight : false,
+						autoHeight: false,
+						active: false,
 						icons : {
 							"header" : "ui-icon-circle-triangle-e",
 							"headerSelected" : "ui-icon-circle-triangle-s"
 						}
-					}).sortable({
-						axis: "y",
-						handle: "h3 > a",
-						stop: function( event, ui ) {
-							// IE doesn't register the blur when sorting
-							// so trigger focusout handlers to remove .ui-state-focus
-							ui.item.children( "h3" ).triggerHandler( "focusout" );
-						}
-					});
+				}).sortable({
+					axis: "y",
+					handle: "h3 > a",
+					stop: function( event, ui ) {
+						// IE doesn't register the blur when sorting
+						// so trigger focusout handlers to remove .ui-state-focus
+						ui.item.children( "h3" ).triggerHandler( "focusout" );
+					}
+				});
 			}
 		</script>
 		<script>
 			$(document).ready(function() {
-		
-					$("#radio").buttonset();
-					$("button").button();
-					$("#search").catcomplete({
-						source : window.blocknames,
-					});
-			
-					$("#save_dialog").dialog({
-						autoOpen: false,
-						height: 300,
-						width: 450,
-						modal: true,
-						resizable: false,
-							buttons: [
-								{
-									text: "Save",
-									"class": 'dialogbutton',
-									click: function() {
-										save_named_scripts();
-									}
-								},
-								{
-									text: "Export",
-									"class": 'dialogbutton',
-									click: function() {
-										export_named_scripts();
-									}
-								},
-								{
-									text: "Cancel",
-									"class": 'dialogbutton',
-									click: function() {
-										$(this).dialog("close");
-									}
-								}
-							
-							],
-							close: function(){
-								$("#script_name").val("");
-								$("#script_description").val("");
+				//Buttons
+				$("#about").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-info"
+					}					
+				}).click( function() {
+					$('#about_dialog').dialog("open");
+				});
+				
+				$("#restore_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-folder-open"
+					}					
+				});
+				$("#save_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-disk"
+					}
+				});
+				$("#demo_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-notice"
+					}
+				});
+				$("#clear_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-document"
+					}
+				});
+				$("#clear_canvas").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-close"
+					}
+				});
+				$("#run_scripts").button({
+					text: false,
+					icons: {
+						primary: "ui-icon-check"
+					}
+				});
+				$("#newsprite").button({
+					text:false,
+					icons: {
+						primary: "ui-icon-arrowthick-1-s"
+					}
+				}).click( function() {
+					$("#spritediag").dialog("open");
+				});
+				
+				//Tabs			
+				$("#blocktabs").tabs();
+				$("#scripttabs").tabs();
+				/*
+				$("#scripts_workspace").mCustomScrollbar({
+					horizontalScroll: true,
+					advanced:{
+						autoExpandHorizontalScroll: true
+					},
+					setHeight: 50
+				});*/
+				//Search
+				$("#search").catcomplete({
+					source : window.blocknames,
+				});
+
+				//Dialogs
+				$("#about_dialog").dialog({
+					autoOpen: false,
+					modal: true,
+					resizable: false,
+				});
+								
+				$("#save_dialog").dialog({
+					autoOpen: false,
+					height: 300,
+					width: 450,
+					modal: true,
+					resizable: false,
+					buttons: [
+						{
+							text: "Save",
+							"class": 'dialogbutton',
+							click: function() {
+								save_named_scripts();
 							}
-					});
-					$("#restore_dialog").dialog({
-						autoOpen: false,
-						height: 300,
-						width: 450,
-						modal: true,
-						resizable: false,
-						buttons: [
-							{
-								text: "Import",
-								"class": 'dialogbutton',
-								click: function() {
-									$(this).dialog("close");
-									$("#imp").dialog("open");
-								}
-							},
-							{
-								text: "Cancel",
-								"class": 'dialogbutton',
-								click: function() {
-									$(this).dialog("close");
-								}
+						},
+						{
+							text: "Export",
+							"class": 'dialogbutton',
+							click: function() {
+								export_named_scripts();
 							}
-						],
-						close: function(){
-						    $('#script_list').empty();
+						},
+						{
+							text: "Cancel",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+							}
 						}
-					});
-					$("#demos_dialog").dialog({
-						autoOpen: false,
-						height: 300,
-						width: 450,
-						modal: true,
-						resizable: false,
-							buttons: [
-								{
-									text: "Cancel",
-									"class": 'dialogbutton',
-									click: function() {
-										$(this).dialog("close");
-									}
-								}
-							
-							],
-					});
-					$("#exp").dialog({
-						autoOpen: false,
-						height: 250,
-						width: 325,
-						modal: true,
-						resizable: false,
-							buttons: [
-								{
-									text: "Cancel",
-									"class": 'dialogbutton',
-									click: function() {
-										$(this).dialog("close");
-									}
-								}
-							
-							],
-					});
-					$("#imp").dialog({
-						autoOpen: false,
-						height: 300,
-						width: 325,
-						modal: true,
-						resizable: false,
-						buttons: [
-							{
-								text: "Import",
-								"class": 'dialogbutton',
-								click: function() {
-									restore_from_export();
-								}
-							},
-							{
-								text: "Cancel",
-								"class": 'dialogbutton',
-								click: function() {
-									$(this).dialog("close");
-								}
+					],
+					close: function(){
+						$("#script_name").val("");
+						$("#script_description").val("");
+					}
+				});
+				$("#restore_dialog").dialog({
+					autoOpen: false,
+					height: 300,
+					width: 450,
+					modal: true,
+					resizable: false,
+					buttons: [
+						{
+							text: "Import",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+								$("#imp").dialog("open");
 							}
-						
-						],
+						},
+						{
+							text: "Cancel",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+							}
+						}
+					],
+					close: function(){
+						$('#script_list').empty();
+					}
+				});
+				$("#demos_dialog").dialog({
+					autoOpen: false,
+					height: 300,
+					width: 450,
+					modal: true,
+					resizable: false,
+					buttons: [
+						{
+							text: "Cancel",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+							}
+						}
+					
+					],
+				});
+				$("#exp").dialog({
+					autoOpen: false,
+					height: 250,
+					width: 325,
+					modal: true,
+					resizable: false,
+					buttons: [
+						{
+							text: "Cancel",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+							}
+						}
+					
+					],
+				});
+				$("#imp").dialog({
+					autoOpen: false,
+					height: 300,
+					width: 325,
+					modal: true,
+					resizable: false,
+					buttons: [
+						{
+							text: "Import",
+							"class": 'dialogbutton',
+							click: function() {
+								restore_from_export();
+							}
+						},
+						{
+							text: "Cancel",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+							}
+						}
+					
+					],
+				});
+				$("#spritediag").dialog({
+					autoOpen: false,
+					height: 300,
+					width: 325,
+					modal: true,
+					resizable: false,
+					buttons: [
+						{
+							text: "Add",
+							"class": 'dialogbutton',
+							click: function() {
+								var nam =  $('#sprite_name').val();
+								add_sprite(nam);
+								$('#sprite_name').val('');
+								$(this).dialog("close");
+							}
+						},
+						{
+							text: "Cancel",
+							"class": 'dialogbutton',
+							click: function() {
+								$(this).dialog("close");
+							}
+						}
+					
+					],
 				});
 			});
+			clear_canvas();
 		</script>
 	</body>
 </html>
