@@ -229,18 +229,8 @@
             if (drag_target.block_type() === 'step'){
                 // Drag a step to snap to a step
                 // console.log('snapping a step togther')
-				/*if (drop_target.find('hasClass(') {
-					return;
-					var children = drop_target.children();
-					drop_target.children().remove();
-					/*drop_target.css({
-						position :'absolute',
-						left :0,
-						top: 0,
-						display: 'inline-block'
-					});
-					}*/
-                //drop_target.parent().append(drag_target);
+				
+                drop_target.parent().append(drag_target);
 				
                 drag_target.css({
                     position: 'relative',
@@ -248,19 +238,19 @@
                     top: 0,
                     display: 'inline-block'
                 });
+				
 				drop_target.parent().find('.slot:first').after(drag_target);
-				drop_target.find('.slot:last').after(remainder);
+				
+				//move the blocks below insertion to accommodate for the inserted block
 				var remainder = drag_target.siblings('.wrapper');
 				drag_target.siblings('.wrapper').remove();
 				drag_target.parent().find('.slot:last').after(remainder);
-				//drag_target.find('.slot:last').after(remainder);
 				
                 drag_target.trigger('add_to_script');
             }else{
                 // Insert a value block into a socket
                 // console.log('Inserting a value into a socket');
                 drop_target.find('input, select').remove();
-				//drag_target.after('.next');
                 drop_target.append(drag_target);
                 drag_target.css({
                     position: 'relative',
