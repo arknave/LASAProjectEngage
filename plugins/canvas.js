@@ -23,9 +23,7 @@ jQuery.fn.extend({
   extract_script: function(){
       if (this.length === 0) return '';
       if (this.is(':input')){
-		  if (this.parent().is('.trig')){
-		      return this.val();
-          }else if (this.parent().is('.string')){
+		  if (this.parent().is('.string')){
               return '"' + this.val() + '"';
           }else{
               return this.val();

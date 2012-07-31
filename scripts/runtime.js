@@ -162,6 +162,7 @@ function inRange(val, min, max) {
 }
 
 function overlap(e1, e2){
+	//Arguments - two strings which are jquery selectors
 	var os1 = $(e1).offset(); //os is short for offset
 	var os2 = $(e2).offset();
 	var x1 = os1.left;
@@ -172,7 +173,7 @@ function overlap(e1, e2){
 	var w2 = $(e2).outerWidth();
 	var h1 = $(e1).outerHeight();
 	var h2 = $(e2).outerHeight();
-	xOverlap = inRange(x1, x2, x2 + w2) || inRange(x2, x1, x1 + w1);
-	yOverlap = inRange(y1, y2, y2 + h2) || inRange(y2, y1, y1 + h1);
+	xOverlap = inRange(x1, x2, x2 + w2) || inRange(x2, x1, x1 + w1); //x vals in range?
+	yOverlap = inRange(y1, y2, y2 + h2) || inRange(y2, y1, y1 + h1); //y vals in range?
 	return xOverlap && yOverlap;
 }

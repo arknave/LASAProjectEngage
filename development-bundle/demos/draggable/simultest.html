@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Draggable - Default functionality</title>
+	<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css">
+	<script src="../../jquery-1.7.2.js"></script>
+	<script src="../../ui/jquery.ui.core.js"></script>
+	<script src="../../ui/jquery.ui.widget.js"></script>
+	<script src="../../ui/jquery.ui.mouse.js"></script>
+	<script src="../../ui/jquery.ui.draggable.js"></script>
+	<link rel="stylesheet" href="../demos.css">
+	<style>
+	#draggable1 { width: 150px; height: 150px; padding: 0.5em; }
+	#draggable2 { width: 150px; height: 150px; padding: 0.5em; }
+	</style>
+	<script>
+	$(function() {
+		$( "#draggable1" ).draggable();
+		$( "#draggable2" ).draggable();
+		$( "#cm" ).click( function() {
+			$("#draggable1").animate({
+				left: '+=900',
+				borderWidth: '10px'
+			}, 1000);
+		});
+		$( "#cm" ).click( function() {
+			$("#draggable2").empty();
+			
+		});
+	});
+	</script>
+</head>
+<body>
+
+<div class="demo">
+<button id="cm">Click Me!</button>
+<div id="draggable1" class="ui-widget-content">
+	<p>Drag me around</p>
+</div>
+
+<div id="draggable2" class="ui-widget-content">
+	<p>Drag me around</p>
+</div>
+
+</div><!-- End demo -->
+
+
+
+<div class="demo-description">
+<p>Enable draggable functionality on any DOM element. Move the draggable object by clicking on it with the mouse and dragging it anywhere within the viewport.</p>
+</div><!-- End demo-description -->
+
+</body>
+</html>

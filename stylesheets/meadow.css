@@ -118,16 +118,8 @@ src: url('fonts/trinigan-webfont.ttf'),
 	padding: 5px;
 }
 
-#workspace > div{
-	padding: 10px;
-}
-
-#scripts_workspace {
+.tab {
 	overflow: visible;
-}
-
-#scripts_text_view {
-	font-size: 1.2em;
 }
 
 #stage {
@@ -162,6 +154,22 @@ src: url('fonts/trinigan-webfont.ttf'),
 #spritecontainer {
 	min-height: 250px;
 	clear: both;
+}
+
+#stagelist {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: inline;
+	min-width: 50px;
+	border-right: 1px solid black;
+}
+
+#spritelist {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: inline;
 }
 
 .currentsprite {
@@ -207,8 +215,4 @@ src: url('fonts/trinigan-webfont.ttf'),
 
 .diaginput {
 	width: 93%;
-}
- 
-.containerBlock {
-	overflow: visible;
 }

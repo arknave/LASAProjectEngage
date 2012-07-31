@@ -11,9 +11,7 @@
 	</head>
 	<body>
 		<div id="header" class="ui-widget-header">
-			<span id="logo" class="title">
-				Waterbear
-			</span>
+			<span id="logo" class="title">Waterbear</span>
 			<section id="toolbar" >
 				<button id="about">About</button>
 				<button id="restore_scripts">Restore</button>
@@ -32,14 +30,9 @@
 							<div id="col1">
 								<div id="scripttabs">
 									<ul>
-										<li><a href="#scripts_workspace">Stage</a></li>
-										<li><a href="#scripts_text_view">Text View</a></li>
+										<li><a href="#stage1">Stage</a></li>
 									</ul>
-									<div id="workspace" class="workspace">
-										<div id="scripts_workspace" class="scripts_workspace">
-										</div>
-										<div id="scripts_text_view" class="scripts_text_view">
-										</div>
+									<div id="stage1" class="tab">
 									</div>
 								</div>
 							</div>
@@ -59,16 +52,6 @@
 						</div>
 					</div>
 					<div id="col3">
-						<!--<div id="stage" class="stage ui-content"></div>
-						<div id="spritebank" class="spritebank ui-content">
-							<ul id="spritelist">
-								<img src="images/sprites/Archie_Che_Guevara.svg" class="sprite" />
-								<img src="images/sprites/bob_marley.svg" class="sprite" />
-								<img src="images/sprites/mozart.svg" class="sprite" />
-								<img src="images/sprites/casifish_stallman.svg" class="sprite" />
-							</ul>
-						</div>
-						-->
 						<div id="stage" class="stage">
 							<canvas>
 								<p> Sorry, but your browser doesn't support canvas. Please use the latest version of Firefox </p>
@@ -80,13 +63,17 @@
 								<button id="newsprite">Import Sprite</button>
 							</div>
 							<div id="spritecontainer" class="ui-widget-content">
+								<ul id="stagelist">
+								</ul>
+								<ul id="spritelist">
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="dialog" id="about_dialog">
+		<div class="dialog" id="about_dialog" title="About Waterbear">
 			<div id="about_dialog_contents">
 				<p>
 					<a href="index.html">Info</a>

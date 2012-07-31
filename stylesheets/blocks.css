@@ -102,6 +102,10 @@
     display: block;
 }
 
+.containerBlock {
+	overflow: visible;
+}
+
 .containerBlock > .blockhead{
     padding: 5px 20px;
     padding-bottom: 6px;

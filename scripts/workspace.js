@@ -71,7 +71,7 @@ function clear_canvas(event){
 	var ctx = canvas.getContext('2d');
 	ctx.fillStyle="rgb(255,255,255)";
 	ctx.fillRect(0,0,canvas.width-50,canvas.height);
-	$("#spritecontainer").empty();
+	$("#spritelist").empty();
 }
 
 $('#clear_scripts').click(clear_scripts);
@@ -276,33 +276,11 @@ window.load_current_scripts = function(){
         }
     }
 }
-// $(document).ready(load_current_scripts);
-
-// Tab UI
-
-// UI Section
-
-/*$("input[name='scriptview']").change(function () {
-	//alert(""+($("#sblock").attr('checked'))+" "+($("#stext").attr('checked')));
-    var self = $(this);
-    $('.tab_bar .selected').removeClass('selected');
-    self.addClass('selected');
-    $('.workspace:visible > div:visible').hide();
-	if($("#sblock").attr('checked') === 'checked'){
-        $('.workspace:visible .scripts_workspace').show();
-	}
-	else if($("#stext").attr('checked') === 'checked'){
-        $('.workspace:visible .scripts_text_view').show();
-        update_scripts_view();
-	}
-}).change();
-*/
 
 function sprite_drag(){
 	var glob = new Global();
 	var oset = $("#stage").offset();
 	var bounds = [oset.left, oset.top, oset.left+glob.stage_width-90, oset.top+glob.stage_height-40];
-	console.log(bounds);
 	$(".stagesprite").draggable({
 		containment: bounds,
 		scroll: false,
@@ -316,12 +294,14 @@ var spritewidth = 50;
 var img = new Image();
 
 function add_sprite(filename) {
-	var spritebox = $('#spritecontainer');
-	spritebox.append('<canvas id="listsprite'+spriteid+'" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
-	var ctx = document.getElementById('listsprite'+spriteid).getContext('2d');
+	//Add to the sprite list
+	var spritebox = $('#spritelist');
+	spritebox.append('<li><canvas id="listsprite'+spriteid+'" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas></li>');
+	var ctx = $('#listsprite'+spriteid)[0].getContext('2d');
 	img.src = 'images/sprites/'+filename;
 	$('.listsprite').removeClass('currentsprite');
 	$('#listsprite'+spriteid).addClass('currentsprite');
+	//Add to the stage
 	$("#stage").append('<div id="stagesprite'+spriteid+'" class="stagesprite"><canvas height="'+spriteheight+'" width="'+spritewidth+'"></canvas></div>');
 	var ctx2 = $('#stagesprite'+spriteid+' > canvas')[0].getContext('2d');
 	img.onload = function(){
@@ -333,13 +313,11 @@ function add_sprite(filename) {
 	}).css('left', function(){
 		return Math.random()*190; // 0 to 190
 	});
-	sprite_drag()
+	sprite_drag();
+	//Add new tab
+	$("#scripttabs").tabs("add", "#tabsprite"+spriteid, "Sprite "+spriteid);
 	spriteid++;
 }
-
-$("#scripttabs").bind( "tabsselect", function() {
-	update_scripts_view();
-});
 
 this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
