@@ -127,6 +127,7 @@ src: url('fonts/trinigan-webfont.ttf'),
 }
 
 #scripts_text_view {
+	overflow: visible;
 	font-size: 1.2em;
 }
 
