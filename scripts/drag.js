@@ -119,7 +119,7 @@
     }
 
     function init_drag(event) {
-    	console.log("init_drag");
+    	//console.log("init_drag");
         // Called on mousedown or touchstart, we haven't started dragging yet
         // TODO: Don't start drag on a text input
         if (!blend(event)) {
@@ -146,7 +146,7 @@
     }
 
     function start_drag(event) {
-        console.log('trying to start drag');
+        //console.log('trying to start drag');
         // called on mousemove or touchmove if not already dragging
         if (!blend(event)) {
             return undefined;
@@ -243,7 +243,7 @@
     }
 
     function end_drag(end) {
-        console.log('end_drag');
+        //console.log('end_drag');
         clearTimeout(timer);
         timer = null;
         if (!dragging) {
@@ -255,7 +255,7 @@
     }
 
     function handle_drop() {
-    	console.log("handing heavy drop");
+    	//console.log("handing heavy drop");
         // TODO:
         // is it over the menu
         // 1. Drop if there is a target
