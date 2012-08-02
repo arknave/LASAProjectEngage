@@ -12,7 +12,7 @@
 	<body>
 
 		<div id="header" class="ui-widget-header">
-			<span id="logo" class="title">Waterbear</span>
+			<span id="logo" class="title"> Waterbear </span>
 			<section id="toolbar" >
 				<button id="about">
 					About
@@ -46,9 +46,16 @@
 							<div id="col1">
 								<div id="scripttabs">
 									<ul>
-										<li><a href="#stage1">Stage</a></li>
+										<li>
+											<a href="#scripts_workspace">Block View</a>
+										</li>
+										<li>
+											<a href="#scripts_text_view">Text View</a>
+										</li>
 									</ul>
-									<div id="stage1" class="tab">
+									<div id="workspace" class="workspace">
+										<div id="scripts_workspace" class="scripts_workspace"></div>
+										<div id="scripts_text_view" class="scripts_text_view"></div>
 									</div>
 								</div>
 							</div>
@@ -91,18 +98,16 @@
 						<div id="spritebank" class="ui-widget">
 							<div id="spriteheader" class="ui-widget-header">
 								<h4 id="spritetitle" class='title'>Sprites</h4>
-								<button id="newsprite">Import Sprite</button>
+								<button id="newsprite">
+									Import Sprite
+								</button>
 							</div>
-							<div id="spritecontainer" class="ui-widget-content">
-								<ul id="stagelist">
-								</ul>
-								<ul id="spritelist">
-								</ul>
-							</div>
+							<div id="spritecontainer" class="ui-widget-content"></div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div class="dialog" id="about_dialog">
 			<div id="about_dialog_contents">
@@ -178,22 +183,8 @@
 		<!-- Should this be moved to language? -->
 		<script src="scripts/workspace.js"></script>
 		<script src="scripts/search.js"></script>
+		<script src="scripts/setup.js"></script>
 		<script src="scripts/keys.js"></script>
-		<script>
-            /*Runs the categories in the search field.*/
-            $.widget("custom.catcomplete", $.ui.autocomplete, {
-                _renderMenu : function(ul, items) {
-                    var self = this, currentCategory = "";
-                    $.each(items, function(index, item) {
-                        if (item.category != currentCategory) {
-                            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                            currentCategory = item.category;
-                        }
-                        self._renderItem(ul, item);
-                    });
-                }
-            });
-		</script>
 		<script>
             var q = $.parseQuery();
             // Insert path of plugin to be loaded here
@@ -211,226 +202,19 @@
                         restore_demo_by_name(q.demo);
                     });
                 }
-                //Search (Must be loaded after plugin is loaded.)
-                $("#search").catcomplete({
-                    source : window.blocknames,
-                });
-                $("#accordion").accordion({
-                    header : "> section > h3",
-                    collapsible : true,
-                    autoHeight : false,
-                    active : false,
-                    icons : {
-                        "header" : "ui-icon-circle-triangle-e",
-                        "headerSelected" : "ui-icon-circle-triangle-s"
-                    }
-                }).sortable({
-                    axis : "y",
-                    handle : "h3 > a",
-                    stop : function(event, ui) {
-                        // IE doesn't register the blur when sorting
-                        // so trigger focusout handlers to remove .ui-state-focus
-                        ui.item.children("h3").triggerHandler("focusout");
-                    }
-                });
+                setup_search();
+                setup_block_accordians();
             }
-		</script>
-		<script>
+
+
             $(document).ready(function() {
-                //Buttons
-                $("#about").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-info"
-                    }
-                }).click(function() {
-                    $('#about_dialog').dialog("open");
-                });
-
-                $("#restore_scripts").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-folder-open"
-                    }
-                });
-                $("#save_scripts").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-disk"
-                    }
-                });
-                $("#demo_scripts").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-notice"
-                    }
-                });
-                $("#clear_scripts").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-document"
-                    }
-                });
-                $("#clear_canvas").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-close"
-                    }
-                });
-                $("#run_scripts").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-check"
-                    }
-                });
-                $("#newsprite").button({
-                    text : false,
-                    icons : {
-                        primary : "ui-icon-arrowthick-1-s"
-                    }
-                }).click(function() {
-                    $("#spritediag").dialog("open");
-                });
-
-                //Tabs
-                $("#blocktabs").tabs();
-                $("#scripttabs").tabs();
-
-                //Dialogs
-                $("#about_dialog").dialog({
-                    autoOpen : false,
-                    modal : true,
-                    resizable : false,
-                });
-
-                $("#save_dialog").dialog({
-                    autoOpen : false,
-                    height : 300,
-                    width : 450,
-                    modal : true,
-                    resizable : false,
-                    buttons : [{
-                        text : "Save",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            save_named_scripts();
-                        }
-                    }, {
-                        text : "Export",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            export_named_scripts();
-                        }
-                    }, {
-                        text : "Cancel",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                        }
-                    }],
-                    close : function() {
-                        $("#script_name").val("");
-                        $("#script_description").val("");
-                    }
-                });
-                $("#restore_dialog").dialog({
-                    autoOpen : false,
-                    height : 300,
-                    width : 450,
-                    modal : true,
-                    resizable : false,
-                    buttons : [{
-                        text : "Import",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                            $("#imp").dialog("open");
-                        }
-                    }, {
-                        text : "Cancel",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                        }
-                    }],
-                    close : function() {
-                        $('#script_list').empty();
-                    }
-                });
-                $("#demos_dialog").dialog({
-                    autoOpen : false,
-                    height : 300,
-                    width : 450,
-                    modal : true,
-                    resizable : false,
-                    buttons : [{
-                        text : "Cancel",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                        }
-                    }],
-                });
-                $("#exp").dialog({
-                    autoOpen : false,
-                    height : 250,
-                    width : 325,
-                    modal : true,
-                    resizable : false,
-                    buttons : [{
-                        text : "Cancel",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                        }
-                    }],
-                });
-                $("#imp").dialog({
-                    autoOpen : false,
-                    height : 300,
-                    width : 325,
-                    modal : true,
-                    resizable : false,
-                    buttons : [{
-                        text : "Import",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            restore_from_export();
-                        }
-                    }, {
-                        text : "Cancel",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                        }
-                    }],
-                });
-                $("#spritediag").dialog({
-                    autoOpen : false,
-                    height : 300,
-                    width : 325,
-                    modal : true,
-                    resizable : false,
-                    buttons : [{
-                        text : "Add",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            var nam = $('#sprite_name').val();
-                            add_sprite(nam);
-                            $('#sprite_name').val('');
-                            $(this).dialog("close");
-                        }
-                    }, {
-                        text : "Cancel",
-                        "class" : 'dialogbutton',
-                        click : function() {
-                            $(this).dialog("close");
-                        }
-                    }],
-                });
+                setup_buttons();
+                setup_tabs();
+                setup_dialogs();
             });
             clear_canvas();
 		</script>
+
 
 	</body>
 </html>

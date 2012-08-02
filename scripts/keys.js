@@ -16,7 +16,7 @@ function check() {
 	if (keys[ESCAPE])
 		$('#accordion')[0].scrollIntoView();
 	if (keys[ENTER])
-		$('#search_enter').click();
+		submit_search();
 }
 
 var BACKSPACE = 8;

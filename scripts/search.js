@@ -16,7 +16,13 @@ function search(name) {
 	if (block)
 		add_block(block);
 }
-
+/**
+ * 
+ */
+function submit_search(){
+	search($('#search').val());
+	$('#search').val('');
+}
 //TODO optimize, largely copy and pasted from drag.js
 function add_block(block) {
 	block.css({
