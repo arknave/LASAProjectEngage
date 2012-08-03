@@ -33,7 +33,6 @@
 //    a..b as above
 
 // Key to jquery.event.touch is the timer function for handling movement and hit testing
-
 (function($) {
     var drag_target, potential_drop_targets, drop_target, drop_rects, start_position, timer, cloned, dragging, current_position, distance, start_parent, drop_cursor, drag_placeholder;
     window.is_touch = typeof (window.ontouchstart) !== "undefined";
@@ -170,8 +169,6 @@
             cloned = true;
         }
         dragging = true;
-        // Make sure the workspace is available to drag to
-        show_workspace();
         // get position and append target to .content, adjust offsets
         // set last offset
         // TODO: handle detach better (generalize restoring sockets, put in language file)
@@ -236,7 +233,7 @@
         //
        
         if(current_position.top<SCROLL_HIT_TOP)
-        $('.workspace').scrollTo('-='+(SCROLL_SPEED)+'px', 0);
+        $('.workspace').scrollTo('-='+SCROLL_SPEED+'px', 0);
         if(current_position.top>$(window).height()-SCROLL_HIT_BOTTOM)
         $('.workspace').scrollTo('+='+SCROLL_SPEED+'px', 0);
         return false;
@@ -256,6 +253,20 @@
 
     function handle_drop() {
     	console.log("handing heavy drop");
+    	if (start_parent && start_parent.is('.block_menu')) {
+            start_parent.append(drag_target);
+            drag_target.css({
+                position : 'relative',
+                top : 0,
+                left : 0,
+                display : 'inline-block'
+            });
+            console.log(start_parent);
+            drag_target.removeClass('drag_indication');
+            drag_target = drag_target.clone(true);
+            drag_target.addClass('drag_indication');
+            cloned = true;
+        }
         // TODO:
         // is it over the menu
         // 1. Drop if there is a target
@@ -312,7 +323,7 @@
             $('#scripts_workspace').trigger('add');
         } else {
             if (cloned) {
-                // console.log('remove cloned block');
+                //console.log('remove cloned block');
                 drag_target.remove();
             } else {
                 // console.log('put block back where we found it');
@@ -491,5 +502,4 @@
             return current_position.left >= rect.left && current_position.left <= rect.right && current_position.top >= rect.top && current_position.top <= rect.bottom;
         }
     });
-
 })(jQuery);
