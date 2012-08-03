@@ -162,12 +162,13 @@
 			Enter the name of a sprite below.
 			<input id="sprite_name" name="sprite_name" class ="text ui-widget-content ui-corner-all diaginput"/>
 		</div>
+
 		<script src="lib/jquery-1.7.2.min.js"></script>
-		<!--<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>-->
 		<script src="lib/jquery.ui.core.js"></script>
 		<script src="lib/jquery.ui.widget.js"></script>
 		<script src="lib/jquery.ui.position.js"></script>
 		<script src="lib/jquery.ui.autocomplete.js"></script>
+		<script src="lib/jquery.ui.dialog.js"></script>
 		<script src="lib/jquery.hotkeys.js"></script>
 		<script src="lib/jquery.querystring.js"></script>
 		<script src="lib/yepnope.1.0.2-min.js"></script>
@@ -185,6 +186,7 @@
 		<script src="scripts/search.js"></script>
 		<script src="scripts/setup.js"></script>
 		<script src="scripts/keys.js"></script>
+
 		<script>
             var q = $.parseQuery();
             // Insert path of plugin to be loaded here
@@ -210,7 +212,7 @@
             $(document).ready(function() {
                 setup_buttons();
                 setup_tabs();
-                setup_dialogs();
+                setup_dialog();
             });
             clear_canvas();
 		</script>
