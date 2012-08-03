@@ -35,7 +35,7 @@ function add_block(block) {
 	var drag_target = block;
 	//var drop_target = null;
 	var start_parent = block.parent();
-	var target_canvas = $('div.scripts_workspace');
+	var target_canvas = $('div.' + get_active_tab_key());
 	//TODO update along with drag.js when workspace is switched
 	var drop_cursor;
 	var self, top, middle, bottom, x = drag_target.position().top;
@@ -65,5 +65,5 @@ function add_block(block) {
 		display : 'block'
 	});
 	drag_target.trigger('add_to_workspace');
-	$('.scripts_workspace').trigger('add');
+	$(get_active_tab_key()).trigger('add');
 }

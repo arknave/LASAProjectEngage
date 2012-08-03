@@ -314,7 +314,7 @@ var spriteid = 1;
 var spriteheight = 50;
 var spritewidth = 50;
 var img = new Image();
-
+var tab_index = 0; //Holds the index of the current selected tab.
 function add_tab(number) {
 	$("#scripttabs").tabs("add", "#spritetab"+number, "Sprite "+number);
 }
@@ -349,6 +349,22 @@ function add_sprite(filename) {
 	update_scripts_view();
 });*/
 
+/**Runs every time tab is changed*/
+$("#scripttabs").bind( "tabsselect", function() {
+	var $tabs = $('#example').tabs();
+	tab_index = $tabs.tabs('option', 'selected'); // => 0
+});
+/**For completeness.*/
+function get_active_tab_index(){
+	return tab_index;
+}
+function get_active_tab(){
+	return $(get_active_tab_key()); //All tabs without the .ui-tabs-hide class
+}
+
+function get_active_tab_key(){
+	return "#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)";
+}
 this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
 function menu(title, specs, show) {
