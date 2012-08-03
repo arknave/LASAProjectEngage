@@ -302,7 +302,7 @@ function sprite_drag(){
 	var glob = new Global();
 	var oset = $("#stage").offset();
 	var bounds = [oset.left, oset.top, oset.left+glob.stage_width-90, oset.top+glob.stage_height-40];
-	console.log(bounds);
+	//console.log(bounds);
 	$(".stagesprite").draggable({
 		containment: bounds,
 		scroll: false,
@@ -315,13 +315,19 @@ var spriteheight = 50;
 var spritewidth = 50;
 var img = new Image();
 
+function add_tab(number) {
+	$("#scripttabs").tabs("add", "#spritetab"+number, "Sprite "+number);
+}
+
 function add_sprite(filename) {
+	//Add to the list of sprites
 	var spritebox = $('#spritecontainer');
 	spritebox.append('<canvas id="listsprite'+spriteid+'" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
 	var ctx = document.getElementById('listsprite'+spriteid).getContext('2d');
 	img.src = 'images/sprites/'+filename;
 	$('.listsprite').removeClass('currentsprite');
 	$('#listsprite'+spriteid).addClass('currentsprite');
+	//Add version on stage
 	$("#stage").append('<div id="stagesprite'+spriteid+'" class="stagesprite"><canvas height="'+spriteheight+'" width="'+spritewidth+'"></canvas></div>');
 	var ctx2 = $('#stagesprite'+spriteid+' > canvas')[0].getContext('2d');
 	img.onload = function(){
@@ -334,6 +340,8 @@ function add_sprite(filename) {
 		return Math.random()*190; // 0 to 190
 	});
 	sprite_drag()
+	//Add new tab
+	add_tab(spriteid);
 	spriteid++;
 }
 
