@@ -90,13 +90,13 @@ function scripts_as_object(){
 }
 
 // Expose this for dragging and saving functionality
-window.show_workspace = function(){
+/*window.show_workspace = function(){
     $('.workspace:visible .scripts_text_view').hide();
     $('.workspace:visible .scripts_workspace').show();
-}	
+}*/	
 
 function save_current_scripts(){
-    show_workspace();
+    //show_workspace();
     $('#accordion')[0].scrollIntoView();
     localStorage['__current_scripts'] = JSON.stringify(scripts_as_object());
 }
@@ -345,9 +345,9 @@ function add_sprite(filename) {
 	spriteid++;
 }
 
-$("#scripttabs").bind( "tabsselect", function() {
+/*$("#scripttabs").bind( "tabsselect", function() {
 	update_scripts_view();
-});
+});*/
 
 this.blocknames = new Array();
 // Build the Blocks menu, this is a public method

@@ -126,11 +126,6 @@ src: url('fonts/trinigan-webfont.ttf'),
 	overflow: visible;
 }
 
-#scripts_text_view {
-	overflow: visible;
-	font-size: 1.2em;
-}
-
 #stage {
 	overflow: hidden;
 	height: 300px;
