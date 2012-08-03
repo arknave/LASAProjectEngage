@@ -2,7 +2,9 @@
  * @author Jonas
  */
 
+/**Holds pressed keys*/
 var keys = Array();
+
 $(document).keydown(function(e) {
 	keys[e.keyCode] = true;
 	check();
@@ -10,11 +12,9 @@ $(document).keydown(function(e) {
 $(document).keyup(function(e) {
 	keys[e.keyCode] = null;
 });
+
+/**Holds keybindings*/
 function check() {
-	if (keys[ENTER] && keys[SHIFT])
-		$('.stage')[0].scrollIntoView();
-	if (keys[ESCAPE])
-		$('#accordion')[0].scrollIntoView();
 	if (keys[ENTER])
 		submit_search();
 }
