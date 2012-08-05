@@ -776,6 +776,11 @@ var menus = {
 			script: "local.ctx.clearRect ( 0 , 0 , global.stage_width , global.stage_height );",
 			help: 'clears the stage, returning it to white'
 		},
+		{
+			label: 'move to [point]',
+			script: '$(' + get_active_tab().attr("id").toString().replace("scripttabs","stagesprite") + ').css("left",{{1}}.x).css("top",{{1}}.y);',
+			help: 'moves this tabs sprite to the specified point'
+		},
         {
             label: 'fill circle at point [point] with radius [number:10]',
             script: 'local.ctx.beginPath();local.ctx.arc({{1}}.x,{{1}}.y,{{2}},0,Math.PI*2,true);local.ctx.closePath();local.ctx.fill();',
@@ -1035,5 +1040,5 @@ $('.socket input').live('click',function(){
     $(this).focus();
     $(this).select();
 });
-pluginReady();
+	pluginReady();
 }

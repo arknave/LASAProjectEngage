@@ -357,10 +357,14 @@ function delete_sprite(id){
 
 /**Runs every time tab is changed*/
 $("#scripttabs").bind( "tabsselect", function() {
-	var $tabs = $('#example').tabs();
+	var $tabs = $('#scripttabs').tabs();
 	tab_index = $tabs.tabs('option', 'selected'); // => 0
 });
-/**For completeness.*/
+
+function is_stage(){
+	return get_active_tab().is($('#scripts_workspace'));
+}
+/**For completeness. THE TABS CHANGE THEIR INDEX WHEN A NEW SPRITE IS ADDED. THE STAGE WILL NOT ALWAYS BE INDEX 0.*/
 function get_active_tab_index(){
 	return tab_index;
 }
@@ -369,6 +373,9 @@ function get_active_tab(){
 }
 function get_active_tab_key(){
 	return '#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)';
+}
+function move_sprite(id,x,y){
+	$('stagesprite' + id).css("left",x).css("top",	y);
 }
 this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
