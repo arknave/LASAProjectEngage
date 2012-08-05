@@ -361,9 +361,8 @@ function get_active_tab_index(){
 function get_active_tab(){
 	return $(get_active_tab_key()); //All tabs without the .ui-tabs-hide class
 }
-
 function get_active_tab_key(){
-	return "#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)";
+	return '#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)';
 }
 this.blocknames = new Array();
 // Build the Blocks menu, this is a public method

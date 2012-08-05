@@ -37,9 +37,8 @@
     var drag_target, potential_drop_targets, drop_target, drop_rects, start_position, timer, cloned, dragging, current_position, distance, start_parent, drop_cursor, drag_placeholder;
     window.is_touch = typeof (window.ontouchstart) !== "undefined";
     var drag_timeout = 20;
-    // TODO: update this whenever we switch to a new workspace
-    var target_canvas = $('#workspace:visible #scripts_workspace');
-
+    /**Selector for the active tab, do not change!*/
+    var active = '#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)';
     var snap_dist = 25;
     var SCROLL_HIT_TOP = 100;
     var SCROLL_HIT_BOTTOM = 100;
@@ -98,11 +97,11 @@
     }
 
     function step_targets() {
-        return target_canvas.find('.slot:only-child');
+        return get_active_tab().find('.slot:only-child');
     }
-
+    
     function socket_targets(type) {
-        return target_canvas.find('.socket.' + type + ':not(:has(.value))');
+        return get_active_tab().find('.socket.' + type + ':not(:has(.value))');
     }
 
     /*a slower but more flexible way of doing the socket targets
@@ -112,7 +111,7 @@
         var type_array = types.split(',');
         var res = $();
         for (var i = 0; i < type_array.length; i++) {
-            res = res.add(target_canvas.find('.socket.' + type_array[i] + ':not(:has(.value))'));
+            res = res.add(get_active_tab().find('.socket.' + type_array[i] + ':not(:has(.value))'));
         }
         return res;
     }
@@ -133,7 +132,7 @@
 		if (target.length) {
 			drag_target = target;
             start_position = target.offset();
-            if (! target.parent().is('#scripts_workspace')) {
+            if (! target.parent().is(active)) {
                 start_parent = target.parent();
 				console.log('target set');
             }
@@ -154,7 +153,7 @@
             return undefined;
         }
         drop_cursor = $('<div class="drop_cursor"></div>');
-        target_canvas.prepend(drop_cursor);
+        get_active_tab().prepend(drop_cursor);
         drag_target.addClass("drag_indication");
         // console.log('start_drag');
         current_position = {
@@ -187,7 +186,7 @@
             }
         }
         drag_target.css('position', 'absolute');
-        if (drag_target.is('#scripts_workspace .wrapper')) {
+        if (drag_target.is(active+ ' .wrapper')) {
             drag_placeholder = $('<div class="drag_placeholder"></div>');
             drag_placeholder.height(drag_target.outerHeight());
             drag_target.before(drag_placeholder);
@@ -233,9 +232,9 @@
         //
        
         if(current_position.top<SCROLL_HIT_TOP)
-        $('.workspace').scrollTo('-='+SCROLL_SPEED+'px', 0);
+        	get_active_tab().scrollTo('-='+SCROLL_SPEED+'px', 0);
         if(current_position.top>$(window).height()-SCROLL_HIT_BOTTOM)
-        $('.workspace').scrollTo('+='+SCROLL_SPEED+'px', 0);
+        	get_active_tab().scrollTo('+='+SCROLL_SPEED+'px', 0);
         return false;
     }
 
@@ -306,7 +305,7 @@
             // console.log('deleting a block');
             drag_target.trigger('delete_block')
             drag_target.remove();
-        } else if (drag_target.overlap(target_canvas)) {
+        } else if (drag_target.overlap(get_active_tab())) {
             // generally dragged to canvas, position it there
             // console.log('Drop onto canvas');
             //            var curr_pos = drag_target.offset();
@@ -320,7 +319,7 @@
                 display : 'block'
             });
             drag_target.trigger('add_to_workspace');
-            $('#scripts_workspace').trigger('add');
+            get_active_tab().trigger('add');
         } else {
             if (cloned) {
                 //console.log('remove cloned block');
@@ -339,7 +338,7 @@
                         display : 'inline-block'
                     });
                 } else {
-                    target_canvas.append(drag_target);
+                    get_active_tab().append(drag_target);
                     drag_target.offset(start_position);
                 }
             }
@@ -357,9 +356,9 @@
     function position_drop_cursor() {
         var self, top, middle, bottom, x = drag_target.position().top;
         // console.log('cursor: %s', x);
-        target_canvas.prepend(drop_cursor);
+        get_active_tab().prepend(drop_cursor);
         drop_cursor.show();
-        target_canvas.children('.wrapper').each(function(idx) {
+        get_active_tab().children('.wrapper').each(function(idx) {
             self = $(this);
             top = self.position().top
             bottom = top + self.outerHeight();
@@ -427,11 +426,12 @@
 
     // Initialize event handlers
     if (is_touch) {
-        $('#scripts_workspace, #accordion').delegate('.block', 'touchstart', init_drag);
+        $('.content').delegate('.block', 'touchstart', init_drag);
         $('.content').live('touchmove', drag);
         $('.content').live('touchend', end_drag);
     } else {
-        $('#scripts_workspace, #accordion').delegate('.block', 'mousedown', init_drag);
+    	
+        $('.content').delegate('.block', 'mousedown', init_drag);
         $('.content').live('mousemove', drag);
         $('.content').live('mouseup', end_drag);
     }
