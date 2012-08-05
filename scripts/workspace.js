@@ -339,12 +339,18 @@ function add_sprite(filename) {
 	}).css('left', function(){
 		return Math.random()*190; // 0 to 190
 	});
-	sprite_drag()
+	sprite_drag();
 	//Add new tab
 	add_tab(spriteid);
 	spriteid++;
 }
 
+function delete_sprite(id){
+	$('#stagesprite'+id).remove();
+	$('#listsprite'+id).remove();
+	$('#spritetab'+id).remove();
+	$('span:contains("Sprite '+id+'")').parent().parent().remove();
+}
 /*$("#scripttabs").bind( "tabsselect", function() {
 	update_scripts_view();
 });*/
