@@ -39,7 +39,8 @@
     window.is_touch = typeof (window.ontouchstart) !== "undefined";
     var drag_timeout = 20;
     // TODO: update this whenever we switch to a new workspace
-    
+	/*Selector for the active tab, do not change!*/
+    var active = '#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)';
     var snap_dist = 25;
     var SCROLL_HIT_TOP = 100;
     var SCROLL_HIT_BOTTOM = 100;
@@ -98,7 +99,7 @@
     }
 
     function step_targets() {
-		return get_active_tab.find('.slot:only-child');
+		return get_active_tab().find('.slot:only-child');
     }
 
     function socket_targets(type) {
