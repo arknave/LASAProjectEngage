@@ -76,11 +76,14 @@ function setup_buttons(){
             primary : "ui-icon-close"
         }
     });
-    $("#run_scripts").button({
+    $("#compile_scripts").button({
         text : false,
         icons : {
             primary : "ui-icon-check"
         }
+    });
+    $("#execute_scripts").button({
+        
     });
     $("#newsprite").button({
         text : false,

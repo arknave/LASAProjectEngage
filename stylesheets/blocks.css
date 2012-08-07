@@ -17,7 +17,7 @@
     background-color: #EEE;
     width: auto;
     position: relative;
-    padding: 1px 3px 1px;
+    padding: 1px 3px;
     margin: 5px 10px;
     overflow: auto;
     height: auto;
@@ -94,6 +94,7 @@
 .block .blockhead{
     overflow-y: hidden;
 }
+
 .blockhead.not(:first-child)
 {
     padding: 5px 0 5px 10px;
@@ -268,5 +269,3 @@ span.socket select, span.autosocket select{
 .contained:last-child {
     margin-bottom: 10px;
 }
-
-

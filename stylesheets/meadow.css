@@ -44,13 +44,17 @@ src: url('fonts/trinigan-webfont.ttf'),
 	margin-left: 5px;
 	margin-top: 2px;
 }
-.title {
+.logotitle {
 	font-family: 'TriniganFGRegular';
 }
 #toolbar {
 	display: inline;
 	float: right;
 	margin-right: 5px;
+}
+
+#toolbar * {
+	color: #EF8C08;
 }
 
 #colmask {

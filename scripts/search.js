@@ -1,5 +1,5 @@
 /**
- * @author Jonas
+ * @author Jonas W
  */
 this.nameMap = new Array();
 /*TODO
@@ -33,7 +33,7 @@ function add_block(block) {
 		display : 'block'
 	});
 	var drag_target = block;
-	 drag_target = drag_target.clone(true);
+	drag_target = drag_target.clone(true);
 	//var drop_target = null;
 	var start_parent = block.parent();
 	var target_canvas = $('div.' + get_active_tab_key());

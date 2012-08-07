@@ -62,15 +62,29 @@ function confirm_clear_canvas(event, force){
 	}
 }
 
-function clear_canvas(event){
-	$('#stage').empty().append('<canvas><p>Sorry, but your browser doesn\'t support canvas. Please use the latest version of Firefox </p></canvas>');
+function add_stage(){
+	$("#spritecontainer").append('<canvas id="listsprite0" class="listsprite" height="'+spriteheight+'" width="'+spritewidth+'"></canvas>');
+	var ctx = $("#listsprite0")[0].getContext('2d');
+	ctx.fillStyle = "rgb(255, 255, 255)";
+	ctx.fillRect(1, 1, 45, 45);
+	$('.listsprite').removeClass('currentsprite');
+	$('#listsprite0').addClass('currentsprite');
+}
+
+function draw_stage(){
 	var glob = new Global();
+	var canvas = $('canvas')[0];
 	var canvas = document.getElementsByTagName('canvas')[0];
 	canvas.width = glob.stage_width;
 	canvas.height = glob.stage_height;
 	var ctx = canvas.getContext('2d');
 	ctx.fillStyle="rgb(255,255,255)";
 	ctx.fillRect(0,0,canvas.width-50,canvas.height);
+}
+
+function clear_canvas(event){
+	$('#stage').empty().append('<canvas><p>Sorry, but your browser doesn\'t support canvas. Please use the latest version of Firefox </p></canvas>');
+	draw_stage();
 	$("#spritecontainer").empty();
 }
 
@@ -314,9 +328,22 @@ var spriteid = 1;
 var spriteheight = 50;
 var spritewidth = 50;
 var img = new Image();
-var tab_index = 0; //Holds the index of the current selected tab.
+
+
 function add_tab(number) {
-	$("#scripttabs").tabs("add", "#spritetab"+number, "Sprite "+number);
+	$("#scripttabs").tabs("add", "#script"+number, "Sprite "+number);
+}
+
+function spritemenu(){
+	$(".listsprite").click(function() {
+		//TODO, see if it's more efficient to use more variables or not
+		var me = $(this);
+		var name = me.attr('id');
+		var number = parseInt(name.charAt(name.length-1), 10);
+		$('.listsprite').removeClass('currentsprite');
+		me.addClass('currentsprite');
+		$("#scripttabs").tabs("select", number);
+	});
 }
 
 function add_sprite(filename) {
@@ -327,6 +354,7 @@ function add_sprite(filename) {
 	img.src = 'images/sprites/'+filename;
 	$('.listsprite').removeClass('currentsprite');
 	$('#listsprite'+spriteid).addClass('currentsprite');
+	spritemenu();
 	//Add version on stage
 	$("#stage").append('<div id="stagesprite'+spriteid+'" class="stagesprite"><canvas height="'+spriteheight+'" width="'+spritewidth+'"></canvas></div>');
 	var ctx2 = $('#stagesprite'+spriteid+' > canvas')[0].getContext('2d');
@@ -351,11 +379,12 @@ function delete_sprite(id){
 	$('#spritetab'+id).remove();
 	$('span:contains("Sprite '+id+'")').parent().parent().remove();
 }
+
 /*$("#scripttabs").bind( "tabsselect", function() {
 	update_scripts_view();
 });*/
 
-/**Runs every time tab is changed*/
+/*Runs every time tab is changed*/
 $("#scripttabs").bind( "tabsselect", function() {
 	var $tabs = $('#scripttabs').tabs();
 	tab_index = $tabs.tabs('option', 'selected'); // => 0
@@ -364,7 +393,7 @@ $("#scripttabs").bind( "tabsselect", function() {
 function is_stage(){
 	return get_active_tab().is($('#scripts_workspace'));
 }
-/**For completeness. THE TABS CHANGE THEIR INDEX WHEN A NEW SPRITE IS ADDED. THE STAGE WILL NOT ALWAYS BE INDEX 0.*/
+/*For completeness. THE TABS CHANGE THEIR INDEX WHEN A NEW SPRITE IS ADDED. THE STAGE WILL NOT ALWAYS BE INDEX 0.*/
 function get_active_tab_index(){
 	return tab_index;
 }
@@ -377,6 +406,7 @@ function get_active_tab_key(){
 function move_sprite(id,x,y){
 	$('stagesprite' + id).css("left",x).css("top",	y);
 }
+
 this.blocknames = new Array();
 // Build the Blocks menu, this is a public method
 function menu(title, specs, show) {

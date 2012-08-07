@@ -12,7 +12,7 @@
 	<body>
 
 		<div id="header" class="ui-widget-header">
-			<span id="logo" class="title"> Waterbear </span>
+			<span id="logo" class="logotitle"> Waterbear </span>
 			<section id="toolbar" >
 				<button id="about">About</button>
 				<button id="restore_scripts">Restore</button>
@@ -20,7 +20,8 @@
 				<button id="demo_scripts">Demos</button>
 				<button id="clear_scripts">Clear Scripts</button>
 				<button id="clear_canvas">Clear Stage</button>
-				<button id="run_scripts">Run</button>
+				<button id="compile_scripts">Compile</button>
+				<button id="execute_scripts">E</button>
 			</section>
 		</div>
 		<div class = "content">
@@ -33,11 +34,11 @@
 								<div id="scripttabs">
 									<ul>
 										<li>
-											<a href="#scripts_workspace">Stage</a>
+											<a href="#script0"><span>Stage</span></a>
 										</li>
 									</ul>
 									<div id="workspace" class="workspace">
-										<div id="scripts_workspace" class="scripts_workspace"></div>
+										<div id="script0" class="scriptspace"></div>
 									</div>
 								</div>
 							</div>
@@ -47,10 +48,10 @@
 						<div id="blocktabs">
 							<ul>
 								<li>
-									<a href="#accordion">Block List</a>
+									<a href="#accordion"><span>Block List</span></a>
 								</li>
 								<li>
-									<a href="#blocksearch">Block Search</a>
+									<a href="#blocksearch"><span>Block Search</span></a>
 								</li>
 							</ul>
 							<div id="accordion" class="block_menu ui-accordion"></div>
@@ -79,10 +80,8 @@
 						</div>
 						<div id="spritebank" class="ui-widget">
 							<div id="spriteheader" class="ui-widget-header">
-								<h4 id="spritetitle" class='title'>Sprites</h4>
-								<button id="newsprite">
-									Import Sprite
-								</button>
+								<h4 id="spritetitle" class="logotitle">Sprites</h4>
+								<button id="newsprite">Import Sprite</button>
 							</div>
 							<div id="spritecontainer" class="ui-widget-content"></div>
 						</div>
@@ -91,7 +90,7 @@
 			</div>
 		</div>
 		</div>
-		<div class="dialog" id="about_dialog">
+		<div class="dialog" id="about_dialog" title="About">
 			<div id="about_dialog_contents">
 				<p>
 					<a href="index.html">Info</a>
@@ -117,13 +116,13 @@
 				</fieldset>
 			</form>
 		</div>
-		<div class="dialog" id="restore_dialog">
+		<div class="dialog" id="restore_dialog" title="Restore Scripts">
 			<div id="restore_dialog_contents">
 				<h2>Restore a script</h2>
 				<ul class="scrollList" id="script_list"></ul>
 			</div>
 		</div>
-		<div class="dialog" id="demos_dialog">
+		<div class="dialog" id="demos_dialog" title="Demo Scripts">
 			<div id="demos_dialog_contents">
 				<h2>Load a demo</h2>
 				<ul class="scrollList" id="demo_list"></ul>
@@ -190,13 +189,13 @@
                 setup_block_accordians();
             }
 
-
             $(document).ready(function() {
                 setup_buttons();
                 setup_tabs();
                 setup_dialog();
             });
             clear_canvas();
+			add_stage();
 		</script>
 
 

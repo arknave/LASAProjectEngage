@@ -33,12 +33,13 @@
 //    a..b as above
 
 // Key to jquery.event.touch is the timer function for handling movement and hit testing
+
 (function($) {
     var drag_target, potential_drop_targets, drop_target, drop_rects, start_position, timer, cloned, dragging, current_position, distance, start_parent, drop_cursor, drag_placeholder;
     window.is_touch = typeof (window.ontouchstart) !== "undefined";
     var drag_timeout = 20;
-    /**Selector for the active tab, do not change!*/
-    var active = '#scripttabs div.ui-tabs-panel:not(.ui-tabs-hide)';
+    // TODO: update this whenever we switch to a new workspace
+    
     var snap_dist = 25;
     var SCROLL_HIT_TOP = 100;
     var SCROLL_HIT_BOTTOM = 100;
@@ -80,7 +81,7 @@
     }
 
     function get_potential_drop_targets() {
-        //         console.log('drag target: %s', drag_target.block_type());
+        //console.log('drag target: %s', drag_target.block_type());
         switch(drag_target.block_type()) {
             case 'step':
                 return step_targets();
@@ -97,9 +98,9 @@
     }
 
     function step_targets() {
-        return get_active_tab().find('.slot:only-child');
+		return get_active_tab.find('.slot:only-child');
     }
-    
+
     function socket_targets(type) {
         return get_active_tab().find('.socket.' + type + ':not(:has(.value))');
     }
@@ -133,7 +134,7 @@
 			drag_target = target;
             start_position = target.offset();
             if (! target.parent().is(active)) {
-                start_parent = target.parent();
+                //start_parent = target.parent();
 				console.log('target set');
             }
         } else {
@@ -144,7 +145,7 @@
     }
 
     function start_drag(event) {
-        console.log('trying to start drag');
+        //console.log('trying to start drag');
         // called on mousemove or touchmove if not already dragging
         if (!blend(event)) {
             return undefined;
@@ -186,7 +187,7 @@
             }
         }
         drag_target.css('position', 'absolute');
-        if (drag_target.is(active+ ' .wrapper')) {
+        if (drag_target.is(active + ' .wrapper')) {
             drag_placeholder = $('<div class="drag_placeholder"></div>');
             drag_placeholder.height(drag_target.outerHeight());
             drag_target.before(drag_placeholder);
@@ -231,15 +232,17 @@
         // $('.workspace').scrollTop($('.workspace').scrollTop() + 10)
         //
        
-        if(current_position.top<SCROLL_HIT_TOP)
-        	get_active_tab().scrollTo('-='+SCROLL_SPEED+'px', 0);
-        if(current_position.top>$(window).height()-SCROLL_HIT_BOTTOM)
-        	get_active_tab().scrollTo('+='+SCROLL_SPEED+'px', 0);
+        if(current_position.top<SCROLL_HIT_TOP){
+			get_active_tab().scrollTo('-='+SCROLL_SPEED+'px', 0);
+		}
+        if(current_position.top>$(window).height()-SCROLL_HIT_BOTTOM){
+			get_active_tab().scrollTo('+='+SCROLL_SPEED+'px', 0);
+		}
         return false;
     }
 
     function end_drag(end) {
-        console.log('end_drag');
+        //console.log('end_drag');
         clearTimeout(timer);
         timer = null;
         if (!dragging) {
@@ -252,7 +255,7 @@
 
     function handle_drop() {
     	console.log("handing heavy drop");
-    	if (start_parent && start_parent.is('.block_menu')) {
+    	if (start_parent && start_parent.is('#accordion')) {
             start_parent.append(drag_target);
             drag_target.css({
                 position : 'relative',
@@ -430,7 +433,6 @@
         $('.content').live('touchmove', drag);
         $('.content').live('touchend', end_drag);
     } else {
-    	
         $('.content').delegate('.block', 'mousedown', init_drag);
         $('.content').live('mousemove', drag);
         $('.content').live('mouseup', end_drag);
@@ -470,12 +472,12 @@
     // jQuery extensions
     $.fn.extend({
         rect_str : function() {
-            return rect_str(this.rect());
+            return rect_str($(this).rect());
         },
         rect : function() {
-            var pos = this.offset();
-            var width = this.outerWidth();
-            var height = this.outerHeight();
+            var pos = $(this).offset();
+            var width = $(this).outerWidth();
+            var height = $(this).outerHeight();
             return {
                 left : pos.left,
                 top : pos.top,
@@ -488,17 +490,17 @@
             };
         },
         overlap : function(target) {
-            return overlap(this.rect(), target.rect());
+            return overlap($(this).rect(), target.rect());
         },
         area : function() {
-            return this.outerWidth() * this.outerHeight();
+            return $(this).outerWidth() * $(this).outerHeight();
         },
         contained_by : function(target) {
-            var targetArea = Math.min(this.area(), target.outerWidth() * this.outerHeight() * 0.90);
-            return this.overlap(target) >= targetArea;
+            var targetArea = Math.min($(this).area(), target.outerWidth() * $(this).outerHeight() * 0.90);
+            return $(this).overlap(target) >= targetArea;
         },
         cursor_over : function() {
-            var rect = this.rect();
+            var rect = $(this).rect();
             return current_position.left >= rect.left && current_position.left <= rect.right && current_position.top >= rect.top && current_position.top <= rect.bottom;
         }
     });

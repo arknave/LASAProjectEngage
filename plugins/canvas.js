@@ -73,7 +73,15 @@ jQuery.fn.extend({
   wrap_script: function(){
       // wrap the top-level script to prevent leaking into globals
       var script = this.pretty_script();
-      var retval = 'var global = new Global();console.log(global);(function($){var local = new Local();try{local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");local.ctx.fillStyle="white";local.ctx.fillRect(0,0,global.stage_width,global.stage_height);' + script + '}catch(e){alert(e);}})(jQuery);';
+	  console.log(script);
+      var retval = 'var global = new Global();' +
+					'(function($){' +
+					'var local = new Local();' +
+					'try{local.canvas = $("canvas");' +
+					'$("#execute_scripts").click(function() {' +
+					script +
+					'});' +
+					'}catch(e){alert(e);}})(jQuery);';
       //var retval = 'var global = new Global();(function($){var local = new Local();local.canvas = $("<canvas width=\\"" + global.stage_width + "\\" height=\\"" + global.stage_height + "\\"></canvas>").appendTo(".stage");local.ctx = local.canvas[0].getContext("2d");' + script + '})(jQuery);';
       return retval;
   },
@@ -95,14 +103,16 @@ function setup(){
     blocks.write_script(view);
 }*/
 
-function run_scripts(event){
+function compile_scripts(event){
     //$('.stage')[0].scrollIntoView();
-    var blocks = $('#workspace:visible #scripts_workspace > .trigger');
+    var blocks = $('.scriptspace > .trigger');
     // Why not just eval?
-    $('.stage').replaceWith('<div class="stage"><script>' + blocks.wrap_script() + '</script></div>');
-    //eval(blocks.wrap_script());
+    //$('.stage').replaceWith('<div class="stage"><script>' + blocks.wrap_script() + '</script></div>');
+    console.log(blocks);
+	$("#execute_scripts").unbind();
+	eval(blocks.wrap_script());
 }
-$('#run_scripts').click(run_scripts);
+$('#compile_scripts').click(compile_scripts);
 
 // End UI section
 
@@ -114,6 +124,8 @@ window.choice_lists = {
         'pause', 'capslock', 'esc', 'space', 'pageup', 'pagedown', 
         'end', 'home', 'insert', 'del', 'numlock', 'scroll', 'meta']),
 	trig: ['sin', 'cos', 'tan'],
+	fourfunc: ['+', '-', '*', '/'],
+	equalities: ['<', '<=', '=', '>=', '>'],
     unit: ['px', 'em', '%', 'pt'],
     arity: ['0', '1', '2', '3', 'array', 'object'],
     types: ['string', 'number', 'boolean', 'array', 'object', 'function', 'color', 'shape', 'point', 'size', 'rect', 'gradient', 'pattern', 'imagedata', 'pixel', 'any'],
@@ -563,6 +575,11 @@ var menus = {
             label: 'alert [string]',
             script: 'window.alert({{1}});',
             help: 'pop up an alert window with string'
+        },
+        {
+            label: 'console.log [string]',
+            script: 'console.log({{1}});',
+            help: 'log string to the console'
         }
     ], false),
     sensing: menu('Sensing', [
@@ -649,7 +666,13 @@ var menus = {
 			script: "rad2deg(Math.a{{1}}({{2}}))",
 			help: 'inverse trig functions of the number'
 		},
-        {
+		{
+            label: '[number:0] [choice:fourfunc] [number:0]', 
+            'type': 'number', 
+            script: "({{1}} {{2}} {{3}})",
+            help: 'Applies one of the four operations to the two operands'
+        },
+        /*{
             label: '[number:0] + [number:0]', 
             'type': 'number', 
             script: "({{1}} + {{2}})",
@@ -672,14 +695,20 @@ var menus = {
             'type': 'number', 
             script: "({{1}} / {{2}})",
             help: 'quotient of the two operands'
-        },
+        },*/
         {
             label: 'pick random [number:1] to [number:10]', 
             'type': 'number', 
             script: "randint({{1}}, {{2}})",
             help: 'random number between two numbers (inclusive)'
         },
-        {
+		{
+			label: '[number:0] [choice:equalities] [number:0]',
+			'type': 'boolean',
+			script: "({{1}} {{2}} {{3}})",
+			help: 'compares two numbers'
+		},
+        /*{
             label: '[number:0] < [number:0]', 
             'type': 'boolean', 
             script: "({{1}} < {{2}})",
@@ -696,7 +725,7 @@ var menus = {
             'type': 'boolean', 
             script: "({{1}} > {{2}})",
             help: 'first operand is greater than second operand'
-        },
+        },*/
         {
             label: '[boolean] and [boolean]', 
             'type': 'boolean', 
@@ -775,11 +804,6 @@ var menus = {
 			label: 'clear the stage',
 			script: "local.ctx.clearRect ( 0 , 0 , global.stage_width , global.stage_height );",
 			help: 'clears the stage, returning it to white'
-		},
-		{
-			label: 'move to [point]',
-			script: '$(' + get_active_tab().attr("id").toString().replace("scripttabs","stagesprite") + ').css("left",{{1}}.x).css("top",{{1}}.y);',
-			help: 'moves this tabs sprite to the specified point'
 		},
         {
             label: 'fill circle at point [point] with radius [number:10]',
@@ -1029,6 +1053,13 @@ var menus = {
                     ],
             trigger: true
         }
+    ]),
+	neo: menu('Neo', [
+		{
+			label: 'Move down [number: ]px',
+			script: ".animate({top: '+=50px'});",
+			help: 'Moves the sprite down a certain number of pixels'
+		},
     ])
 };
 
@@ -1040,5 +1071,5 @@ $('.socket input').live('click',function(){
     $(this).focus();
     $(this).select();
 });
-	pluginReady();
+pluginReady();
 }
