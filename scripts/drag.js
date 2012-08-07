@@ -135,7 +135,7 @@
 			drag_target = target;
             start_position = target.offset();
             if (! target.parent().is(active)) {
-                //start_parent = target.parent();
+                start_parent = target.parent();
 				console.log('target set');
             }
         } else {
@@ -256,7 +256,7 @@
 
     function handle_drop() {
     	console.log("handing heavy drop");
-    	if (start_parent && start_parent.is('#accordion')) {
+    	if (start_parent && start_parent.is('.block_menu')) {
             start_parent.append(drag_target);
             drag_target.css({
                 position : 'relative',
