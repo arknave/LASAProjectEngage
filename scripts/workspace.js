@@ -324,7 +324,7 @@ function sprite_drag(){
 	});
 }
 
-var spriteid = 1;
+window.spriteid = 1;
 var spriteheight = 50;
 var spritewidth = 50;
 var img = new Image();
@@ -332,6 +332,8 @@ var img = new Image();
 
 function add_tab(number) {
 	$("#scripttabs").tabs("add", "#script"+number, "Sprite "+number);
+    $("#scripttabs").tabs("select", number);
+    $("#script"+number).addClass('scriptspace');
 }
 
 function spritemenu(){

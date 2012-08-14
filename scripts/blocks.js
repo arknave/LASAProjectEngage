@@ -68,9 +68,6 @@ $.extend($.fn,{
   next_block: function(){
       return this.find('> .next > .wrapper');
   },
-  moveTo: function(x,y){
-      return this.css({left: x + 'px', top: y + 'px'});
-  },
   addLocalBlock: function(block){
     window.parent_block = this;
     var head = this.find('> .block > .blockhead');
